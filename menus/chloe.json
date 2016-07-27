@@ -1,0 +1,26 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Toggle chloe",
+        "command": "chloe:toggle"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "chloe",
+          "submenu": [
+            {
+              "label": "Toggle",
+              "command": "chloe:toggle"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

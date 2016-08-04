@@ -99,7 +99,35 @@
             color: #fff;
             text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
           }
+
+          & > input[type='checkbox']:not(:checked) + span {
+            color: @text-color-subtle;
+          }
         }
+      }
+    }
+
+    input[type='checkbox'] {
+      -webkit-appearance: none;
+      display: block;
+      float: left;
+      height: 12px;
+      width: 12px;
+      line-height: 12px;
+      border: none;
+      border-radius: 2px;
+      margin: 5px 10px 0 0;
+      outline: none;
+      background-color: @input-background-color;
+
+      &:checked:after {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        margin: 3px;
+        border-radius: 1px;
+        background-color: @text-color-subtle;
       }
     }
 

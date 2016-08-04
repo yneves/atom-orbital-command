@@ -25,6 +25,10 @@
 
     section {
 
+      &:last-of-type {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+      }
+
       header {
         font-weight: normal;
         background-color: #1d1f21;
@@ -39,11 +43,6 @@
           float: right;
           margin: 4px 2px;
         }
-      }
-
-      &:last-of-type ul {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-
       }
 
       ul {
@@ -83,6 +82,14 @@
             margin: 4px 2px;
           }
 
+          &.modified {
+            color: @text-color-warning;
+          }
+
+          &.new {
+            color: @text-color-success;
+          }
+
           &.failed {
             opacity: 0.5;
           }
@@ -94,6 +101,17 @@
           }
         }
       }
+    }
+
+    input[type='text'] {
+      display: block;
+      width: 100%;
+      height: 28px;
+      padding: 3px 10px;
+      line-height: 2em;
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.5);
+      background-color: @input-background-color;
     }
 
     button {
@@ -115,6 +133,10 @@
 
       .fa-check {
         color: @text-color-success;
+      }
+
+      &.active {
+        color: #DDD;
       }
 
       &:hover {

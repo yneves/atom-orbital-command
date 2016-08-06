@@ -1,0 +1,11 @@
+{
+  "preset": "google",
+  "disallowSpacesInAnonymousFunctionExpression": null,
+  "validateLineBreaks": "LF",
+  "validateIndentation": 2,
+  "excludeFiles": ["./client.js", "node_modules/**"],
+  "jsDoc": {
+    "checkAnnotations": "jsdoc3",
+    "checkTypes": "capitalizedNativeCase"
+  }
+}

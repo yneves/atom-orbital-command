@@ -33,6 +33,7 @@
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "selenium-launcher": "^1.1.12",
+    "uid": "0.0.2",
     "webdriverio": "^4.2.3"
   },
   "devDependencies": {},

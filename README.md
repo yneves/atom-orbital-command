@@ -3,4 +3,9 @@
 A short description of your package.
 
  * [ ] clear all workspaces
- * [ ] command labels
+ * [x] command labels
+ * [ ] focus current editor on esc
+ * [ ] run git status on save
+ * [x] persist unchecked files after git status
+ * [ ] restore changed file
+ * [ ] stop spinning icon when command starts outputting

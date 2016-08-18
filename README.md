@@ -8,4 +8,5 @@ A short description of your package.
  * [ ] run git status on save
  * [x] persist unchecked files after git status
  * [ ] restore changed file
- * [ ] stop spinning icon when command starts outputting
+ * [x] stop spinning icon when command starts outputting
+ * [ ] show progress on git operations

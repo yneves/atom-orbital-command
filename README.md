@@ -6,8 +6,8 @@ A short description of your package.
  * [ ] add workspace button
  * [x] command labels
  * [ ] focus current editor on esc
- * [ ] run git status on save
+ * [x] run git status on save
  * [x] persist unchecked files after git status
- * [ ] restore changed file
+ * [x] restore changed file
  * [x] stop spinning icon when command starts outputting
  * [x] show progress on git operations

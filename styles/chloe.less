@@ -9,6 +9,12 @@
 @shadow-color: fadeout(@background-color-selected, 50%);
 @marker-color: hsl(@ui-hue, 100%, 66%);
 
+// align browser tabs to right
+li:not(.chloe__browser-tab__heading) + .chloe__browser-tab__heading,
+.chloe__browser-tab__heading:first-child {
+  margin-left: auto !important;
+}
+
 .chloe {
   width: 200px;
   height: 100%;

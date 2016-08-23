@@ -25,10 +25,29 @@
     cursor: w-resize;
   }
 
+  &__browser-icon {
+    width: 16px;
+    height: 16px;
+    display: block;
+    float: left;
+  }
+
   &__browser-tab {
+
     &, webview {
       width: 100%;
       height: 100%;
+    }
+
+    &__heading {
+
+      &.first {
+        margin-left: auto !important;
+      }
+
+      .title img {
+        margin: 8px 8px 0 0;
+      }
     }
   }
 
@@ -97,6 +116,10 @@
             overflow: hidden;
             text-overflow: ellipsis;
             width: ~"calc(100% - 50px)";
+          }
+
+          img {
+            margin: 3px 5px 0 0;
           }
 
           button {

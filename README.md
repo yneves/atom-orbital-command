@@ -11,3 +11,6 @@ A short description of your package.
  * [x] restore changed file
  * [x] stop spinning icon when command starts outputting
  * [x] show progress on git operations
+ * [ ] close all text-editor tabs
+ * [ ] browser tabs
+ * [ ] terminal tabs (without atom term3 package)

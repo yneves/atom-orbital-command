@@ -14,3 +14,8 @@ A short description of your package.
  * [ ] close all text-editor tabs
  * [ ] browser tabs
  * [ ] terminal tabs (without atom term3 package)
+ * [ ] read browser icon from webview
+ * [ ] allow click on branch options
+ * [ ] use placeholder to display current branch
+ * [ ] use font size from settings
+ * [x] dont show branch options if git is running

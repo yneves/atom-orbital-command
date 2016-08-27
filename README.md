@@ -11,11 +11,16 @@ A short description of your package.
  * [x] restore changed file
  * [x] stop spinning icon when command starts outputting
  * [x] show progress on git operations
- * [ ] close all text-editor tabs
- * [ ] browser tabs
+ * [x] browser tabs
  * [ ] terminal tabs (without atom term3 package)
- * [ ] read browser icon from webview
+ * [ ] restore browser tabs on load
+ * [ ] label for bookmarks
+ * [x] read browser icon from webview
  * [ ] allow click on branch options
- * [ ] use placeholder to display current branch
+ * [x] use placeholder to display current branch
  * [ ] use font size from settings
+ * [ ] responsive layout
  * [x] dont show branch options if git is running
+ * [ ] tab bar with tools
+  * [ ] close all tabs
+  * [ ] close all files

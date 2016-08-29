@@ -1,6 +1,6 @@
 {
   "name": "chloe",
-  "main": "./lib/app/index.js",
+  "main": "./lib/atom/index.js",
   "version": "0.0.0",
   "description": "A short description of your package",
   "keywords": [],

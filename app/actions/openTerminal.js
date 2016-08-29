@@ -4,7 +4,7 @@ import R from 'ramda';
 import fs from 'fs';
 import path from 'path';
 import homeDir from 'home-dir';
-import app from '../atom';
+import app from '../../atom';
 
 import { OPEN_TERMINAL } from '../constants/actionTypes';
 

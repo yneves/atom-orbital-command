@@ -9,7 +9,7 @@ import addRightPanel from './addRightPanel';
 import addBrowserOpener from './addBrowserOpener';
 import observeTextEditors from './observeTextEditors';
 import openTerminal from './openTerminal';
-import App from '../app/App';
+import bootstrap from '../app/bootstrap';
 
 export default {
 
@@ -18,8 +18,12 @@ export default {
     state.config = getConfig();
 
     this.element = document.createElement('div');
-    this.app = new App(this.element, state);
-    this.actions = this.app.getActions();
+    this.element.id = 'chloe';
+    this.element.classList.add('chloe');
+
+    const {getState, getActions} = bootstrap(this.element, state);
+    this.getState = getState;
+    this.actions = getActions();
 
     this.disposable = new CompositeDisposable();
     this.disposable.add(sortTabs());
@@ -28,8 +32,6 @@ export default {
     this.disposable.add(addBrowserOpener());
     this.disposable.add(observeTextEditors(this.actions.fileSaved));
     this.disposable.add(addRightPanel(this.element));
-
-    this.app.render();
   },
 
   deactivate() {
@@ -38,7 +40,7 @@ export default {
   },
 
   serialize() {
-    return this.app.getState();
+    return this.getState();
   },
 
   openTerminal() {

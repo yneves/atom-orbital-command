@@ -1,13 +1,13 @@
 'use babel';
 
 import {
-  CLOSE_URL
+  BROWSER_CLOSED
 } from '../constants/actionTypes';
 
 export default ({id}) => {
 
   return {
-    type: CLOSE_URL,
+    type: BROWSER_CLOSED,
     id,
   };
 };

@@ -1,13 +1,13 @@
 'use babel';
 
 import {
-  OPEN_URL
+  BROWSER_OPENED
 } from '../constants/actionTypes';
 
 export default ({id, url}) => {
 
   return {
-    type: OPEN_URL,
+    type: BROWSER_OPENED,
     id,
     url,
   };

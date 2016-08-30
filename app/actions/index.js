@@ -1,6 +1,6 @@
 'use babel';
 
-import closeUrl from './closeUrl';
+import browserClosed from './browserClosed';
 import editFile from './editFile';
 import executeCommand from './executeCommand';
 import fileSaved from './fileSaved';
@@ -12,7 +12,7 @@ import killCommand from './killCommand';
 import loadWorkspaces from './loadWorkspaces';
 import openBookmark from './openBookmark';
 import openTerminal from './openTerminal';
-import openUrl from './openUrl';
+import browserOpened from './browserOpened';
 import refreshTabs from './refreshTabs';
 import resizeRightPanel from './resizeRightPanel';
 import selectWorkspace from './selectWorkspace';
@@ -25,9 +25,13 @@ import toggleProject from './toggleProject';
 import toggleRepository from './toggleRepository';
 import toggleSection from './toggleSection';
 import viewCommandOutput from './viewCommandOutput';
+import terminalOpened from './terminalOpened';
+import terminalClosed from './terminalClosed';
 
 export default {
-  closeUrl,
+  terminalOpened,
+  terminalClosed,
+  browserClosed,
   editFile,
   executeCommand,
   fileSaved,
@@ -39,7 +43,7 @@ export default {
   loadWorkspaces,
   openBookmark,
   openTerminal,
-  openUrl,
+  browserOpened,
   refreshTabs,
   resizeRightPanel,
   selectWorkspace,

@@ -3,8 +3,8 @@
 import R from 'ramda';
 import {
   SET_BROWSER_ICON,
-  OPEN_URL,
-  CLOSE_URL,
+  BROWSER_OPENED,
+  BROWSER_CLOSED,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -13,9 +13,9 @@ export default (state = {}, action) => {
       return R.merge(state, {
         [action.id]: action.icon
       });
-    // case OPEN_URL:
+    // case BROWSER_OPENED:
     //   return uniq(R.append(R.omit(['type'], action), state));
-    // case CLOSE_URL:
+    // case BROWSER_CLOSED:
     //   return R.omit([action.id], state);
     default:
       return state;

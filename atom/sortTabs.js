@@ -17,7 +17,7 @@ export default () => {
 
   prototype.addItem = (item, opts = {}) => {
 
-    const items = atom.workspace.getActivePane().getItems();
+    const items = pane.getItems();
 
     if (isTextEditor(item)) {
       const index = R.findIndex(isNotTextEditor, items);

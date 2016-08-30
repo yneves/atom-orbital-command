@@ -1,5 +1,7 @@
 'use babel';
 
+import {CompositeDisposable} from 'atom';
+
 const isURL = (url) => (/^http\:|^https\:/.test(url));
 
 const createBrowserItem = (opts) => {
@@ -8,6 +10,7 @@ const createBrowserItem = (opts) => {
   element.className = 'chloe__browser';
   return {
     element,
+    browser: opts,
     getURI: () => opts.id,
     getPath: () => opts.id,
     getTitle: () => '',
@@ -25,7 +28,18 @@ const browserOpener = (uri, opts) => {
   }
 };
 
-export default () => {
+const browserEvent = (callback) => ({item}) => {
+  if (item.browser) {
+    setTimeout(() => callback(item.browser), 50);
+  }
+};
 
-  return atom.workspace.addOpener(browserOpener);
+export default (onOpen, onClose) => {
+
+  const disposable = new CompositeDisposable();
+  disposable.add(atom.workspace.addOpener(browserOpener));
+  disposable.add(atom.workspace.onDidAddPaneItem(browserEvent(onOpen)));
+  disposable.add(atom.workspace.onWillDestroyPaneItem(browserEvent(onClose)));
+
+  return disposable;
 };

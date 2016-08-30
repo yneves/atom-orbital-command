@@ -2,9 +2,9 @@
 
 import R from 'ramda';
 import fs from 'fs';
+import uid from 'uid';
 import path from 'path';
 import homeDir from 'home-dir';
-import app from '../../atom';
 
 import { OPEN_TERMINAL } from '../constants/actionTypes';
 
@@ -20,7 +20,9 @@ export default (dir, env = {}) => (dispatch) => {
   setScript(script.join(' && '), (error) => {
     if (!error) {
 
-      app.openTerminal();
+      atom.workspace.open('/TERMINAL', {
+        id: uid()
+      });
 
       dispatch({
         type: OPEN_TERMINAL,

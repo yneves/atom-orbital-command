@@ -7,6 +7,7 @@ import refreshTabs from './refreshTabs';
 import addCommands from './addCommands';
 import addRightPanel from './addRightPanel';
 import addBrowserOpener from './addBrowserOpener';
+import addTerminalOpener from './addTerminalOpener';
 import observeTextEditors from './observeTextEditors';
 import openTerminal from './openTerminal';
 import bootstrap from '../app/bootstrap';
@@ -22,16 +23,19 @@ export default {
     this.element.classList.add('chloe');
 
     const {getState, getActions} = bootstrap(this.element, state);
+    const actions = getActions();
     this.getState = getState;
-    this.actions = getActions();
 
     this.disposable = new CompositeDisposable();
-    this.disposable.add(sortTabs());
-    this.disposable.add(refreshTabs(this.actions.refreshTabs));
-    this.disposable.add(addCommands());
-    this.disposable.add(addBrowserOpener());
-    this.disposable.add(observeTextEditors(this.actions.fileSaved));
-    this.disposable.add(addRightPanel(this.element));
+    this.disposable.add(
+      sortTabs(),
+      refreshTabs(actions.refreshTabs),
+      addCommands(),
+      addBrowserOpener(actions.browserOpened, actions.browserClosed),
+      addTerminalOpener(actions.terminalOpened, actions.terminalClosed),
+      observeTextEditors(actions.fileSaved),
+      addRightPanel(this.element)
+    );
   },
 
   deactivate() {
@@ -41,10 +45,6 @@ export default {
 
   serialize() {
     return this.getState();
-  },
-
-  openTerminal() {
-    openTerminal(this.element);
   }
 
 };

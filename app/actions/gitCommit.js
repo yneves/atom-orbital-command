@@ -21,7 +21,7 @@ export default (repositoryId, message) => (dispatch, getState) => {
   const repository = R.find(R.propEq('id', repositoryId), repositories);
 
   const files = R.keys(commitFiles[repositoryId])
-    .filter(file => !!commitFiles[repositoryId]);
+    .filter(file => !!commitFiles[repositoryId][file]);
   const message = commitMessages[repositoryId];
   const status = repositoryStatus[repositoryId];
 

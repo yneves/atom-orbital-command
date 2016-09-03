@@ -10,6 +10,7 @@ import Bookmarks from './Bookmarks';
 import Resizer from './Resizer';
 import Repository from './Repository';
 import Browser from './Browser';
+import Terminal from './Terminal';
 
 export default class App extends Component {
 
@@ -19,6 +20,7 @@ export default class App extends Component {
     refreshTabs: PropTypes.number.isRequired,
     openBookmark: PropTypes.func.isRequired,
     browserTabs: PropTypes.array.isRequired,
+    terminalTabs: PropTypes.array.isRequired,
     gitBranch: PropTypes.func.isRequired,
     checkoutBranch: PropTypes.object.isRequired,
     collapsedSections: PropTypes.array.isRequired,
@@ -183,6 +185,14 @@ export default class App extends Component {
     );
   }
 
+  renderTerminal() {
+    return (
+      <Terminal
+        terminalTabs={this.props.terminalTabs}
+      />
+    );
+  }
+
   render() {
     return (
       <div className='chloe__app'>
@@ -193,6 +203,7 @@ export default class App extends Component {
         {this.props.repositories.map(this.renderRepository, this)}
         {this.renderResizer()}
         {this.renderBrowser()}
+        {this.renderTerminal()}
       </div>
     );
   }

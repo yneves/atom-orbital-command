@@ -4,18 +4,30 @@ import {CompositeDisposable} from 'atom';
 
 const isURL = (url) => (/^http\:|^https\:/.test(url));
 
-const createBrowserItem = (opts) => {
+class BrowserView {
+  constructor(element, browser) {
+    this.element = element;
+    this.browser = browser;
+  }
+  getURI() {
+    return this.browser.id;
+  }
+  getPath() {
+    return this.browser.id;
+  }
+  getTitle() {
+    return '';
+  }
+  destroy() {
+    this.element.remove();
+  }
+};
+
+const createBrowserItem = (item) => {
   const element = document.createElement('div');
-  element.id = opts.id;
+  element.id = item.id;
   element.className = 'chloe__browser';
-  return {
-    element,
-    browser: opts,
-    getURI: () => opts.id,
-    getPath: () => opts.id,
-    getTitle: () => '',
-    destroy: () => element.remove()
-  };
+  return new BrowserView(element, item);
 };
 
 const browserOpener = (uri, opts) => {

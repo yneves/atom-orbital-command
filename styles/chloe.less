@@ -1,5 +1,6 @@
 @import 'ui-variables';
 @import './font-awesome';
+@import './tabs';
 
 @border-color: fadeout(@base-border-color, 20%);
 @background-color: @pane-item-background-color;
@@ -8,12 +9,6 @@
 @input-color: @input-background-color;
 @shadow-color: fadeout(@background-color-selected, 50%);
 @marker-color: hsl(@ui-hue, 100%, 66%);
-
-// align browser tabs to right
-li:not(.chloe__browser-tab__heading) + .chloe__browser-tab__heading,
-.chloe__browser-tab__heading:first-child {
-  margin-left: auto !important;
-}
 
 .chloe {
   width: 200px;

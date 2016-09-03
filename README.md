@@ -22,6 +22,7 @@ A short description of your package.
  * [ ] responsive layout
  * [x] dont show branch options if git is running
  * [ ] undo icon should delete if its a new file
+ * [ ] notify about command execution finished/failed
  * [ ] tab bar with tools
   * [ ] close all tabs
   * [ ] close all files

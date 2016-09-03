@@ -6,7 +6,7 @@ import R from 'ramda';
 import BrowserTab from './BrowserTab';
 import BrowserIcon from './BrowserIcon';
 
-export default class App extends Component {
+export default class Browser extends Component {
 
   static propTypes = {
     browserTabs: PropTypes.array.isRequired,
@@ -37,11 +37,7 @@ export default class App extends Component {
 
   getTabHeading(id) {
     if (!this._heading[id]) {
-      const tab = document.querySelectorAll(`[data-path="${id}"]`)[0];
-      if (tab) {
-        tab.parentNode.classList.add('chloe__browser-tab__heading');
-        this._heading[id] = tab;
-      }
+      this._heading[id] = document.querySelectorAll(`[data-path="${id}"]`)[0];
     }
     return this._heading[id];
   }

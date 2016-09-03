@@ -19,6 +19,7 @@ const createTerminalItem = (opts) => {
   const term3 = require(packagePath);
   const item = term3.createTermView();
   item.getURI = () => opts.id;
+  item.getPath = () => opts.id;
   item.terminal = opts;
   return item;
 };

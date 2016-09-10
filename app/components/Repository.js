@@ -19,6 +19,7 @@ export default class Repository extends Component {
     editFile: PropTypes.func.isRequired,
     gitCheckout: PropTypes.func.isRequired,
     gitCommit: PropTypes.func.isRequired,
+    removeFile: PropTypes.func.isRequired,
     gitStatus: PropTypes.func.isRequired,
     gitBranch: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
@@ -68,6 +69,7 @@ export default class Repository extends Component {
         branch={this.props.repositoryStatus.local_branch}
         gitCheckout={this.props.gitCheckout}
         toggleCommitFile={this.props.toggleCommitFile}
+        removeFile={this.props.removeFile}
         {...file}
       />
     );

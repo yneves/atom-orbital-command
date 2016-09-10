@@ -5,7 +5,6 @@ import {
 } from '../constants/actionTypes';
 
 export default () => {
-
   return {
     type: REFRESH_TABS,
   };

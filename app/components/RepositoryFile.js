@@ -32,8 +32,12 @@ export default class RepositoryFile extends Component {
   }
 
   onClickUndo() {
-    const {repositoryId, branch, file} = this.props;
-    this.props.gitCheckout(repositoryId, branch, file);
+    const {repositoryId, branch, file, path} = this.props;
+    if (this.props.status === 'new') {
+      this.props.removeFile(path);
+    } else {
+      this.props.gitCheckout(repositoryId, branch, file);
+    }
   }
 
   render() {

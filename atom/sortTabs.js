@@ -5,8 +5,8 @@ import {Disposable, TextEditor} from 'atom';
 
 const isTextEditor = R.is(TextEditor);
 const isNotTextEditor = R.pipe(isTextEditor, R.not);
-const isTerminal = R.pathEq(['element', 'className'], 'term3');
-const isBrowser = R.pathEq(['element', 'className'], 'chloe__browser');
+const isTerminal = (item) => !!item.terminal;
+const isBrowser = (item) => !!item.browser;
 const isNotBrowser = R.pipe(isBrowser, R.not);
 
 export default () => {

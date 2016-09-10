@@ -24,7 +24,6 @@ export default class RepositoryBranch extends Component {
   };
 
   state = {
-    index: -1,
     focused: false
   };
 
@@ -42,31 +41,14 @@ export default class RepositoryBranch extends Component {
     const {index} = this.state;
     switch (event.which) {
       case KEY_ENTER:
-        if (index > -1) {
-          this.props.gitCheckout(repositoryId, repositoryBranch[index]);
-        } else if (/\w/.test(checkoutBranch)) {
+        if (/\w/.test(checkoutBranch)) {
           this.props.gitCheckout(repositoryId, checkoutBranch);
         }
-        break;
-      case KEY_ARROW_UP:
-        this.setState({
-          index: Math.max(index - 1, 0)
-        });
-        break;
-      case KEY_ARROW_DOWN:
-        this.setState({
-          index: Math.min(index + 1, repositoryBranch.length - 1)
-        });
         break;
       case KEY_ESC:
         this.refs.input.blur();
         break;
       default:
-        if (index > -1) {
-          this.setState({
-            index: -1
-          });
-        }
         break;
     }
   }
@@ -77,28 +59,26 @@ export default class RepositoryBranch extends Component {
   }
 
   onFocus() {
-    this.refs.input.select();
+    const {currentBranch, checkoutBranch, repositoryBranch} = this.props;
     this.setState({
-      index: this.props.repositoryBranch.indexOf(this.props.checkoutBranch),
       focused: true
     });
   }
 
   onBlur() {
     this.setState({
-      index: -1,
       focused: false
     });
   }
 
   renderOption(branch, index) {
     return (
-      <li
-        key={index}
-        data-text={branch}
-        className={index === this.state.index ? 'selected' : ''}>
-        {branch}
-      </li>
+      <RepositoryBranch
+        key={branch}
+        branch={branch}
+        gitCheckout={this.props.gitCheckout}
+        repositoryId={this.props.repositoryId}
+      />
     );
   }
 

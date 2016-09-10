@@ -16,6 +16,7 @@ export default class App extends Component {
 
   static propTypes = {
     browserIcons: PropTypes.object.isRequired,
+    removeFile: PropTypes.func.isRequired,
     setBrowserIcon: PropTypes.func.isRequired,
     refreshTabs: PropTypes.number.isRequired,
     openBookmark: PropTypes.func.isRequired,
@@ -126,6 +127,7 @@ export default class App extends Component {
         gitCommit={this.props.gitCommit}
         gitBranch={this.props.gitBranch}
         gitCheckout={this.props.gitCheckout}
+        removeFile={this.props.removeFile}
         toggleCommitFile={this.props.toggleCommitFile}
         setCommitMessage={this.props.setCommitMessage}
         setCheckoutBranch={this.props.setCheckoutBranch}

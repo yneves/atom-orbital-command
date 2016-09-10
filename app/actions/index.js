@@ -27,8 +27,10 @@ import toggleSection from './toggleSection';
 import viewCommandOutput from './viewCommandOutput';
 import terminalOpened from './terminalOpened';
 import terminalClosed from './terminalClosed';
+import removeFile from './removeFile';
 
 export default {
+  removeFile,
   terminalOpened,
   terminalClosed,
   browserClosed,

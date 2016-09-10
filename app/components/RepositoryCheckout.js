@@ -2,6 +2,7 @@
 
 import React, { PropTypes, Component } from 'react';
 import autoBind from 'class-autobind';
+import RepositoryBranch from './RepositoryBranch';
 import {
   KEY_ESC,
   KEY_ENTER,
@@ -10,7 +11,7 @@ import {
 } from '../constants/keyCodes';
 
 
-export default class RepositoryBranch extends Component {
+export default class RepositoryCheckout extends Component {
 
   static propTypes = {
     runningGit: PropTypes.string,
@@ -71,15 +72,16 @@ export default class RepositoryBranch extends Component {
     });
   }
 
-  renderOption(branch, index) {
-    return (
-      <RepositoryBranch
-        key={branch}
-        branch={branch}
-        gitCheckout={this.props.gitCheckout}
-        repositoryId={this.props.repositoryId}
-      />
-    );
+  onMouseEnter() {
+    this.setState({
+      hovering: true
+    });
+  }
+
+  onMouseLeave() {
+    this.setState({
+      hovering: false
+    });
   }
 
   renderInput() {
@@ -97,25 +99,65 @@ export default class RepositoryBranch extends Component {
     );
   }
 
+  getListId() {
+    return  'branches' + this.props.repositoryId.replace(/[^\w]/g,'');
+  }
+
+  getListStyle() {
+    return {
+      display: this.shouldDisplayOptions() ? 'block': 'none'
+    };
+  }
+
+  getFilter() {
+    return this.props.checkoutBranch.length > 2
+      ? this.props.checkoutBranch : '';
+  }
+
   shouldDisplayOptions() {
-    return this.state.focused && !this.props.runningGit;
+    return !this.props.runningGit && (
+      this.state.focused || this.state.hovering
+    );
+  }
+
+  renderBranches() {
+    return (
+      <ul id={this.getListId()} style={this.getListStyle()}>
+        {this.props.repositoryBranch.map(this.renderBranch)}
+      </ul>
+    )
+  }
+
+  renderBranch(branch, index) {
+    return (
+      <RepositoryBranch
+        key={branch}
+        branch={branch}
+        gitCheckout={this.props.gitCheckout}
+        repositoryId={this.props.repositoryId}
+      />
+    );
+  }
+
+  renderStyle() {
+    const listId = this.getListId();
+    const filterText = this.getFilter();
+    return (
+      <style>
+      {`#${listId} li {display: none;}
+        #${listId} li[data-text*="${filterText}"] {display: block;}`}
+      </style>
+    );
   }
 
   render() {
-    const {checkoutBranch, repositoryId, repositoryBranch} = this.props;
-    const listId = 'branches' + repositoryId.replace(/[^\w]/g,'');
-    const listStyle = {display: this.shouldDisplayOptions() ? 'block': 'none'};
-    const filterText = checkoutBranch.length > 2 ? checkoutBranch : '';
     return (
-      <div className="auto-complete">
+      <div className="auto-complete"
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}>
         {this.renderInput()}
-        <style>
-        {`#${listId} li {display: none;}
-          #${listId} li[data-text*="${filterText}"] {display: block;}`}
-        </style>
-        <ul id={listId} style={listStyle}>
-          {repositoryBranch.map(this.renderOption)}
-        </ul>
+        {this.renderBranches()}
+        {this.renderStyle()}
       </div>
     );
   }

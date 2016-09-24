@@ -21,12 +21,15 @@ export default (dir, env = {}) => (dispatch) => {
     if (!error) {
 
       atom.workspace.open('/TERMINAL', {
-        id: uid()
+        id: uid(),
+        dir,
+        env,
       });
 
       dispatch({
         type: OPEN_TERMINAL,
         dir,
+        env,
       });
 
       setTimeout(clearScript, 1500);

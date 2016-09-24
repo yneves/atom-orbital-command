@@ -14,6 +14,7 @@ export default (element, state) => {
 
   const enhancer = applyMiddleware(thunkMiddleware);
   const store = createStore(reducers, state, enhancer);
+  const boundActions = bindActionCreators(actions, store.dispatch);
   const Container = connect(R.identity, actions)(App);
   const provider = (
     <Provider store={store}>
@@ -24,6 +25,6 @@ export default (element, state) => {
 
   return {
     getState: () => store.getState(),
-    getActions: () => bindActionCreators(actions, store.dispatch),
+    getActions: () => boundActions,
   };
 };

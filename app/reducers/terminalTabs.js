@@ -13,7 +13,8 @@ export default (state = [], action) => {
     case TERMINAL_OPENED:
       return uniq(R.append(R.omit(['type'], action), state));
     case TERMINAL_CLOSED:
-      return uniq(R.reject(R.propEq('id', action.id), state));
+      const ret = uniq(R.reject(R.propEq('id', action.id), state));
+      return ret;
     default:
       return state;
   }

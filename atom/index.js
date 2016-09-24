@@ -36,6 +36,8 @@ export default {
       observeTextEditors(actions.fileSaved),
       addRightPanel(this.element)
     );
+
+    actions.startup();
   },
 
   deactivate() {

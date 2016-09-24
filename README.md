@@ -16,7 +16,7 @@ A short description of your package.
  * [ ] restore browser/terminal tabs on load
  * [ ] label for bookmarks
  * [x] read browser icon from webview
- * [ ] allow click on branch options
+ * [x] allow click on branch options
  * [x] use placeholder to display current branch
  * [x] use font size from settings
  * [x] dont show branch options if git is running

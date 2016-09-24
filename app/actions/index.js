@@ -28,8 +28,10 @@ import viewCommandOutput from './viewCommandOutput';
 import terminalOpened from './terminalOpened';
 import terminalClosed from './terminalClosed';
 import removeFile from './removeFile';
+import startup from './startup';
 
 export default {
+  startup,
   removeFile,
   terminalOpened,
   terminalClosed,

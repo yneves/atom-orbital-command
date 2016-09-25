@@ -1,5 +1,6 @@
 'use babel';
 
+import R from 'ramda';
 import {CompositeDisposable} from 'atom';
 
 const isTerminal = (uri) => (uri === '/TERMINAL');
@@ -26,8 +27,16 @@ const createTerminalItem = (opts) => {
 
 const terminalEvent = (callback) => ({item}) => {
   if (item.terminal) {
-    setTimeout(() => callback(item.terminal), 50);
+    setTimeout(() => {
+      clearTreeList();
+      callback(item.terminal);
+    }, 50);
   }
+};
+
+const clearTreeList = () => {
+  const elements = document.querySelectorAll('terminal-list-view');
+  R.forEach(elm => elm.parentNode.removeChild(elm), elements);
 };
 
 export default (onOpen, onClose) => {

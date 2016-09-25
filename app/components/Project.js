@@ -1,6 +1,7 @@
 'use babel';
 
 import React, { PropTypes, Component } from 'react';
+import R from 'ramda';
 import autoBind from 'class-autobind';
 import cx from 'classnames';
 import Button from './Button';
@@ -35,7 +36,7 @@ export default class Project extends Component {
   }
 
   onClickTerminal() {
-    this.props.openTerminal(this.props.dir, this.props.env);
+    this.props.openTerminal(R.pick(['id', 'dir', 'env'], this.props));
   }
 
   onClickRepository() {

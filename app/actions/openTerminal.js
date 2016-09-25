@@ -8,28 +8,26 @@ import homeDir from 'home-dir';
 
 import { OPEN_TERMINAL } from '../constants/actionTypes';
 
-export default (dir, env = {}) => (dispatch) => {
+export default (terminal) => (dispatch) => {
 
-  const script = [`cd ${dir}`];
+  terminal.id = terminal.id || uid();
+  terminal.env = terminal.env || {};
 
-  R.keys(env).forEach((key) => {
-    const val = env[key].replace(/\W/g, (char) => '\\' + char);
+  const script = [`cd ${terminal.dir}`];
+
+  R.keys(terminal.env).forEach((key) => {
+    const val = terminal.env[key].replace(/\W/g, (char) => '\\' + char);
     script.unshift(`export ${key}=${val}`);
   });
 
   setScript(script.join(' && '), (error) => {
     if (!error) {
 
-      atom.workspace.open('/TERMINAL', {
-        id: uid(),
-        dir,
-        env,
-      });
+      atom.workspace.open('/TERMINAL', terminal);
 
       dispatch({
         type: OPEN_TERMINAL,
-        dir,
-        env,
+        ...terminal
       });
 
       setTimeout(clearScript, 1500);

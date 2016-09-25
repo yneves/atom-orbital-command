@@ -16,7 +16,7 @@ export default () => (dispatch, getState) => {
 
   terminalTabs.forEach(terminalTab => {
     if (terminalTab.dir) {
-      openTerminal(terminalTab.dir, terminalTab.env)(dispatch, getState);
+      openTerminal(terminalTab)(dispatch, getState);
     }
   });
 };

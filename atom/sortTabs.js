@@ -21,7 +21,7 @@ export default () => {
 
     if (isTextEditor(item)) {
       const index = R.findIndex(isNotTextEditor, items);
-      opts.index = index > 0 ? index - 1 : items.length;
+      opts.index = index > 0 ? index - 1 : 0;
 
     } else if (isTerminal(item)) {
       const index = R.findIndex(isNotBrowser, items);

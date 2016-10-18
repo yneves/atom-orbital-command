@@ -128,6 +128,7 @@ export default class App extends Component {
         gitBranch={this.props.gitBranch}
         gitCheckout={this.props.gitCheckout}
         removeFile={this.props.removeFile}
+        toggleSection={this.props.toggleSection}
         toggleCommitFile={this.props.toggleCommitFile}
         setCommitMessage={this.props.setCommitMessage}
         setCheckoutBranch={this.props.setCheckoutBranch}

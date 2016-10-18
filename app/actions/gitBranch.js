@@ -27,7 +27,7 @@ export default (repositoryId) => (dispatch, getState) => {
 };
 
 const parseBranches = (stdout) => {
-  return R.reject(R.isEmpty, R.drop(1, stdout.split('\n')).map(line => {
+  return R.reject(R.isEmpty, stdout.split('\n').map(line => {
     return line.trim().replace(/^\*/, '').trim();
   }));
 };

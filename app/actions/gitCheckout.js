@@ -15,9 +15,19 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
   const {repositories, repositoryBranch} = getState();
   const branches = repositoryBranch[repositoryId];
   const repository = R.find(R.propEq('id', repositoryId), repositories);
+  const branchExists = R.contains(branch, branches);
+
+  if (!branchExists && file) {
+    showNotification({
+      message: 'Cannot checkout file from nonexistent branch',
+      type: 'error',
+      detail: file
+    });
+    return;
+  }
 
   let create = '';
-  if (!R.contains(branch, branches)) {
+  if (!branchExists) {
     const button = remote.dialog.showMessageBox({
       type: 'question',
       title: 'git checkout',

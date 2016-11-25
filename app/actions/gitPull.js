@@ -6,7 +6,7 @@ import { remote } from 'electron';
 import gitStatus from './gitStatus';
 import showNotification from './showNotification';
 import {
-  GIT_CHECKOUT,
+  GIT_PULL,
   GIT_PROGRESS,
 } from '../constants/actionTypes';
 

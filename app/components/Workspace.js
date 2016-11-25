@@ -2,6 +2,7 @@
 
 import React, { PropTypes, Component } from 'react';
 import autoBind from 'class-autobind';
+import R from 'ramda';
 import cx from 'classnames';
 import Button from './Button';
 
@@ -34,7 +35,8 @@ export default class Workspace extends Component {
   }
 
   onClickTerminal() {
-    this.props.openTerminal(this.props.dir, this.props.env);
+    const terminal = R.pick(['dir', 'env'], this.props);
+    this.props.openTerminal(terminal);
   }
 
   render() {

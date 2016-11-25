@@ -8,6 +8,7 @@ import gitBranch from './gitBranch';
 import gitCheckout from './gitCheckout';
 import gitCommit from './gitCommit';
 import gitStatus from './gitStatus';
+import gitPull from './gitPull';
 import killCommand from './killCommand';
 import loadWorkspaces from './loadWorkspaces';
 import openBookmark from './openBookmark';
@@ -43,6 +44,7 @@ export default {
   gitCheckout,
   gitCommit,
   gitStatus,
+  gitPull,
   killCommand,
   loadWorkspaces,
   openBookmark,

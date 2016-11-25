@@ -35,6 +35,7 @@ export default class App extends Component {
     gitCheckout: PropTypes.func.isRequired,
     gitCommit: PropTypes.func.isRequired,
     gitStatus: PropTypes.func.isRequired,
+    gitPull: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
     loadWorkspaces: PropTypes.func.isRequired,
     openTerminal: PropTypes.func.isRequired,
@@ -127,6 +128,7 @@ export default class App extends Component {
         gitCommit={this.props.gitCommit}
         gitBranch={this.props.gitBranch}
         gitCheckout={this.props.gitCheckout}
+        gitPull={this.props.gitPull}
         removeFile={this.props.removeFile}
         toggleSection={this.props.toggleSection}
         toggleCommitFile={this.props.toggleCommitFile}
@@ -202,7 +204,7 @@ export default class App extends Component {
         {this.renderWorkspaces()}
         {this.renderProjects()}
         {this.renderCommands()}
-        {this.renderBookmarks()}
+        {/*this.renderBookmarks()*/}
         {this.props.repositories.map(this.renderRepository, this)}
         {this.renderResizer()}
         {this.renderBrowser()}

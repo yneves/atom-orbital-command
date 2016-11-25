@@ -19,6 +19,7 @@ export default class Repository extends Component {
     editFile: PropTypes.func.isRequired,
     gitCheckout: PropTypes.func.isRequired,
     gitCommit: PropTypes.func.isRequired,
+    gitPull: PropTypes.func.isRequired,
     removeFile: PropTypes.func.isRequired,
     gitStatus: PropTypes.func.isRequired,
     gitBranch: PropTypes.func.isRequired,
@@ -38,23 +39,36 @@ export default class Repository extends Component {
   }
 
   componentDidMount() {
-    this.onClickReload();
+    this.onClickGitStatus();
   }
 
   onClickHeader() {
     this.props.toggleSection(this.props.section);
   }
 
-  onClickReload() {
+  onClickGitPull() {
+    this.props.gitPull(this.props.id);
+  }
+
+  onClickGitStatus() {
     this.props.gitStatus(this.props.id);
     this.props.gitBranch(this.props.id);
   }
 
-  renderReload() {
+  renderGitPull() {
+    return (
+      <Button
+        icon='arrow-circle-down'
+        onClick={this.onClickGitPull}
+      />
+    );
+  }
+
+  renderGitStatus() {
     return (
       <Button
         icon='refresh'
-        onClick={this.onClickReload}
+        onClick={this.onClickGitStatus}
       />
     );
   }
@@ -133,7 +147,8 @@ export default class Repository extends Component {
         <header onClick={this.onClickHeader}>
           <span className='icon icon-repo'></span>
           {this.props.name}
-          {this.renderReload()}
+          {this.renderGitPull()}
+          {this.renderGitStatus()}
         </header>
         {this.renderCheckout()}
         {this.renderFiles()}

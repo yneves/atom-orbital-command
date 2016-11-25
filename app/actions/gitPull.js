@@ -10,28 +10,15 @@ import {
   GIT_PROGRESS,
 } from '../constants/actionTypes';
 
-export default (repositoryId, branch, file) => (dispatch, getState) => {
+export default (repositoryId) => (dispatch, getState) => {
 
-  const {repositories, repositoryBranch} = getState();
-  const branches = repositoryBranch[repositoryId];
+  const {repositories, repositoryStatus} = getState();
+  const status = repositoryStatus[repositoryId];
+  const branch = status.local_branch;
   const repository = R.find(R.propEq('id', repositoryId), repositories);
 
-  let create = '';
-  if (!R.contains(branch, branches)) {
-    const button = remote.dialog.showMessageBox({
-      type: 'question',
-      title: 'git checkout',
-      message: `The branch ${branch} does not exists, create?`,
-      buttons: ['Create', 'Cancel'],
-      defaultId: 0,
-      cancelId: 1,
-    });
-    if (button === 0) {
-      create = '-b';
-    }
-  }
+  const gitCommand = 'git pull origin ' + branch;
 
-  const gitCommand = `git checkout ${create} ${branch} ${file || ''}`;
   const command = R.join(' && ', R.reject(R.isEmpty, [
     'cd ' + repository.dir,
     gitCommand
@@ -45,17 +32,15 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
 
   cp.exec(command, {}, (error, stdout, stderr) => {
     showNotification({
-      message: error ? 'Checkout failed' :
-        create ? 'Branch created' : 'Branch changed',
+      message: error ? 'Pull failed' : 'Pulled successfuly',
       type: error ? 'error' : 'success',
       detail: error ? error.message || stderr : stdout
     });
     if (!error) {
       dispatch({
-        type: GIT_CHECKOUT,
+        type: GIT_PULL,
         repositoryId,
-        branch,
-        file
+        branch
       });
       gitStatus(repositoryId)(dispatch, getState);
     }

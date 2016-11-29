@@ -141,6 +141,17 @@ export default class Repository extends Component {
     );
   }
 
+  renderBody() {
+    return (
+      <div>
+        {this.renderCheckout()}
+        {this.renderFiles()}
+        {this.renderCommit()}
+        {this.renderProgress()}
+      </div>
+    );
+  }
+
   render() {
     return (
       <section>
@@ -150,10 +161,7 @@ export default class Repository extends Component {
           {this.renderGitPull()}
           {this.renderGitStatus()}
         </header>
-        {this.renderCheckout()}
-        {this.renderFiles()}
-        {this.renderCommit()}
-        {this.renderProgress()}
+        {this.props.collapsed && this.renderBody()}
       </section>
     );
   }

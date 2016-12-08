@@ -44,7 +44,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className='chloe__resizer' onMouseDown={this.onMouseDown} />
+      <div className='orbital-command__resizer' onMouseDown={this.onMouseDown} />
     );
   }
 };

@@ -19,8 +19,8 @@ export default {
     state.config = getConfig();
 
     this.element = document.createElement('div');
-    this.element.id = 'chloe';
-    this.element.classList.add('chloe');
+    this.element.id = 'orbital-command';
+    this.element.classList.add('orbital-command');
 
     const {getState, getActions} = bootstrap(this.element, state);
     const actions = getActions();

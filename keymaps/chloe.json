@@ -1,5 +1,5 @@
 {
   "atom-workspace": {
-    "ctrl-alt-o": "chloe:toggle"
+    "ctrl-alt-o": "orbital-command:toggle"
   }
 }

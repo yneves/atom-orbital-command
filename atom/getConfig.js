@@ -3,6 +3,6 @@
 export default () => {
 
   return {
-    workspacesPattern: atom.config.get('chloe.workspaces')
+    workspacesPattern: atom.config.get('orbital-command.workspaces')
   };
 };

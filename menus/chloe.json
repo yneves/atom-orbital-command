@@ -2,8 +2,8 @@
   "context-menu": {
     "atom-text-editor": [
       {
-        "label": "Toggle chloe",
-        "command": "chloe:toggle"
+        "label": "Toggle orbital command",
+        "command": "orbital-command:toggle"
       }
     ]
   },
@@ -12,11 +12,11 @@
       "label": "Packages",
       "submenu": [
         {
-          "label": "chloe",
+          "label": "orbital-command",
           "submenu": [
             {
               "label": "Toggle",
-              "command": "chloe:toggle"
+              "command": "orbital-command:toggle"
             }
           ]
         }

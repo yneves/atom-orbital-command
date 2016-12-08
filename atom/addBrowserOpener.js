@@ -26,7 +26,7 @@ class BrowserView {
 const createBrowserItem = (item) => {
   const element = document.createElement('div');
   element.id = item.id;
-  element.className = 'chloe__browser';
+  element.className = 'orbital-command__browser';
   return new BrowserView(element, item);
 };
 

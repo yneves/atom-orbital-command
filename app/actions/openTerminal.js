@@ -8,6 +8,8 @@ import homeDir from 'home-dir';
 
 import { OPEN_TERMINAL } from '../constants/actionTypes';
 
+const shellFile = '.orbital-command.sh';
+
 export default (terminal) => (dispatch) => {
 
   terminal.id = terminal.id || uid();
@@ -36,7 +38,7 @@ export default (terminal) => (dispatch) => {
 };
 
 const setScript = (script, callback) => {
-  const file = path.resolve(homeDir(), '.CHLOE.sh');
+  const file = path.resolve(homeDir(), shellFile);
   fs.writeFile(file, script, (error) => {
     if (error) {
       console.error(error);
@@ -48,7 +50,7 @@ const setScript = (script, callback) => {
 };
 
 const clearScript = (callback) => {
-  const file = path.resolve(homeDir(), '.CHLOE.sh');
+  const file = path.resolve(homeDir(), shellFile);
   fs.writeFile(file, '', (error) => {
     if (error) {
       console.error(error);

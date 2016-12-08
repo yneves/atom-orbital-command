@@ -21,7 +21,7 @@ export default class BrowserIcon extends Component {
   render() {
     return (
       <img
-        className='chloe__browser-icon'
+        className='orbital-command__browser-icon'
         src={this.getSrc()}
       />
     );

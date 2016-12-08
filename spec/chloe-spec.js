@@ -1,24 +1,24 @@
 'use babel';
 
-import Chloe from '../lib/app/index';
+import OrbitalCommand from '../lib/app/index';
 
-describe('Chloe', () => {
+describe('orbital-command', () => {
   let workspaceElement;
   let activationPromise;
 
   beforeEach(() => {
     workspaceElement = atom.views.getView(atom.workspace);
-    activationPromise = atom.packages.activatePackage('chloe');
+    activationPromise = atom.packages.activatePackage('orbital-command');
   });
 
-  describe('when the chloe:toggle event is triggered', () => {
+  describe('when the orbital-command:toggle event is triggered', () => {
     it('hides and shows the modal panel', () => {
 
-      let chloeElement = workspaceElement.querySelector('.chloe');
-      expect(chloeElement).toExist();
+      let element = workspaceElement.querySelector('.orbital-command');
+      expect(element).toExist();
 
-      let chloePanel = atom.workspace.panelForItem(chloeElement);
-      expect(chloePanel.isVisible()).toBe(true);
+      let panel = atom.workspace.panelForItem(element);
+      expect(panel.isVisible()).toBe(true);
     });
   });
 });

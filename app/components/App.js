@@ -200,7 +200,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className='chloe__app'>
+      <div className='orbital-command__app'>
         {this.renderWorkspaces()}
         {this.renderProjects()}
         {this.renderCommands()}

@@ -63,11 +63,17 @@ const loadProject = (dir, data) => (project) => {
 };
 
 const loadCommand = (dir, data) => (command) => {
+  if (R.is(Array, command)) {
+    command = R.join(' && ', command);
+  }
   if (R.is(String, command)) {
     command = {
       command,
       label: command
     };
+  }
+  if (R.is(Array, command.command)) {
+    command.command = R.join(' && ', command.command);
   }
   return R.merge(command, {
     id: uid(),
@@ -101,7 +107,7 @@ const loadWorkspace = (file) => {
     dir,
     env: data.env || {},
     failed: data === null,
-    name: path.basename(file, '.chloe.js'),
+    name: path.basename(file),
     file,
     projects,
     commands,

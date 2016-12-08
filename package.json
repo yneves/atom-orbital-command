@@ -2,7 +2,7 @@
   "name": "atom-orbital-command",
   "main": "./atom/index.js",
   "version": "0.0.0",
-  "description": "Powerful sidebar to organize workspaces, projects, commands and git tools.",
+  "description": "Atom sidebar to organize workspaces, projects, commands and git tools.",
   "keywords": [],
   "repository": "https://github.com/yneves/atom-orbital-command",
   "license": "MIT",

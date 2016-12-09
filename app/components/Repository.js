@@ -161,7 +161,7 @@ export default class Repository extends Component {
           {this.renderGitPull()}
           {this.renderGitStatus()}
         </header>
-        {this.props.collapsed && this.renderBody()}
+        {this.props.collapsed || this.renderBody()}
       </section>
     );
   }

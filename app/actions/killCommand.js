@@ -16,7 +16,14 @@ export default (id) => (dispatch, getState) => {
         console.error(error);
       } else {
         const pids = children.map(p => p.PID);
-        cp.spawn('kill', R.concat(['-9'], pids, running.pid));
+        const killCommand = R.join(' ', R.concat(
+          [running.command.kill || 'kill -9'], pids, [running.pid]
+        ));
+        cp.exec(killCommand, {}, (error, stdout, stderr) => {
+          if (error || stderr) {
+            console.error(error || stderr);
+          }
+        });
       }
     });
   }

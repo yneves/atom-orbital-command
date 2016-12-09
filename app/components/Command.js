@@ -9,11 +9,7 @@ import Button from './Button';
 export default class Command extends Component {
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    dir: PropTypes.string.isRequired,
-    env: PropTypes.object.isRequired,
-    label: PropTypes.string.isRequired,
-    command: PropTypes.string.isRequired,
+    command: PropTypes.object.isRequired,
     runningCommand: PropTypes.bool.isRequired,
     finishedCommand: PropTypes.bool.isRequired,
     failedCommand: PropTypes.bool.isRequired,
@@ -28,23 +24,23 @@ export default class Command extends Component {
   }
 
   onClickExecute() {
-    this.props.executeCommand(R.pick(['command', 'dir', 'id', 'env'], this.props));
+    this.props.executeCommand(this.props.command);
   }
 
   onClickKill() {
-    this.props.killCommand(this.props.id);
+    this.props.killCommand(this.props.command.id);
   }
 
   onClickFinished() {
-    this.props.viewCommandOutput(this.props.id);
+    this.props.viewCommandOutput(this.props.command.id);
   }
 
   onClickFailed() {
-    this.props.viewCommandOutput(this.props.id);
+    this.props.viewCommandOutput(this.props.command.id);
   }
 
   onClickProgress() {
-    this.props.viewCommandOutput(this.props.id);
+    this.props.viewCommandOutput(this.props.command.id);
   }
 
   renderButtons() {
@@ -102,7 +98,7 @@ export default class Command extends Component {
     });
     return (
       <li className={className}>
-        <span>{this.props.label}</span>
+        <span>{this.props.command.label}</span>
         {this.renderButtons()}
       </li>
     );

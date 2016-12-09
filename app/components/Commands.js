@@ -33,7 +33,7 @@ export default class Commands extends Component {
         executeCommand={this.props.executeCommand}
         killCommand={this.props.killCommand}
         viewCommandOutput={this.props.viewCommandOutput}
-        {...command}
+        command={command}
       />
     );
   }

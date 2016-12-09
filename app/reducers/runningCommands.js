@@ -10,7 +10,7 @@ import {
   KILL_COMMAND,
 } from '../constants/actionTypes';
 
-const getData = R.omit(['type', 'command']);
+const getData = R.omit(['type']);
 
 export default (state = {}, action) => {
   switch (action.type) {

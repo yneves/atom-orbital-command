@@ -30,6 +30,7 @@ import terminalOpened from './terminalOpened';
 import terminalClosed from './terminalClosed';
 import removeFile from './removeFile';
 import startup from './startup';
+import toggleTerminal from './toggleTerminal';
 
 export default {
   startup,
@@ -62,4 +63,5 @@ export default {
   toggleRepository,
   toggleSection,
   viewCommandOutput,
+  toggleTerminal,
 };

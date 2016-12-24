@@ -60,6 +60,7 @@ export default class App extends Component {
     viewCommandOutput: PropTypes.func.isRequired,
     workspaces: PropTypes.array.isRequired,
     repositoryBranch: PropTypes.object.isRequired,
+    terminalActive: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
@@ -140,6 +141,7 @@ export default class App extends Component {
         checkoutBranch={this.props.checkoutBranch[repository.id] || ''}
         commitFiles={this.props.commitFiles[repository.id] || []}
         repositoryBranch={this.props.repositoryBranch[repository.id] || []}
+        toggleRepository={this.props.toggleRepository}
         {...repository}
       />
     );

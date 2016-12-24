@@ -39,12 +39,22 @@ const clearTreeList = () => {
   R.forEach(elm => elm.parentNode.removeChild(elm), elements);
 };
 
-export default (onOpen, onClose) => {
+export default (actions) => {
 
   const disposable = new CompositeDisposable();
-  disposable.add(atom.workspace.addOpener(terminalOpener));
-  disposable.add(atom.workspace.onDidAddPaneItem(terminalEvent(onOpen)));
-  disposable.add(atom.workspace.onWillDestroyPaneItem(terminalEvent(onClose)));
+  const active = atom.packages.isPackageLoaded('term3');
+
+  actions.toggleTerminal(active);
+
+  if (active) {
+    const terminalOpened = terminalEvent(actions.terminalOpened);
+    const terminalClosed = terminalEvent(actions.terminalClosed);
+    disposable.add(
+      atom.workspace.addOpener(terminalOpener),
+      atom.workspace.onDidAddPaneItem(terminalOpened),
+      atom.workspace.onWillDestroyPaneItem(terminalClosed)
+    );
+  }
 
   return disposable;
 };

@@ -18,6 +18,7 @@ export default class Projects extends Component {
     toggleProject: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
     toggleRepository: PropTypes.func.isRequired,
+    terminalActive: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -38,6 +39,7 @@ export default class Projects extends Component {
         toggleProject={this.props.toggleProject}
         toggleDirectory={this.props.toggleDirectory}
         toggleRepository={this.props.toggleRepository}
+        terminalActive={this.props.terminalActive}
         {...project}
       />
     );

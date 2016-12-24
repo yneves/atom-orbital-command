@@ -32,7 +32,7 @@ export default {
       refreshTabs(actions.refreshTabs),
       addCommands(),
       addBrowserOpener(actions.browserOpened, actions.browserClosed),
-      addTerminalOpener(actions.terminalOpened, actions.terminalClosed),
+      addTerminalOpener(actions),
       observeTextEditors(actions.fileSaved),
       addRightPanel(this.element)
     );

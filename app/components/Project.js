@@ -20,6 +20,7 @@ export default class Project extends Component {
     toggleProject: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
     toggleRepository: PropTypes.func.isRequired,
+    terminalActive: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -54,7 +55,7 @@ export default class Project extends Component {
   }
 
   renderTerminal() {
-    return (
+    return this.props.terminalActive && (
       <Button
         icon='terminal'
         onClick={this.onClickTerminal}

@@ -15,7 +15,8 @@ export default class Workspaces extends Component {
     loadWorkspaces: PropTypes.func.isRequired,
     editFile: PropTypes.func.isRequired,
     openTerminal: PropTypes.func.isRequired,
-    selectWorkspace: PropTypes.func.isRequired
+    selectWorkspace: PropTypes.func.isRequired,
+    terminalActive: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -31,6 +32,7 @@ export default class Workspaces extends Component {
         editFile={this.props.editFile}
         openTerminal={this.props.openTerminal}
         selectWorkspace={this.props.selectWorkspace}
+        terminalActive={this.props.terminalActive}
         {...workspace}
       />
     );

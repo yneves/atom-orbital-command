@@ -8,7 +8,7 @@ A short description of your package.
  * [ ] terminal tabs (without atom term3 package)
  * [ ] label for bookmarks
  * [ ] notify about command execution finished/failed
- * [ ] click to close repository on its header
+ * [x] click to close repository on its header
  * [ ] tab bar with tools
   * [ ] close all tabs
   * [ ] close all files

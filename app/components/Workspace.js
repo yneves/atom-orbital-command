@@ -18,7 +18,8 @@ export default class Workspace extends Component {
     selected: PropTypes.bool.isRequired,
     editFile: PropTypes.func.isRequired,
     openTerminal: PropTypes.func.isRequired,
-    selectWorkspace: PropTypes.func.isRequired
+    selectWorkspace: PropTypes.func.isRequired,
+    terminalActive: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -39,6 +40,12 @@ export default class Workspace extends Component {
     this.props.openTerminal(terminal);
   }
 
+  renderTerminal() {
+    return this.props.terminalActive && (
+      <Button icon='terminal' onClick={this.onClickTerminal} />
+    );
+  }
+
   render() {
     const className = cx({
       selected: this.props.selected,
@@ -48,7 +55,7 @@ export default class Workspace extends Component {
       <li onClick={this.onClick} className={className}>
         {this.props.name}
         <Button icon='pencil' onClick={this.onClickEdit} />
-        <Button icon='terminal' onClick={this.onClickTerminal} />
+        {this.renderTerminal()}
       </li>
     );
   }

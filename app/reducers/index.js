@@ -6,6 +6,7 @@ import config from './config';
 import refreshTabs from './refreshTabs';
 import browserTabs from './browserTabs';
 import terminalTabs from './terminalTabs';
+export terminalActive from './terminalActive';
 import checkoutBranch from './checkoutBranch';
 import collapsedSections from './collapsedSections';
 import commitFiles from './commitFiles';
@@ -23,11 +24,13 @@ import selectedProjects from './selectedProjects';
 import selectedWorkspace from './selectedWorkspace';
 import workspaces from './workspaces';
 import browserIcons from './browserIcons';
+import terminalActive from './terminalActive';
 
 export default combineReducers({
   config,
   browserTabs,
   terminalTabs,
+  terminalActive,
   browserIcons,
   refreshTabs,
   checkoutBranch,

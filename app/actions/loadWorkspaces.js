@@ -98,19 +98,24 @@ const loadWorkspace = (file) => {
 
   const data = tryRequire(require.resolve(file));
   const dir = path.dirname(file);
-  const projects = ((data && data.projects) || []).map(loadProject(dir, data));
-  const commands = ((data && data.commands) || []).map(loadCommand(dir, data));
-  const bookmarks = ((data && data.bookmarks) || []).map(loadBookmark(dir, data));
 
-  return {
+  const projects = ((data && data.projects) || [])
+    .map(loadProject(dir, data));
+
+  const commands = ((data && data.commands) || [])
+    .map(loadCommand(dir, data));
+
+  const bookmarks = ((data && data.bookmarks) || [])
+    .map(loadBookmark(dir, data));
+
+  return R.merge(data && data.workspace || {}, {
     id: uid(),
     dir,
-    env: data.env || {},
     failed: data === null,
     name: path.basename(file),
     file,
     projects,
     commands,
     bookmarks
-  };
+  });
 };

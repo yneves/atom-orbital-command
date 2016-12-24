@@ -15,6 +15,7 @@ export default class Workspace extends Component {
     file: PropTypes.string.isRequired,
     failed: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
+    label: PropTypes.string,
     selected: PropTypes.bool.isRequired,
     editFile: PropTypes.func.isRequired,
     openTerminal: PropTypes.func.isRequired,
@@ -53,7 +54,7 @@ export default class Workspace extends Component {
     });
     return (
       <li onClick={this.onClick} className={className}>
-        {this.props.name}
+        {this.props.label || this.props.name}
         <Button icon='pencil' onClick={this.onClickEdit} />
         {this.renderTerminal()}
       </li>

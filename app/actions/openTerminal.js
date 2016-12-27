@@ -37,7 +37,6 @@ export default (terminal) => (dispatch) => {
 
 const setScript = (script, callback) => {
   const file = path.resolve(homeDir(), '.orbital-command.sh');
-  console.log(script);
   fs.writeFile(file, script, (error) => {
     if (error) {
       console.error(error);

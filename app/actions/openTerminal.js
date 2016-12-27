@@ -8,8 +8,6 @@ import homeDir from 'home-dir';
 
 import { OPEN_TERMINAL } from '../constants/actionTypes';
 
-const shellFile = '.orbital-command.sh';
-
 export default (terminal) => (dispatch) => {
 
   terminal.id = terminal.id || uid();
@@ -19,10 +17,10 @@ export default (terminal) => (dispatch) => {
 
   R.keys(terminal.env).forEach((key) => {
     const val = terminal.env[key].replace(/\W/g, (char) => '\\' + char);
-    script.unshift(`export ${key}=${val}`);
+    script.unshift(`export ${key}=${val};`);
   });
 
-  setScript(script.join(' && '), (error) => {
+  setScript(script.join('\n'), (error) => {
     if (!error) {
 
       atom.workspace.open('/TERMINAL', terminal);
@@ -32,26 +30,15 @@ export default (terminal) => (dispatch) => {
         ...terminal
       });
 
-      setTimeout(clearScript, 1500);
+      setTimeout(() => setScript(''), 1500);
     }
   });
 };
 
 const setScript = (script, callback) => {
-  const file = path.resolve(homeDir(), shellFile);
+  const file = path.resolve(homeDir(), '.orbital-command.sh');
+  console.log(script);
   fs.writeFile(file, script, (error) => {
-    if (error) {
-      console.error(error);
-    }
-    if (callback) {
-      callback(error);
-    }
-  });
-};
-
-const clearScript = (callback) => {
-  const file = path.resolve(homeDir(), shellFile);
-  fs.writeFile(file, '', (error) => {
     if (error) {
       console.error(error);
     }

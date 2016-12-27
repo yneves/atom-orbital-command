@@ -55,7 +55,7 @@ const loadProject = (dir, data) => (project) => {
 
   return {
     id: project,
-    env: data.env,
+    env: data.workspace && data.workspace.env || {},
     name: path.basename(project),
     dir: projectDir,
     commands,

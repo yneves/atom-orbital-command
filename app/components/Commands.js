@@ -16,6 +16,7 @@ export default class Commands extends Component {
     executeCommand: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
     viewCommandOutput: PropTypes.func.isRequired,
+    editFile: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -33,6 +34,7 @@ export default class Commands extends Component {
         executeCommand={this.props.executeCommand}
         killCommand={this.props.killCommand}
         viewCommandOutput={this.props.viewCommandOutput}
+        editFile={this.props.editFile}
         command={command}
       />
     );

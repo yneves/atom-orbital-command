@@ -1,7 +1,6 @@
 'use babel';
 
 import {CompositeDisposable} from 'atom';
-import getConfig from './getConfig';
 import sortTabs from './sortTabs';
 import refreshTabs from './refreshTabs';
 import addCommands from './addCommands';
@@ -12,11 +11,22 @@ import observeTextEditors from './observeTextEditors';
 import openTerminal from './openTerminal';
 import bootstrap from '../app/bootstrap';
 
+const configPattern = 'workspacesGlobPattern';
+
 export default {
+
+  config: {
+    [configPattern]: {
+      type: 'string',
+      default: '~/*.orbital-command.js'
+    }
+  },
 
   activate(state = {}) {
 
-    state.config = getConfig();
+    state.config = {
+      [configPattern]: atom.config.get(`orbital-command.${configPattern}`)
+    };
 
     this.element = document.createElement('div');
     this.element.id = 'orbital-command';

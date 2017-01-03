@@ -12,12 +12,12 @@ import {
 
 export default () => (dispatch, getState) => {
 
-  const {config: {workspacesPattern}} = getState();
-  if (!workspacesPattern) {
+  const {config: {workspacesGlobPattern}} = getState();
+  if (!workspacesGlobPattern) {
     return;
   }
-
-  glob(workspacesPattern, {}, (error, files) => {
+  console.log(workspacesGlobPattern);
+  glob(workspacesGlobPattern, {}, (error, files) => {
     const workspaces = files.map(loadWorkspace);
     dispatch({
       type: LOAD_WORKSPACES,
@@ -71,6 +71,9 @@ const loadCommand = (dir, data) => (command) => {
       command,
       label: command
     };
+  }
+  if (!command.command && R.is(String, command.script)) {
+    command.command = `node ${command.script}`;
   }
   if (R.is(Array, command.command)) {
     command.command = R.join(' && ', command.command);

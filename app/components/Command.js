@@ -16,11 +16,19 @@ export default class Command extends Component {
     executeCommand: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
     viewCommandOutput: PropTypes.func.isRequired,
+    editFile: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
     autoBind(this);
+  }
+
+  onClickEdit() {
+    const dir = this.props.command.dir;
+    const script = this.props.command.script;
+    const file = `${dir}/${script}`;
+    this.props.editFile(file);
   }
 
   onClickExecute() {
@@ -92,6 +100,12 @@ export default class Command extends Component {
     return buttons;
   }
 
+  renderEdit() {
+    return this.props.command.script && (
+      <Button icon='pencil' onClick={this.onClickEdit} />
+    );
+  }
+
   render() {
     const className = cx({
       running: !!this.props.runningCommand
@@ -100,6 +114,7 @@ export default class Command extends Component {
       <li className={className}>
         <span>{this.props.command.label}</span>
         {this.renderButtons()}
+        {this.renderEdit()}
       </li>
     );
   }

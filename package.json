@@ -1,7 +1,7 @@
 {
   "name": "orbital-command",
   "main": "./atom/index.js",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Atom sidebar to organize workspaces, projects, commands and git tools.",
   "keywords": [],
   "repository": "https://github.com/yneves/atom-orbital-command",

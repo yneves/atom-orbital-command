@@ -26,8 +26,8 @@ export default class Command extends Component {
 
   onClickEdit() {
     const dir = this.props.command.dir;
-    const script = this.props.command.script;
-    const file = `${dir}/${script}`;
+    const source = this.props.command.source;
+    const file = `${dir}/${source}`;
     this.props.editFile(file);
   }
 
@@ -101,7 +101,7 @@ export default class Command extends Component {
   }
 
   renderEdit() {
-    return this.props.command.script && (
+    return this.props.command.source && (
       <Button icon='pencil' onClick={this.onClickEdit} />
     );
   }

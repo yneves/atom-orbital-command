@@ -16,7 +16,6 @@ export default () => (dispatch, getState) => {
   if (!workspacesGlobPattern) {
     return;
   }
-  console.log(workspacesGlobPattern);
   glob(workspacesGlobPattern, {}, (error, files) => {
     const workspaces = files.map(loadWorkspace);
     dispatch({
@@ -72,8 +71,8 @@ const loadCommand = (dir, data) => (command) => {
       label: command
     };
   }
-  if (!command.command && R.is(String, command.script)) {
-    command.command = `node ${command.script}`;
+  if (!command.command && R.is(String, command.source)) {
+    command.command = `node ${command.source}`;
   }
   if (R.is(Array, command.command)) {
     command.command = R.join(' && ', command.command);

@@ -9,6 +9,10 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
+  "scripts": {
+    "lint": "eslint --no-eslintrc -c .eslintrc .",
+    "lint:fix": "yarn run lint -- --fix"
+  },
   "dependencies": {
     "babel-core": "^6.3.15",
     "babel-eslint": "^7.1.1",
@@ -21,6 +25,9 @@
     "babel-register": "^6.3.13",
     "class-autobind": "^0.1.4",
     "classnames": "^2.2.5",
+    "eslint": "^3.13.1",
+    "eslint-config-google": "^0.7.1",
+    "eslint-plugin-react": "^6.9.0",
     "git-get-status": "^1.0.2",
     "glob": "^7.0.5",
     "home-dir": "^1.0.0",

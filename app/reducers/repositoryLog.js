@@ -12,7 +12,7 @@ export default (state = {}, action) => {
       return {};
     case GIT_LOG:
       return R.merge(state, {
-        [action.repositoryId]: action.log
+        [action.repositoryId]: action.log,
       });
     default:
       return state;

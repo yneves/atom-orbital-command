@@ -63,4 +63,4 @@ export default class Commands extends Component {
       </section>
     );
   }
-};
+}

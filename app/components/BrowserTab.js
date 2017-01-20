@@ -12,7 +12,7 @@ export default class BrowserTab extends Component {
     id: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
-    setBrowserIcon: PropTypes.func.isRequired
+    setBrowserIcon: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -40,4 +40,4 @@ export default class BrowserTab extends Component {
       <div className='native-key-bindings orbital-command__browser-tab' ref='elm' />
     );
   }
-};
+}

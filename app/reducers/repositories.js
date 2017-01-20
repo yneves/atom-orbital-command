@@ -7,6 +7,19 @@ import {
   TOGGLE_REPOSITORY,
 } from '../constants/actionTypes';
 
+const toggleState = (state, dir) => {
+  const id = `repository:${dir}`;
+  const propEq = R.propEq('id', id);
+  const uniqBy = R.uniqBy(R.prop('id'));
+  return R.find(propEq, state) ?
+    uniqBy(R.reject(propEq, state)) :
+    uniqBy(state.concat({
+      id,
+      dir,
+      name: path.basename(dir),
+    }));
+};
+
 export default (state = [], action) => {
   switch (action.type) {
     case LOAD_WORKSPACES:
@@ -16,17 +29,4 @@ export default (state = [], action) => {
     default:
       return state;
   }
-};
-
-const toggleState = (state, dir) => {
-  const id = 'repository:' + dir;
-  const propEq = R.propEq('id', id);
-  const uniqBy = R.uniqBy(R.prop('id'));
-  return R.find(propEq, state) ?
-    uniqBy(R.reject(propEq, state)) :
-    uniqBy(state.concat({
-      id,
-      dir,
-      name: path.basename(dir)
-    }));
 };

@@ -1,13 +1,10 @@
 'use babel';
 
 import {
-  TOGGLE_SECTION
+  TOGGLE_SECTION,
 } from '../constants/actionTypes';
 
-export default (section) => {
-
-  return {
-    type: TOGGLE_SECTION,
-    section,
-  };
-};
+export default section => ({
+  type: TOGGLE_SECTION,
+  section,
+});

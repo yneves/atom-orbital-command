@@ -1,13 +1,10 @@
 'use babel';
 
 import {
-  SELECT_WORKSPACE
+  SELECT_WORKSPACE,
 } from '../constants/actionTypes';
 
-export default (id) => {
-
-  return {
-    type: SELECT_WORKSPACE,
-    id,
-  };
-};
+export default id => ({
+  type: SELECT_WORKSPACE,
+  id,
+});

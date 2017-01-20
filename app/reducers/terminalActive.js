@@ -1,7 +1,7 @@
 'use babel';
 
 import {
-  TERMINAL_ACTIVE
+  TERMINAL_ACTIVE,
 } from '../constants/actionTypes';
 
 export default (state = false, action) => {

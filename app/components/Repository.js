@@ -201,4 +201,4 @@ export default class Repository extends Component {
       </section>
     );
   }
-};
+}

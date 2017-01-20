@@ -4,13 +4,12 @@ import R from 'ramda';
 import cp from 'child_process';
 import { GIT_BRANCH } from '../constants/actionTypes';
 
-export default (repositoryId) => (dispatch, getState) => {
-
-  const {repositories} = getState();
+export default repositoryId => (dispatch, getState) => {
+  const { repositories } = getState();
   const repository = R.find(R.propEq('id', repositoryId), repositories);
 
   const command = R.join(' && ', [
-    'cd ' + repository.dir,
+    `cd ${repository.dir}`,
     'git branch --list',
   ]);
 
@@ -26,8 +25,4 @@ export default (repositoryId) => (dispatch, getState) => {
   });
 };
 
-const parseBranches = (stdout) => {
-  return R.reject(R.isEmpty, stdout.split('\n').map(line => {
-    return line.trim().replace(/^\*/, '').trim();
-  }));
-};
+const parseBranches = stdout => R.reject(R.isEmpty, stdout.split('\n').map(line => line.trim().replace(/^\*/, '').trim()));

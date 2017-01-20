@@ -11,12 +11,11 @@ import {
   GIT_PROGRESS,
 } from '../constants/actionTypes';
 
-export default (repositoryId) => (dispatch, getState) => {
-
+export default repositoryId => (dispatch, getState) => {
   const findById = R.find(R.propEq('id', repositoryId));
   const repository = findById(getState().repositories);
   const command = 'git status --porcelain -b';
-  const opts = {cwd: repository.dir};
+  const opts = { cwd: repository.dir };
 
   dispatch({
     type: GIT_PROGRESS,
@@ -41,16 +40,14 @@ export default (repositoryId) => (dispatch, getState) => {
 
 const parseStatus = (stdout, dir) => {
   const status = gitGetStatus.parse_status(stdout);
-  status.files = status.files.map(file => {
-    return {
-      file: file.substr(3).trim(),
-      path: path.resolve(dir, file.substr(3).trim()),
-      status: {
-        'D': 'deleted',
-        'M': 'modified',
-        '??': 'new'
-      }[file.substr(0, 3).trim()]
-    };
-  });
+  status.files = status.files.map(file => ({
+    file: file.substr(3).trim(),
+    path: path.resolve(dir, file.substr(3).trim()),
+    status: {
+      D: 'deleted',
+      M: 'modified',
+      '??': 'new',
+    }[file.substr(0, 3).trim()],
+  }));
   return status;
 };

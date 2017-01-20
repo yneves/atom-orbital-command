@@ -4,10 +4,7 @@ import {
   RESIZE_RIGHT_PANEL,
 } from '../constants/actionTypes';
 
-export default (width) => {
-
-  return {
-    type: RESIZE_RIGHT_PANEL,
-    width,
-  };
-};
+export default width => ({
+  type: RESIZE_RIGHT_PANEL,
+  width,
+});

@@ -13,7 +13,7 @@ export default (state = {}, action) => {
       return {};
     case GIT_STATUS:
       return R.merge(state, {
-        [action.repositoryId]: action.status
+        [action.repositoryId]: action.status,
       });
     case GIT_COMMIT:
       return R.omit([action.repositoryId], state);

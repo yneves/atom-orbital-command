@@ -11,7 +11,6 @@ import reducers from './reducers';
 import App from './components/App';
 
 export default (element, state) => {
-
   const enhancer = applyMiddleware(thunkMiddleware);
   const store = createStore(reducers, state, enhancer);
   const boundActions = bindActionCreators(actions, store.dispatch);

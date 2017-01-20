@@ -2,7 +2,7 @@
 
 import R from 'ramda';
 import {
-  TOGGLE_DIRECTORY
+  TOGGLE_DIRECTORY,
 } from '../constants/actionTypes';
 
 export default (dir) => {

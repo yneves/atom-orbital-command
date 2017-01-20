@@ -54,4 +54,4 @@ export default class Bookmarks extends Component {
       </section>
     );
   }
-};
+}

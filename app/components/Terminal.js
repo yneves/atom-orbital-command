@@ -19,7 +19,7 @@ export default class Terminal extends Component {
   componentWillReceiveProps(nextProps) {
     const ids = R.map(R.prop('id'), this.props.terminalTabs);
     const nextIds = R.map(R.prop('id'), nextProps.terminalTabs);
-    R.difference(ids, nextIds).forEach(id => {
+    R.difference(ids, nextIds).forEach((id) => {
       if (this._heading[id]) {
         ReactDOM.unmountComponentAtNode(this._heading[id]);
         delete this._heading[id];
@@ -50,4 +50,4 @@ export default class Terminal extends Component {
     this.props.terminalTabs.forEach(this.renderTerminalIcon, this);
     return null;
   }
-};
+}

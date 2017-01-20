@@ -19,7 +19,7 @@ export default (state = {}, action) => {
       const getData = R.omit(['type', 'command']);
       const command = R.merge(state[action.command.id], getData(action));
       return R.merge(state, {
-        [action.command.id]: command
+        [action.command.id]: command,
       });
     case LOAD_WORKSPACES:
       return {};

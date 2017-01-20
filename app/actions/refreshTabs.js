@@ -1,11 +1,9 @@
 'use babel';
 
 import {
-  REFRESH_TABS
+  REFRESH_TABS,
 } from '../constants/actionTypes';
 
-export default () => {
-  return {
-    type: REFRESH_TABS,
-  };
-};
+export default () => ({
+  type: REFRESH_TABS,
+});

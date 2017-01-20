@@ -96,7 +96,7 @@ export default class App extends Component {
     let commands = [];
     if (workspace && workspace.commands) {
       commands = commands.concat(workspace.commands);
-      this.props.selectedProjects.forEach(id => {
+      this.props.selectedProjects.forEach((id) => {
         const project = R.find(R.propEq('id', id), workspace.projects);
         if (project) {
           commands = commands.concat(project.commands);
@@ -214,7 +214,7 @@ export default class App extends Component {
         {this.renderWorkspaces()}
         {this.renderProjects()}
         {this.renderCommands()}
-        {/*this.renderBookmarks()*/}
+        {/* this.renderBookmarks()*/}
         {this.props.repositories.map(this.renderRepository, this)}
         {this.renderResizer()}
         {this.renderBrowser()}
@@ -222,4 +222,4 @@ export default class App extends Component {
       </div>
     );
   }
-};
+}

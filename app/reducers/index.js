@@ -1,12 +1,10 @@
 'use babel';
 
 import { combineReducers } from 'redux';
-
 import config from './config';
 import refreshTabs from './refreshTabs';
 import browserTabs from './browserTabs';
 import terminalTabs from './terminalTabs';
-export terminalActive from './terminalActive';
 import checkoutBranch from './checkoutBranch';
 import collapsedSections from './collapsedSections';
 import commitFiles from './commitFiles';

@@ -1,14 +1,11 @@
 'use babel';
 
 import {
-  TOGGLE_REPOSITORY_FILE
+  TOGGLE_REPOSITORY_FILE,
 } from '../constants/actionTypes';
 
-export default (id, file) => {
-
-  return {
-    type: TOGGLE_REPOSITORY_FILE,
-    id,
-    file
-  };
-};
+export default (id, file) => ({
+  type: TOGGLE_REPOSITORY_FILE,
+  id,
+  file,
+});

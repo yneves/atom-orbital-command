@@ -23,7 +23,7 @@ export default class RepositoryFile extends Component {
   }
 
   onToggle() {
-    const {repositoryId, file} = this.props;
+    const { repositoryId, file } = this.props;
     this.props.toggleCommitFile(repositoryId, file);
   }
 
@@ -32,7 +32,7 @@ export default class RepositoryFile extends Component {
   }
 
   onClickUndo() {
-    const {repositoryId, branch, file, path} = this.props;
+    const { repositoryId, branch, file, path } = this.props;
     if (this.props.status === 'new') {
       this.props.removeFile(path);
     } else {
@@ -53,4 +53,4 @@ export default class RepositoryFile extends Component {
       </li>
     );
   }
-};
+}

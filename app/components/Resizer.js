@@ -17,7 +17,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.props.element.style.width = this.props.rightPanelWidth + 'px';
+    this.props.element.style.width = `${this.props.rightPanelWidth}px`;
   }
 
   onMouseDown(event) {
@@ -27,10 +27,10 @@ export default class App extends Component {
   }
 
   onMouseMove(event) {
-    const {start} = this.state;
+    const { start } = this.state;
     const width = this.props.rightPanelWidth;
     if (start) {
-      this.props.element.style.width = (width + start - event.pageX) + 'px';
+      this.props.element.style.width = `${width + start - event.pageX}px`;
     }
   }
 
@@ -47,4 +47,4 @@ export default class App extends Component {
       <div className='orbital-command__resizer' onMouseDown={this.onMouseDown} />
     );
   }
-};
+}

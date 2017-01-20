@@ -58,12 +58,12 @@ export default class Command extends Component {
     const buttons = [];
     if (running) {
       buttons.push(
-        <Button key='pause' icon='pause' onClick={this.onClickKill} />
+        <Button key='pause' icon='pause' onClick={this.onClickKill} />,
       );
     }
     if (!running) {
       buttons.push(
-        <Button key='play' icon='play' onClick={this.onClickExecute} />
+        <Button key='play' icon='play' onClick={this.onClickExecute} />,
       );
     }
     if (running) {
@@ -76,7 +76,7 @@ export default class Command extends Component {
           key='progress'
           icon={icon}
           spin={icon === 'spinner'}
-          onClick={this.onClickProgress} />
+          onClick={this.onClickProgress} />,
       );
     }
     if (failed) {
@@ -85,7 +85,7 @@ export default class Command extends Component {
           key='failed'
           icon='exclamation-triangle'
           onClick={this.onClickFailed}
-          className='colored' />
+          className='colored' />,
       );
     }
     if (finished) {
@@ -94,7 +94,7 @@ export default class Command extends Component {
           key='finished'
           icon='check'
           onClick={this.onClickFinished}
-          className='colored' />
+          className='colored' />,
       );
     }
     return buttons;
@@ -108,7 +108,7 @@ export default class Command extends Component {
 
   render() {
     const className = cx({
-      running: !!this.props.runningCommand
+      running: !!this.props.runningCommand,
     });
     return (
       <li className={className}>
@@ -118,4 +118,4 @@ export default class Command extends Component {
       </li>
     );
   }
-};
+}

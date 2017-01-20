@@ -10,7 +10,7 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "scripts": {
-    "lint": "eslint --no-eslintrc -c .eslintrc .",
+    "lint": "eslint -c .eslintrc app",
     "lint:fix": "yarn run lint -- --fix"
   },
   "dependencies": {

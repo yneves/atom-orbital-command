@@ -1,13 +1,10 @@
 'use babel';
 
 import {
-  TERMINAL_CLOSED
+  TERMINAL_CLOSED,
 } from '../constants/actionTypes';
 
-export default (opts) => {
-
-  return {
-    type: TERMINAL_CLOSED,
-    ...opts,
-  };
-};
+export default opts => ({
+  type: TERMINAL_CLOSED,
+  ...opts,
+});

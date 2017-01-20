@@ -3,11 +3,10 @@
 import R from 'ramda';
 
 import {
-  EDIT_FILE
+  EDIT_FILE,
 } from '../constants/actionTypes';
 
-export default (id) => (dispatch, getState) => {
-
+export default id => (dispatch, getState) => {
   const {
     runningCommands,
     finishedCommands,
@@ -20,18 +19,14 @@ export default (id) => (dispatch, getState) => {
   const text = getText(running || failed || finished);
 
   const options = {
-    pending: true
+    pending: true,
   };
 
-  atom.workspace.open(null, options).then(editor => {
+  atom.workspace.open(null, options).then((editor) => {
     editor.setText(text);
   });
 };
 
-const getText = (data) => {
-  return R.join('\n\n', R.toPairs(data).map(item => {
-    return item[0].toUpperCase() + ':\n' +
-      '------------------------\n' +
-      item[1];
-  }));
-};
+const getText = data => R.join('\n\n', R.toPairs(data).map(item => `${item[0].toUpperCase()}:\n` +
+      `------------------------\n${
+      item[1]}`));

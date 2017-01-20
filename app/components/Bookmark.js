@@ -34,4 +34,4 @@ export default class Bookmark extends Component {
       </li>
     );
   }
-};
+}

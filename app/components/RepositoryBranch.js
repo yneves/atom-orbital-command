@@ -8,7 +8,7 @@ export default class RepositoryBranch extends Component {
   static propTypes = {
     branch: PropTypes.string.isRequired,
     gitCheckout: PropTypes.func.isRequired,
-    repositoryId: PropTypes.string.isRequired
+    repositoryId: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -28,4 +28,4 @@ export default class RepositoryBranch extends Component {
     );
   }
 
-};
+}

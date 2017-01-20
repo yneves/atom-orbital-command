@@ -11,7 +11,7 @@ export default class Button extends Component {
     spin: PropTypes.bool,
     active: PropTypes.bool,
     className: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
   };
 
   constructor(props) {
@@ -29,15 +29,15 @@ export default class Button extends Component {
   render() {
     return (
       <button onClick={this.onClick} className={cx({
-          active: this.props.active,
-          [this.props.className]: !!this.props.className
-        })}>
+        active: this.props.active,
+        [this.props.className]: !!this.props.className,
+      })}>
         <span className={cx({
-            fa: true,
-            ['fa-spin']: !!this.props.spin,
-            ['fa-' + this.props.icon]: !!this.props.icon,
-          })} />
+          fa: true,
+          'fa-spin': !!this.props.spin,
+          [`fa-${this.props.icon}`]: !!this.props.icon,
+        })} />
       </button>
     );
   }
-};
+}

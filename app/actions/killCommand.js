@@ -4,11 +4,10 @@ import psTree from 'ps-tree';
 import R from 'ramda';
 import cp from 'child_process';
 import {
-  KILL_COMMAND
+  KILL_COMMAND,
 } from '../constants/actionTypes';
 
-export default (id) => (dispatch, getState) => {
-
+export default id => (dispatch, getState) => {
   const running = getState().runningCommands[id];
   if (running && running.pid) {
     psTree(running.pid, (error, children) => {
@@ -17,7 +16,7 @@ export default (id) => (dispatch, getState) => {
       } else {
         const pids = children.map(p => p.PID);
         const killCommand = R.join(' ', R.concat(
-          [running.command.kill || 'kill -9'], pids, [running.pid]
+          [running.command.kill || 'kill -9'], pids, [running.pid],
         ));
         cp.exec(killCommand, {}, (error, stdout, stderr) => {
           if (error || stderr) {
@@ -30,6 +29,6 @@ export default (id) => (dispatch, getState) => {
 
   return {
     type: KILL_COMMAND,
-    command: {id},
+    command: { id },
   };
 };

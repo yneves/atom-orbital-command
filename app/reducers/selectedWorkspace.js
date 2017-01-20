@@ -1,7 +1,7 @@
 'use babel';
 
 import {
-  SELECT_WORKSPACE
+  SELECT_WORKSPACE,
 } from '../constants/actionTypes';
 
 export default (state = null, action) => {

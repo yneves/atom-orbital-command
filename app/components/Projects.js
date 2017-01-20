@@ -68,4 +68,4 @@ export default class Projects extends Component {
       </section>
     );
   }
-};
+}

@@ -12,8 +12,7 @@ import {
 } from '../constants/actionTypes';
 
 export default (repositoryId, branch, file) => (dispatch, getState) => {
-
-  const {repositories, repositoryBranch} = getState();
+  const { repositories, repositoryBranch } = getState();
   const branches = repositoryBranch[repositoryId];
   const repository = R.find(R.propEq('id', repositoryId), repositories);
   const branchExists = R.contains(branch, branches);
@@ -22,7 +21,7 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
     showNotification({
       message: 'Cannot checkout file from nonexistent branch',
       type: 'error',
-      detail: file
+      detail: file,
     });
     return;
   }
@@ -43,7 +42,7 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
   }
 
   const command = `git checkout ${create} ${branch} ${file || ''}`;
-  const opts = {cwd: repository.dir};
+  const opts = { cwd: repository.dir };
 
   dispatch({
     type: GIT_PROGRESS,
@@ -56,14 +55,14 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
       message: error ? 'Checkout failed' :
         create ? 'Branch created' : 'Branch changed',
       type: error ? 'error' : 'success',
-      detail: error ? error.message || stderr : stdout
+      detail: error ? error.message || stderr : stdout,
     });
     if (!error) {
       dispatch({
         type: GIT_CHECKOUT,
         repositoryId,
         branch,
-        file
+        file,
       });
       if (create) {
         gitPush(repositoryId, branch)(dispatch, getState);
@@ -72,5 +71,4 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
       }
     }
   });
-
 };

@@ -1,7 +1,7 @@
 'use babel';
 
 import {
-  RESIZE_RIGHT_PANEL
+  RESIZE_RIGHT_PANEL,
 } from '../constants/actionTypes';
 
 export default (state = 300, action) => {

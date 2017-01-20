@@ -12,7 +12,7 @@ export default (state = {}, action) => {
       return {};
     case GIT_BRANCH:
       return R.merge(state, {
-        [action.repositoryId]: action.branches
+        [action.repositoryId]: action.branches,
       });
     default:
       return state;

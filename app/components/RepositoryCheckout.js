@@ -7,7 +7,7 @@ import {
   KEY_ESC,
   KEY_ENTER,
   KEY_ARROW_UP,
-  KEY_ARROW_DOWN
+  KEY_ARROW_DOWN,
 } from '../constants/keyCodes';
 
 
@@ -25,7 +25,7 @@ export default class RepositoryCheckout extends Component {
   };
 
   state = {
-    focused: false
+    focused: false,
   };
 
   constructor(props) {
@@ -38,8 +38,8 @@ export default class RepositoryCheckout extends Component {
   }
 
   onKeyDown(event) {
-    const {checkoutBranch, repositoryId, repositoryBranch} = this.props;
-    const {index} = this.state;
+    const { checkoutBranch, repositoryId, repositoryBranch } = this.props;
+    const { index } = this.state;
     switch (event.which) {
       case KEY_ENTER:
         if (/\w/.test(checkoutBranch)) {
@@ -60,27 +60,27 @@ export default class RepositoryCheckout extends Component {
   }
 
   onFocus() {
-    const {currentBranch, checkoutBranch, repositoryBranch} = this.props;
+    const { currentBranch, checkoutBranch, repositoryBranch } = this.props;
     this.setState({
-      focused: true
+      focused: true,
     });
   }
 
   onBlur() {
     this.setState({
-      focused: false
+      focused: false,
     });
   }
 
   onMouseEnter() {
     this.setState({
-      hovering: true
+      hovering: true,
     });
   }
 
   onMouseLeave() {
     this.setState({
-      hovering: false
+      hovering: false,
     });
   }
 
@@ -100,12 +100,12 @@ export default class RepositoryCheckout extends Component {
   }
 
   getListId() {
-    return  'branches' + this.props.repositoryId.replace(/[^\w]/g,'');
+    return `branches${this.props.repositoryId.replace(/[^\w]/g, '')}`;
   }
 
   getListStyle() {
     return {
-      display: this.shouldDisplayOptions() ? 'block': 'none'
+      display: this.shouldDisplayOptions() ? 'block' : 'none',
     };
   }
 
@@ -125,7 +125,7 @@ export default class RepositoryCheckout extends Component {
       <ul id={this.getListId()} style={this.getListStyle()}>
         {this.props.repositoryBranch.map(this.renderBranch)}
       </ul>
-    )
+    );
   }
 
   renderBranch(branch, index) {
@@ -161,4 +161,4 @@ export default class RepositoryCheckout extends Component {
       </div>
     );
   }
-};
+}

@@ -11,7 +11,7 @@ export default (state = {}, action) => {
   switch (action.type) {
     case SET_BROWSER_ICON:
       return R.merge(state, {
-        [action.id]: action.icon
+        [action.id]: action.icon,
       });
     // case BROWSER_OPENED:
     //   return uniq(R.append(R.omit(['type'], action), state));

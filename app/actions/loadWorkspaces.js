@@ -7,12 +7,11 @@ import path from 'path';
 import glob from 'glob';
 
 import {
-  LOAD_WORKSPACES
+  LOAD_WORKSPACES,
 } from '../constants/actionTypes';
 
 export default () => (dispatch, getState) => {
-
-  const {config: {workspacesGlobPattern}} = getState();
+  const { config: { workspacesGlobPattern } } = getState();
   if (!workspacesGlobPattern) {
     return;
   }
@@ -68,7 +67,7 @@ const loadCommand = (dir, data) => (command) => {
   if (R.is(String, command)) {
     command = {
       command,
-      label: command
+      label: command,
     };
   }
   if (!command.command && R.is(String, command.source)) {
@@ -80,7 +79,7 @@ const loadCommand = (dir, data) => (command) => {
   return R.merge(command, {
     id: uid(),
     dir,
-    env: R.merge(data.env || {}, command.env || {})
+    env: R.merge(data.env || {}, command.env || {}),
   });
 };
 
@@ -88,7 +87,7 @@ const loadBookmark = (dir, data) => (url) => {
   if (R.is(String, url)) {
     url = {
       url,
-      label: url
+      label: url,
     };
   }
   return R.merge(url, {
@@ -97,7 +96,6 @@ const loadBookmark = (dir, data) => (url) => {
 };
 
 const loadWorkspace = (file) => {
-
   const data = tryRequire(require.resolve(file));
   const dir = path.dirname(file);
 
@@ -118,6 +116,6 @@ const loadWorkspace = (file) => {
     file,
     projects,
     commands,
-    bookmarks
+    bookmarks,
   });
 };

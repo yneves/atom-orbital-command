@@ -9,16 +9,15 @@ import {
   GIT_PROGRESS,
 } from '../constants/actionTypes';
 
-export default (repositoryId) => (dispatch, getState) => {
-
-  const {repositories, repositoryStatus} = getState();
+export default repositoryId => (dispatch, getState) => {
+  const { repositories, repositoryStatus } = getState();
   const status = repositoryStatus[repositoryId];
   const local = status.local_branch;
   const remote = status.remote_branch;
   const branch = remote || `origin/${local}`;
   const repository = R.find(R.propEq('id', repositoryId), repositories);
   const command = `git log ${branch}...HEAD`;
-  const opts = {cwd: repository.dir};
+  const opts = { cwd: repository.dir };
 
   dispatch({
     type: GIT_PROGRESS,
@@ -43,6 +42,6 @@ const parseLog = (stdout) => {
   const commits = stdout.split(/\n/)
     .filter(line => line.indexOf('commit') === 0)
     .map(line => line.trim().substr(7))
-    .map(commit => ({commit}));
+    .map(commit => ({ commit }));
   return commits;
 };

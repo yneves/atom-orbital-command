@@ -1,13 +1,10 @@
 'use babel';
 
 import {
-  TOGGLE_PROJECT
+  TOGGLE_PROJECT,
 } from '../constants/actionTypes';
 
-export default (id) => {
-
-  return {
-    type: TOGGLE_PROJECT,
-    id,
-  };
-};
+export default id => ({
+  type: TOGGLE_PROJECT,
+  id,
+});

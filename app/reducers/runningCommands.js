@@ -22,15 +22,16 @@ export default (state = {}, action) => {
       return R.omit([action.command.id], state);
     case EXECUTE_COMMAND:
       return R.merge(state, {
-        [action.command.id]: getData(action)
+        [action.command.id]: getData(action),
       });
     case EXECUTE_COMMAND_PROGRESS:
       if (state[action.command.id]) {
         const command = R.merge(state[action.command.id], getData(action));
         return R.merge(state, {
-          [action.command.id]: command
+          [action.command.id]: command,
         });
       }
+      return state;
     default:
       return state;
   }

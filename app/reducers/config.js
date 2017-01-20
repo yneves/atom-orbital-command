@@ -1,5 +1,3 @@
 'use babel';
 
-export default (state = {}) => {
-  return state;
-};
+export default (state = {}) => state;

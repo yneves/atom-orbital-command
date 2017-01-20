@@ -12,4 +12,4 @@ export default class TerminalIcon extends Component {
       <span className='fa fa-terminal' />
     );
   }
-};
+}

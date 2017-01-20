@@ -1,14 +1,11 @@
 'use babel';
 
 import {
-  SET_CHECKOUT_BRANCH
+  SET_CHECKOUT_BRANCH,
 } from '../constants/actionTypes';
 
-export default (repositoryId, branch) => {
-
-  return {
-    type: SET_CHECKOUT_BRANCH,
-    repositoryId,
-    branch,
-  };
-};
+export default (repositoryId, branch) => ({
+  type: SET_CHECKOUT_BRANCH,
+  repositoryId,
+  branch,
+});

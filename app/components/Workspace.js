@@ -60,4 +60,4 @@ export default class Workspace extends Component {
       </li>
     );
   }
-};
+}

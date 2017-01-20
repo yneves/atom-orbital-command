@@ -1,13 +1,10 @@
 'use babel';
 
 import {
-  TERMINAL_ACTIVE
+  TERMINAL_ACTIVE,
 } from '../constants/actionTypes';
 
-export default (active) => {
-
-  return {
-    type: TERMINAL_ACTIVE,
-    active,
-  };
-};
+export default active => ({
+  type: TERMINAL_ACTIVE,
+  active,
+});

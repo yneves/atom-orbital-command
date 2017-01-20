@@ -20,7 +20,7 @@ export default (state = {}, action) => {
       return R.omit([action.repositoryId], state);
     case GIT_PROGRESS:
       return R.merge(state, {
-        [action.repositoryId]: action.command
+        [action.repositoryId]: action.command,
       });
     default:
       return state;

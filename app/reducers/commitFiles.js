@@ -4,7 +4,7 @@ import R from 'ramda';
 import {
   GIT_COMMIT,
   GIT_STATUS,
-  TOGGLE_COMMIT_FILE
+  TOGGLE_COMMIT_FILE,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -14,19 +14,19 @@ export default (state = {}, action) => {
     case GIT_STATUS:
       const files = R.map(R.prop('file'), action.status.files);
       const newState = {};
-      files.forEach(file => {
+      files.forEach((file) => {
         newState[file] = state[action.repositoryId] &&
           state[action.repositoryId].hasOwnProperty(file) ?
           state[action.repositoryId][file] : true;
       });
       return R.merge(state, {
-        [action.repositoryId]: newState
+        [action.repositoryId]: newState,
       });
     case TOGGLE_COMMIT_FILE:
       return R.merge(state, {
         [action.repositoryId]: R.merge(state[action.repositoryId], {
-          [action.file]: !state[action.repositoryId][action.file]
-        })
+          [action.file]: !state[action.repositoryId][action.file],
+        }),
       });
     default:
       return state;

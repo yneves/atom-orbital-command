@@ -3,10 +3,10 @@
 import fs from 'fs';
 import fileSaved from './fileSaved';
 import {
-  REMOVE_FILE
+  REMOVE_FILE,
 } from '../constants/actionTypes';
 
-export default (file) => (dispatch, getState) => {
+export default file => (dispatch, getState) => {
   fs.unlink(file, (error) => {
     if (error) {
       console.error(error);

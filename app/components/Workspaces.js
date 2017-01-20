@@ -75,4 +75,4 @@ export default class Workspaces extends Component {
       </section>
     );
   }
-};
+}

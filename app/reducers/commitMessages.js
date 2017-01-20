@@ -4,7 +4,7 @@ import R from 'ramda';
 import {
   GIT_COMMIT,
   GIT_CHECKOUT,
-  SET_COMMIT_MESSAGE
+  SET_COMMIT_MESSAGE,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -13,7 +13,7 @@ export default (state = {}, action) => {
       return R.omit([action.repositoryId], state);
     case SET_COMMIT_MESSAGE:
       return R.merge(state, {
-        [action.repositoryId]: action.message
+        [action.repositoryId]: action.message,
       });
     case GIT_CHECKOUT:
       return {};

@@ -10,18 +10,17 @@ import {
   GIT_PROGRESS,
 } from '../constants/actionTypes';
 
-export default (repositoryId) => (dispatch, getState) => {
-
-  const {repositories, repositoryStatus} = getState();
+export default repositoryId => (dispatch, getState) => {
+  const { repositories, repositoryStatus } = getState();
   const status = repositoryStatus[repositoryId];
   const branch = status.local_branch;
   const repository = R.find(R.propEq('id', repositoryId), repositories);
 
-  const gitCommand = 'git pull origin ' + branch;
+  const gitCommand = `git pull origin ${branch}`;
 
   const command = R.join(' && ', R.reject(R.isEmpty, [
-    'cd ' + repository.dir,
-    gitCommand
+    `cd ${repository.dir}`,
+    gitCommand,
   ]));
 
   dispatch({
@@ -34,16 +33,15 @@ export default (repositoryId) => (dispatch, getState) => {
     showNotification({
       message: error ? 'Pull failed' : 'Pulled successfuly',
       type: error ? 'error' : 'success',
-      detail: error ? error.message || stderr : stdout
+      detail: error ? error.message || stderr : stdout,
     });
     if (!error) {
       dispatch({
         type: GIT_PULL,
         repositoryId,
-        branch
+        branch,
       });
       gitStatus(repositoryId)(dispatch, getState);
     }
   });
-
 };

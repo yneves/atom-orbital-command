@@ -23,7 +23,7 @@ export default class Browser extends Component {
   componentWillReceiveProps(nextProps) {
     const ids = R.map(R.prop('id'), this.props.browserTabs);
     const nextIds = R.map(R.prop('id'), nextProps.browserTabs);
-    R.difference(ids, nextIds).forEach(id => {
+    R.difference(ids, nextIds).forEach((id) => {
       if (this._heading[id]) {
         ReactDOM.unmountComponentAtNode(this._heading[id]);
         delete this._heading[id];
@@ -80,4 +80,4 @@ export default class Browser extends Component {
     this.props.browserTabs.forEach(this.renderBrowserIcon, this);
     return null;
   }
-};
+}

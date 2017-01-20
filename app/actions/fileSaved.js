@@ -3,11 +3,11 @@
 import R from 'ramda';
 import gitStatus from './gitStatus';
 
-export default (file) => (dispatch, getState) => {
+export default file => (dispatch, getState) => {
   if (!R.is(String, file)) {
     file = file.path;
   }
-  const {repositories} = getState();
+  const { repositories } = getState();
   R.keys(repositories).forEach((repositoryId) => {
     const repository = repositories[repositoryId];
     if (file.startsWith(repository.dir)) {

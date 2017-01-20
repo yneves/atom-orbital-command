@@ -1,6 +1,7 @@
 {
-  "extends": "google",
+  "parser": "babel-eslint",
+  "extends": ["airbnb-base", "plugin:react/recommended"],
   "plugins": [
-      "react"
+    "react"
   ]
 }

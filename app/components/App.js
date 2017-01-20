@@ -36,12 +36,16 @@ export default class App extends Component {
     gitCommit: PropTypes.func.isRequired,
     gitStatus: PropTypes.func.isRequired,
     gitPull: PropTypes.func.isRequired,
+    gitPush: PropTypes.func.isRequired,
+    gitLog: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
+    clipboardCopy: PropTypes.func.isRequired,
     loadWorkspaces: PropTypes.func.isRequired,
     openTerminal: PropTypes.func.isRequired,
     openTerminal: PropTypes.func.isRequired,
     repositories: PropTypes.array.isRequired,
     repositoryStatus: PropTypes.object.isRequired,
+    repositoryLog: PropTypes.object.isRequired,
     resizeRightPanel: PropTypes.func.isRequired,
     rightPanelWidth: PropTypes.number.isRequired,
     runningGit: PropTypes.object.isRequired,
@@ -130,6 +134,8 @@ export default class App extends Component {
         gitBranch={this.props.gitBranch}
         gitCheckout={this.props.gitCheckout}
         gitPull={this.props.gitPull}
+        gitLog={this.props.gitLog}
+        gitPush={this.props.gitPush}
         removeFile={this.props.removeFile}
         toggleSection={this.props.toggleSection}
         toggleCommitFile={this.props.toggleCommitFile}
@@ -141,7 +147,9 @@ export default class App extends Component {
         checkoutBranch={this.props.checkoutBranch[repository.id] || ''}
         commitFiles={this.props.commitFiles[repository.id] || []}
         repositoryBranch={this.props.repositoryBranch[repository.id] || []}
+        repositoryLog={this.props.repositoryLog[repository.id] || []}
         toggleRepository={this.props.toggleRepository}
+        clipboardCopy={this.props.clipboardCopy}
         {...repository}
       />
     );

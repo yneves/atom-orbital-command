@@ -237,4 +237,13 @@
       }
     }
   }
+
+  .clipboard-copy {
+    cursor: -webkit-grab;
+    transition: all 300ms;
+
+    &.clipboard-copied {
+      color: @text-color-highlight;
+    }
+  }
 }

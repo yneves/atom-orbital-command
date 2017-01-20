@@ -44,7 +44,7 @@ export default (repositoryId, message) => (dispatch, getState) => {
     rmFiles.length ? 'git rm ' + rmFiles.join(' ') : '',
     addFiles.length ? 'git add ' + addFiles.join(' ') : '',
     'git commit -m "' + message + '"',
-    'git push ' + branch
+    // `git push ${branch}`
   ]));
 
   dispatch({
@@ -55,7 +55,7 @@ export default (repositoryId, message) => (dispatch, getState) => {
 
   cp.exec(command, {}, (error, stdout, stderr) => {
     showNotification({
-      message: error ? 'Commit failed' : 'Commit pushed',
+      message: error ? 'Commit failed' : 'Commit done',
       type: error ? 'error' : 'success',
       detail: error ? error.message || stderr : stdout
     });

@@ -6,10 +6,14 @@ import {
   GIT_COMMIT,
   GIT_STATUS,
   GIT_CHECKOUT,
+  GIT_LOG,
+  GIT_PUSH,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {
+    case GIT_LOG:
+    case GIT_PUSH:
     case GIT_STATUS:
     case GIT_COMMIT:
     case GIT_CHECKOUT:

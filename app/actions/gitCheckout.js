@@ -3,6 +3,7 @@
 import R from 'ramda';
 import cp from 'child_process';
 import { remote } from 'electron';
+import gitPush from './gitPush';
 import gitStatus from './gitStatus';
 import showNotification from './showNotification';
 import {
@@ -41,19 +42,16 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
     }
   }
 
-  const gitCommand = `git checkout ${create} ${branch} ${file || ''}`;
-  const command = R.join(' && ', R.reject(R.isEmpty, [
-    'cd ' + repository.dir,
-    gitCommand
-  ]));
+  const command = `git checkout ${create} ${branch} ${file || ''}`;
+  const opts = {cwd: repository.dir};
 
   dispatch({
     type: GIT_PROGRESS,
     repositoryId,
-    command: gitCommand,
+    command,
   });
 
-  cp.exec(command, {}, (error, stdout, stderr) => {
+  cp.exec(command, opts, (error, stdout, stderr) => {
     showNotification({
       message: error ? 'Checkout failed' :
         create ? 'Branch created' : 'Branch changed',
@@ -67,7 +65,11 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
         branch,
         file
       });
-      gitStatus(repositoryId)(dispatch, getState);
+      if (create) {
+        gitPush(repositoryId, branch)(dispatch, getState);
+      } else {
+        gitStatus(repositoryId)(dispatch, getState);
+      }
     }
   });
 

@@ -2,7 +2,6 @@
 
 import R from 'ramda';
 import cp from 'child_process';
-import path from 'path';
 import gitStatus from './gitStatus';
 import showNotification from './showNotification';
 
@@ -12,8 +11,7 @@ import {
 } from '../constants/actionTypes';
 
 export default (repositoryId, branch, commit) => (dispatch, getState) => {
-
-  const {repositories, repositoryStatus} = getState();
+  const { repositories, repositoryStatus } = getState();
   const repository = R.find(R.propEq('id', repositoryId), repositories);
   const status = repositoryStatus[repositoryId];
 
@@ -23,7 +21,7 @@ export default (repositoryId, branch, commit) => (dispatch, getState) => {
 
   const push = commit ? `${commit}:${branch}` : branch;
   const command = `git push origin ${push}`;
-  const opts = {cwd: repository.dir};
+  const opts = { cwd: repository.dir };
 
   dispatch({
     type: GIT_PROGRESS,
@@ -35,7 +33,7 @@ export default (repositoryId, branch, commit) => (dispatch, getState) => {
     showNotification({
       message: error ? `Failed to push ${branch}` : `Pushed ${branch}`,
       type: error ? 'error' : 'success',
-      detail: error ? error.message || stderr : stdout
+      detail: error ? error.message || stderr : stdout,
     });
     if (error) {
       console.error(error, stderr);
@@ -43,7 +41,7 @@ export default (repositoryId, branch, commit) => (dispatch, getState) => {
       dispatch({
         type: GIT_PUSH,
         repositoryId,
-        branch
+        branch,
       });
       gitStatus(repositoryId)(dispatch, getState);
     }

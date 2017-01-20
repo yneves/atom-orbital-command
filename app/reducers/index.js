@@ -16,6 +16,7 @@ import finishedCommands from './finishedCommands';
 import repositories from './repositories';
 import repositoryBranch from './repositoryBranch';
 import repositoryStatus from './repositoryStatus';
+import repositoryLog from './repositoryLog';
 import rightPanelWidth from './rightPanelWidth';
 import runningCommands from './runningCommands';
 import runningGit from './runningGit';
@@ -42,6 +43,7 @@ export default combineReducers({
   repositories,
   repositoryBranch,
   repositoryStatus,
+  repositoryLog,
   rightPanelWidth,
   runningCommands,
   runningGit,

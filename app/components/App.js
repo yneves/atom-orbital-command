@@ -1,7 +1,6 @@
 'use babel';
 
 import React, { PropTypes, Component } from 'react';
-import ReactDOM from 'react-dom';
 import R from 'ramda';
 import Workspaces from './Workspaces';
 import Projects from './Projects';
@@ -42,7 +41,6 @@ export default class App extends Component {
     clipboardCopy: PropTypes.func.isRequired,
     loadWorkspaces: PropTypes.func.isRequired,
     openTerminal: PropTypes.func.isRequired,
-    openTerminal: PropTypes.func.isRequired,
     repositories: PropTypes.array.isRequired,
     repositoryStatus: PropTypes.object.isRequired,
     repositoryLog: PropTypes.object.isRequired,
@@ -67,9 +65,6 @@ export default class App extends Component {
     terminalActive: PropTypes.bool.isRequired,
   };
 
-  componentDidMount() {
-  }
-
   getSelectedWorkspace() {
     return this.props.workspaces
       .filter(w => w.id === this.props.selectedWorkspace)
@@ -78,17 +73,15 @@ export default class App extends Component {
 
   renderProjects() {
     const workspace = this.getSelectedWorkspace();
-    if (workspace && workspace.projects.length) {
-      return (
-        <Projects
-          {...this.props}
-          projects={workspace.projects}
-          workspace={workspace}
-          section='projects'
-          collapsed={this.props.collapsedSections.includes('projects')}
-        />
-      );
-    }
+    return Boolean(workspace && workspace.projects.length) && (
+      <Projects
+        {...this.props}
+        projects={workspace.projects}
+        workspace={workspace}
+        section='projects'
+        collapsed={this.props.collapsedSections.includes('projects')}
+      />
+    );
   }
 
   getCommands() {
@@ -109,17 +102,15 @@ export default class App extends Component {
   renderCommands() {
     const workspace = this.getSelectedWorkspace();
     const commands = this.getCommands();
-    if (workspace && commands.length) {
-      return (
-        <Commands
-          {...this.props}
-          commands={commands}
-          workspace={workspace}
-          section='commands'
-          collapsed={this.props.collapsedSections.includes('commands')}
-        />
-      );
-    }
+    return Boolean(workspace && commands.length) && (
+      <Commands
+        {...this.props}
+        commands={commands}
+        workspace={workspace}
+        section='commands'
+        collapsed={this.props.collapsedSections.includes('commands')}
+      />
+    );
   }
 
   renderRepository(repository, index) {

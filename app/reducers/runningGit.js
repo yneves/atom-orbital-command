@@ -2,25 +2,21 @@
 
 import R from 'ramda';
 import {
+  GIT_DONE,
   GIT_PROGRESS,
-  GIT_COMMIT,
-  GIT_STATUS,
-  GIT_CHECKOUT,
-  GIT_LOG,
-  GIT_PUSH,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
+  const list = state[action.repositoryId] || [];
   switch (action.type) {
-    case GIT_LOG:
-    case GIT_PUSH:
-    case GIT_STATUS:
-    case GIT_COMMIT:
-    case GIT_CHECKOUT:
-      return R.omit([action.repositoryId], state);
-    case GIT_PROGRESS:
+    case GIT_DONE:
       return R.merge(state, {
-        [action.repositoryId]: action.command,
+        [action.repositoryId]: R.without([action.command], list),
+      });
+    case GIT_PROGRESS:
+      list.push(action.command);
+      return R.merge(state, {
+        [action.repositoryId]: list,
       });
     default:
       return state;

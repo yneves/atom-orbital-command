@@ -12,6 +12,7 @@ export default class Repository extends Component {
 
   static propTypes = {
     checkoutBranch: PropTypes.string.isRequired,
+    clipboardCopy: PropTypes.func.isRequired,
     collapsed: PropTypes.bool.isRequired,
     commitFiles: PropTypes.object.isRequired,
     commitMessage: PropTypes.string.isRequired,
@@ -30,13 +31,13 @@ export default class Repository extends Component {
     repositoryBranch: PropTypes.array.isRequired,
     repositoryLog: PropTypes.array.isRequired,
     repositoryStatus: PropTypes.object.isRequired,
-    runningGit: PropTypes.string,
+    runningGit: PropTypes.array,
     section: PropTypes.string.isRequired,
     setCheckoutBranch: PropTypes.func.isRequired,
     setCommitMessage: PropTypes.func.isRequired,
     toggleCommitFile: PropTypes.func.isRequired,
     toggleRepository: PropTypes.func.isRequired,
-    clipboardCopy: PropTypes.func.isRequired,
+    toggleSection: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -139,12 +140,14 @@ export default class Repository extends Component {
   }
 
   renderProgress() {
-    return this.props.runningGit && (
+    return Boolean(this.props.runningGit && this.props.runningGit.length) && (
       <ul>
-        <li>
-          <span>{this.props.runningGit}</span>
-          <Button icon='spinner' spin />
-        </li>
+        {this.props.runningGit.map((command, index) => (
+          <li key={index}>
+            <span>{command}</span>
+            <Button icon='spinner' spin />
+          </li>
+        ))}
       </ul>
     );
   }

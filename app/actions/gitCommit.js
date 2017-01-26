@@ -1,32 +1,16 @@
 'use babel';
 
 import R from 'ramda';
-import cp from 'child_process';
-import showNotification from './showNotification';
+import gitCommand from './gitCommand';
 import gitStatus from './gitStatus';
-import {
-  GIT_COMMIT,
-  GIT_PROGRESS,
-} from '../constants/actionTypes';
+import { GIT_COMMIT } from '../constants/actionTypes';
 
-export default (repositoryId, message) => (dispatch, getState) => {
-  const {
-    repositories,
-    repositoryStatus,
-    commitMessages,
-    commitFiles,
-  } = getState();
-
-  const repository = R.find(R.propEq('id', repositoryId), repositories);
-
-  const files = R.keys(commitFiles[repositoryId])
-    .filter(file => !!commitFiles[repositoryId][file]);
+export default repositoryId => (dispatch, getState) => {
+  const { repositoryStatus, commitMessages, commitFiles } = getState();
   const message = commitMessages[repositoryId];
   const status = repositoryStatus[repositoryId];
-
-  const branch = status.remote_branch ?
-    status.remote_branch.replace(/\//, ' ')
-    : `origin ${status.local_branch}`;
+  const files = R.keys(commitFiles[repositoryId])
+    .filter(file => !!commitFiles[repositoryId][file]);
 
   const rmFiles = files.filter((file) => {
     const entry = R.find(R.propEq('file', file), status.files);
@@ -39,31 +23,16 @@ export default (repositoryId, message) => (dispatch, getState) => {
   });
 
   const command = R.join(' && ', R.reject(R.isEmpty, [
-    `cd ${repository.dir}`,
     rmFiles.length ? `git rm ${rmFiles.join(' ')}` : '',
     addFiles.length ? `git add ${addFiles.join(' ')}` : '',
     `git commit -m "${message}"`,
-    // `git push ${branch}`
   ]));
 
-  dispatch({
-    type: GIT_PROGRESS,
-    repositoryId,
-    command,
-  });
-
-  cp.exec(command, {}, (error, stdout, stderr) => {
-    showNotification({
-      message: error ? 'Commit failed' : 'Commit done',
-      type: error ? 'error' : 'success',
-      detail: error ? error.message || stderr : stdout,
+  gitCommand(repositoryId, command, () => {
+    dispatch({
+      type: GIT_COMMIT,
+      repositoryId,
     });
-    if (!error) {
-      dispatch({
-        type: GIT_COMMIT,
-        repositoryId,
-      });
-      gitStatus(repositoryId)(dispatch, getState);
-    }
-  });
+    gitStatus(repositoryId)(dispatch, getState);
+  })(dispatch, getState);
 };

@@ -14,6 +14,7 @@ export const GIT_COMMIT = 'GIT_COMMIT';
 export const GIT_LOG = 'GIT_LOG';
 export const GIT_PROGRESS = 'GIT_PROGRESS';
 export const GIT_PULL = 'GIT_PULL';
+export const GIT_DONE = 'GIT_DONE';
 export const GIT_PUSH = 'GIT_PUSH';
 export const GIT_STATUS = 'GIT_STATUS';
 export const KILL_COMMAND = 'KILL_COMMAND';

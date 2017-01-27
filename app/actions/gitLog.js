@@ -20,7 +20,7 @@ export default repositoryId => (dispatch, getState) => {
   const branch = remote || `origin/${local}`;
   const command = `git log ${branch}...HEAD`;
 
-  gitCommand(repositoryId, command, (stdout) => {
+  gitCommand(repositoryId, command, false, (stdout) => {
     dispatch({
       type: GIT_LOG,
       repositoryId,

@@ -12,7 +12,7 @@ export default (repositoryId, branch, commit) => (dispatch, getState) => {
   const push = commit ? `${commit}:${pushBranch}` : pushBranch;
   const command = `git push origin ${push}`;
 
-  gitCommand(repositoryId, command, () => {
+  gitCommand(repositoryId, command, true, () => {
     dispatch({
       type: GIT_PUSH,
       repositoryId,

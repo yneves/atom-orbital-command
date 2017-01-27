@@ -3,7 +3,6 @@
 import React, { PropTypes, Component } from 'react';
 import autoBind from 'class-autobind';
 import cx from 'classnames';
-import R from 'ramda';
 import Button from './Button';
 
 export default class Command extends Component {

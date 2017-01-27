@@ -39,7 +39,7 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
 
   const command = `git checkout ${create} ${branch} ${file || ''}`;
 
-  gitCommand(repositoryId, command, () => {
+  gitCommand(repositoryId, command, true, () => {
     dispatch({
       type: GIT_CHECKOUT,
       repositoryId,

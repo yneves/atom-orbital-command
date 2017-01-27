@@ -1,7 +1,7 @@
 'use babel';
 
 import R from 'ramda';
-import cp from 'child_process';
+import gitCommand from './gitCommand';
 import { GIT_BRANCH } from '../constants/actionTypes';
 
 const parseBranches = (stdout) => {
@@ -11,22 +11,12 @@ const parseBranches = (stdout) => {
 };
 
 export default repositoryId => (dispatch, getState) => {
-  const { repositories } = getState();
-  const repository = R.find(R.propEq('id', repositoryId), repositories);
-
-  const command = R.join(' && ', [
-    `cd ${repository.dir}`,
-    'git branch --list',
-  ]);
-
-  cp.exec(command, {}, (error, stdout) => {
-    if (!error) {
-      const branches = parseBranches(stdout);
-      dispatch({
-        type: GIT_BRANCH,
-        repositoryId,
-        branches,
-      });
-    }
-  });
+  const command = 'git branch --list';
+  gitCommand(repositoryId, command, false, (stdout) => {
+    dispatch({
+      type: GIT_BRANCH,
+      repositoryId,
+      branches: parseBranches(stdout),
+    });
+  })(dispatch, getState);
 };

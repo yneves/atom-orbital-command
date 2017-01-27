@@ -10,7 +10,7 @@ export default repositoryId => (dispatch, getState) => {
   const branch = status.local_branch;
   const command = `git pull origin ${branch}`;
 
-  gitCommand(repositoryId, command, () => {
+  gitCommand(repositoryId, command, true, () => {
     dispatch({
       type: GIT_PULL,
       repositoryId,

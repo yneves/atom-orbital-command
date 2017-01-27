@@ -28,7 +28,7 @@ export default repositoryId => (dispatch, getState) => {
     `git commit -m "${message}"`,
   ]));
 
-  gitCommand(repositoryId, command, () => {
+  gitCommand(repositoryId, command, false, () => {
     dispatch({
       type: GIT_COMMIT,
       repositoryId,

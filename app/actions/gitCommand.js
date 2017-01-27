@@ -8,7 +8,7 @@ import {
   GIT_PROGRESS,
 } from '../constants/actionTypes';
 
-export default (repositoryId, command, callback) => (dispatch, getState) => {
+export default (repositoryId, command, notifySuccess, callback) => (dispatch, getState) => {
   const { repositories } = getState();
   const repository = R.find(R.propEq('id', repositoryId), repositories);
   const opts = { cwd: repository.dir };
@@ -20,11 +20,13 @@ export default (repositoryId, command, callback) => (dispatch, getState) => {
   });
 
   cp.exec(command, opts, (error, stdout, stderr) => {
-    showNotification({
-      message: command,
-      type: error ? 'error' : 'success',
-      detail: error ? error.message || stderr : stdout,
-    });
+    if (notifySuccess || error) {
+      showNotification({
+        message: command,
+        type: error ? 'error' : 'success',
+        detail: error ? error.message || stderr : stdout,
+      });
+    }
     dispatch({
       type: GIT_DONE,
       repositoryId,

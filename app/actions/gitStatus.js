@@ -26,7 +26,7 @@ export default repositoryId => (dispatch, getState) => {
   const repository = findById(getState().repositories);
   const command = 'git status --porcelain -b';
 
-  gitCommand(repositoryId, command, (stdout) => {
+  gitCommand(repositoryId, command, false, (stdout) => {
     dispatch({
       type: GIT_STATUS,
       repositoryId,

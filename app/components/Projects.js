@@ -2,8 +2,8 @@
 
 import React, { PropTypes, Component } from 'react';
 import R from 'ramda';
-import Project from './Project';
 import autoBind from 'class-autobind';
+import Project from './Project';
 
 export default class Projects extends Component {
 
@@ -17,7 +17,6 @@ export default class Projects extends Component {
     openTerminal: PropTypes.func.isRequired,
     toggleProject: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
-    toggleRepository: PropTypes.func.isRequired,
     terminalActive: PropTypes.bool.isRequired,
   };
 
@@ -38,7 +37,6 @@ export default class Projects extends Component {
         openTerminal={this.props.openTerminal}
         toggleProject={this.props.toggleProject}
         toggleDirectory={this.props.toggleDirectory}
-        toggleRepository={this.props.toggleRepository}
         terminalActive={this.props.terminalActive}
         {...project}
       />

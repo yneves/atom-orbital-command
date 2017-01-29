@@ -1,18 +1,29 @@
 'use babel';
 
 import R from 'ramda';
+import getDirectories from '../../atom/getDirectories';
+import getRepositories from '../../atom/getRepositories';
 import {
   TOGGLE_DIRECTORY,
+  TOGGLE_REPOSITORY,
 } from '../constants/actionTypes';
 
-export default (dir) => {
-  if (R.contains(dir, atom.project.getPaths())) {
-    atom.project.removePath(dir);
-  } else {
-    atom.project.addPath(dir);
+export default dir => (dispatch) => {
+  if (dir) {
+    if (R.contains(dir, getDirectories())) {
+      atom.project.removePath(dir);
+    } else {
+      atom.project.addPath(dir);
+    }
   }
-  return {
+  getRepositories((repositories) => {
+    dispatch({
+      type: TOGGLE_REPOSITORY,
+      repositories,
+    });
+  });
+  dispatch({
     type: TOGGLE_DIRECTORY,
-    dirs: atom.project.getPaths(),
-  };
+    dirs: getDirectories(),
+  });
 };

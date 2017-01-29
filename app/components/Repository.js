@@ -36,7 +36,6 @@ export default class Repository extends Component {
     setCheckoutBranch: PropTypes.func.isRequired,
     setCommitMessage: PropTypes.func.isRequired,
     toggleCommitFile: PropTypes.func.isRequired,
-    toggleRepository: PropTypes.func.isRequired,
     toggleSection: PropTypes.func.isRequired,
   };
 
@@ -51,10 +50,6 @@ export default class Repository extends Component {
 
   onClickHeader() {
     this.props.toggleSection(this.props.section);
-  }
-
-  onClickClose() {
-    this.props.toggleRepository(this.props.dir);
   }
 
   onClickGitPull() {
@@ -172,12 +167,6 @@ export default class Repository extends Component {
     );
   }
 
-  renderClose() {
-    return this.props.collapsed && (
-      <Button icon='times' onClick={this.onClickClose} />
-    );
-  }
-
   renderBody() {
     return (
       <div>
@@ -198,7 +187,6 @@ export default class Repository extends Component {
           {this.props.name}
           {this.renderGitPull()}
           {this.renderGitStatus()}
-          {this.renderClose()}
         </header>
         {this.props.collapsed || this.renderBody()}
       </section>

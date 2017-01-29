@@ -29,7 +29,6 @@ import terminalOpened from './terminalOpened';
 import toggleCommitFile from './toggleCommitFile';
 import toggleDirectory from './toggleDirectory';
 import toggleProject from './toggleProject';
-import toggleRepository from './toggleRepository';
 import toggleSection from './toggleSection';
 import toggleTerminal from './toggleTerminal';
 import viewCommandOutput from './viewCommandOutput';
@@ -66,7 +65,6 @@ export default {
   toggleCommitFile,
   toggleDirectory,
   toggleProject,
-  toggleRepository,
   toggleSection,
   toggleTerminal,
   viewCommandOutput,

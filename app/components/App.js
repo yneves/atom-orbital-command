@@ -57,7 +57,6 @@ export default class App extends Component {
     toggleCommitFile: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
     toggleProject: PropTypes.func.isRequired,
-    toggleRepository: PropTypes.func.isRequired,
     toggleSection: PropTypes.func.isRequired,
     viewCommandOutput: PropTypes.func.isRequired,
     workspaces: PropTypes.array.isRequired,
@@ -139,7 +138,6 @@ export default class App extends Component {
         commitFiles={this.props.commitFiles[repository.id] || []}
         repositoryBranch={this.props.repositoryBranch[repository.id] || []}
         repositoryLog={this.props.repositoryLog[repository.id] || []}
-        toggleRepository={this.props.toggleRepository}
         clipboardCopy={this.props.clipboardCopy}
         {...repository}
       />

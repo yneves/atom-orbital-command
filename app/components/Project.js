@@ -19,7 +19,6 @@ export default class Project extends Component {
     openTerminal: PropTypes.func.isRequired,
     toggleProject: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
-    toggleRepository: PropTypes.func.isRequired,
     terminalActive: PropTypes.bool.isRequired,
   };
 
@@ -38,10 +37,6 @@ export default class Project extends Component {
 
   onClickTerminal() {
     this.props.openTerminal(R.pick(['id', 'dir', 'env'], this.props));
-  }
-
-  onClickRepository() {
-    this.props.toggleRepository(this.props.dir);
   }
 
   renderDirectory() {
@@ -63,16 +58,6 @@ export default class Project extends Component {
     );
   }
 
-  renderRepository() {
-    return (
-      <Button
-        icon='code-fork'
-        active={this.props.repositoryActive}
-        onClick={this.onClickRepository}
-      />
-    );
-  }
-
   render() {
     const className = cx({
       selected: this.props.selectedProject,
@@ -82,7 +67,6 @@ export default class Project extends Component {
         {this.props.name}
         {this.renderDirectory()}
         {this.renderTerminal()}
-        {this.renderRepository()}
       </li>
     );
   }

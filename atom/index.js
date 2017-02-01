@@ -44,7 +44,7 @@ export default {
       addTerminalOpener(actions),
       observeTextEditors(actions.fileSaved),
       addRightPanel(this.element),
-      observeDirectories(actions.toggleRepository),
+      observeDirectories(actions.toggleDirectory),
     );
 
     actions.startup();

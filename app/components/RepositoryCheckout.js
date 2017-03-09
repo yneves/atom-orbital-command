@@ -6,8 +6,6 @@ import RepositoryBranch from './RepositoryBranch';
 import {
   KEY_ESC,
   KEY_ENTER,
-  KEY_ARROW_UP,
-  KEY_ARROW_DOWN,
 } from '../constants/keyCodes';
 
 
@@ -38,8 +36,7 @@ export default class RepositoryCheckout extends Component {
   }
 
   onKeyDown(event) {
-    const { checkoutBranch, repositoryId, repositoryBranch } = this.props;
-    const { index } = this.state;
+    const { checkoutBranch, repositoryId } = this.props;
     switch (event.which) {
       case KEY_ENTER:
         if (/\w/.test(checkoutBranch)) {
@@ -60,7 +57,6 @@ export default class RepositoryCheckout extends Component {
   }
 
   onFocus() {
-    const { currentBranch, checkoutBranch, repositoryBranch } = this.props;
     this.setState({
       focused: true,
     });
@@ -115,9 +111,7 @@ export default class RepositoryCheckout extends Component {
   }
 
   shouldDisplayOptions() {
-    return !this.props.runningGit && (
-      this.state.focused || this.state.hovering
-    );
+    return this.state.focused || this.state.hovering;
   }
 
   renderBranches() {
@@ -128,7 +122,7 @@ export default class RepositoryCheckout extends Component {
     );
   }
 
-  renderBranch(branch, index) {
+  renderBranch(branch) {
     return (
       <RepositoryBranch
         key={branch}

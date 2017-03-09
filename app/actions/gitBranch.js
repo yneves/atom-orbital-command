@@ -13,10 +13,11 @@ const parseBranches = (stdout) => {
 export default repositoryId => (dispatch, getState) => {
   const command = 'git branch --list';
   gitCommand(repositoryId, command, false, (stdout) => {
+    const branches = parseBranches(stdout);
     dispatch({
       type: GIT_BRANCH,
       repositoryId,
-      branches: parseBranches(stdout),
+      branches,
     });
   })(dispatch, getState);
 };

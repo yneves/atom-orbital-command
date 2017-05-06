@@ -2,10 +2,6 @@
 
 import R from 'ramda';
 
-import {
-  EDIT_FILE,
-} from '../constants/actionTypes';
-
 const getText = data => R.join('\n\n', R.toPairs(data).map(item => `${item[0].toUpperCase()}:\n` +
       `------------------------\n${
       item[1]}`));

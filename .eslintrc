@@ -12,6 +12,7 @@
     "atom": true
   },
   "rules": {
+    "comma-dangle": [2, "always-multiline"],
     "no-plusplus": 0,
     "no-case-declarations": 0,
     "class-methods-use-this": [2, { "exceptMethods": ["render"] }]

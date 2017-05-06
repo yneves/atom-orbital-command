@@ -16,7 +16,7 @@ export default (state = {}, action) => {
       const newState = {};
       files.forEach((file) => {
         newState[file] = state[action.repositoryId] &&
-          state[action.repositoryId].hasOwnProperty(file) ?
+          (file in state[action.repositoryId]) ?
           state[action.repositoryId][file] : true;
       });
       return R.merge(state, {

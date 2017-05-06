@@ -15,7 +15,7 @@ export default command => (dispatch) => {
   let stderr = '';
   let pid;
 
-  const _dispatch = (type, error) => {
+  const wrapDispatch = (type, error) => {
     dispatch({
       type,
       command,
@@ -33,19 +33,19 @@ export default command => (dispatch) => {
   }, (error) => {
     const failed = error || /\w/.test(stderr);
     const type = failed ? EXECUTE_COMMAND_FAILED : EXECUTE_COMMAND_SUCCESS;
-    _dispatch(type, error);
+    wrapDispatch(type, error);
   });
 
   pid = proc.pid;
-  _dispatch(EXECUTE_COMMAND);
+  wrapDispatch(EXECUTE_COMMAND);
 
   proc.stdout.on('data', (data) => {
     stdout += data;
-    _dispatch(EXECUTE_COMMAND_PROGRESS);
+    wrapDispatch(EXECUTE_COMMAND_PROGRESS);
   });
 
   proc.stderr.on('data', (data) => {
     stderr += data;
-    _dispatch(EXECUTE_COMMAND_PROGRESS);
+    wrapDispatch(EXECUTE_COMMAND_PROGRESS);
   });
 };

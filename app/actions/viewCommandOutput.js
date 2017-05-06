@@ -6,6 +6,10 @@ import {
   EDIT_FILE,
 } from '../constants/actionTypes';
 
+const getText = data => R.join('\n\n', R.toPairs(data).map(item => `${item[0].toUpperCase()}:\n` +
+      `------------------------\n${
+      item[1]}`));
+
 export default id => (dispatch, getState) => {
   const {
     runningCommands,
@@ -26,7 +30,3 @@ export default id => (dispatch, getState) => {
     editor.setText(text);
   });
 };
-
-const getText = data => R.join('\n\n', R.toPairs(data).map(item => `${item[0].toUpperCase()}:\n` +
-      `------------------------\n${
-      item[1]}`));

@@ -154,6 +154,7 @@ export default class Repository extends Component {
         repositoryId={this.props.id}
         gitPush={this.props.gitPush}
         clipboardCopy={this.props.clipboardCopy}
+        latestCommit={index === 0}
         {...entry}
       />
     );

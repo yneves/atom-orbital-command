@@ -15,6 +15,9 @@ export default class RepositoryFile extends Component {
     checked: PropTypes.bool.isRequired,
     editFile: PropTypes.func.isRequired,
     toggleCommitFile: PropTypes.func.isRequired,
+    branch: PropTypes.string,
+    removeFile: PropTypes.func.isRequired,
+    gitCheckout: PropTypes.func.isRequired,
   };
 
   constructor(props) {

@@ -3,5 +3,16 @@
   "extends": ["airbnb-base", "plugin:react/recommended"],
   "plugins": [
     "react"
-  ]
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "atom": true
+  },
+  "rules": {
+    "no-case-declarations": 0,
+    "class-methods-use-this": [2, { "exceptMethods": ["render"] }]
+  }
 }

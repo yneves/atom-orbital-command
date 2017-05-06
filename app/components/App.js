@@ -5,11 +5,8 @@ import R from 'ramda';
 import Workspaces from './Workspaces';
 import Projects from './Projects';
 import Commands from './Commands';
-import Bookmarks from './Bookmarks';
 import Resizer from './Resizer';
 import Repository from './Repository';
-import Browser from './Browser';
-import Terminal from './Terminal';
 
 export default class App extends Component {
 
@@ -164,50 +161,14 @@ export default class App extends Component {
     );
   }
 
-  renderBookmarks() {
-    const workspace = this.getSelectedWorkspace();
-    if (workspace && workspace.bookmarks.length) {
-      return (
-        <Bookmarks
-          {...this.props}
-          bookmarks={workspace.bookmarks}
-          workspace={workspace}
-          section='bookmarks'
-          collapsed={this.props.collapsedSections.includes('bookmarks')}
-        />
-      );
-    }
-  }
-
-  renderBrowser() {
-    return (
-      <Browser
-        browserTabs={this.props.browserTabs}
-        browserIcons={this.props.browserIcons}
-        setBrowserIcon={this.props.setBrowserIcon}
-      />
-    );
-  }
-
-  renderTerminal() {
-    return (
-      <Terminal
-        terminalTabs={this.props.terminalTabs}
-      />
-    );
-  }
-
   render() {
     return (
       <div className='orbital-command__app'>
         {this.renderWorkspaces()}
         {this.renderProjects()}
         {this.renderCommands()}
-        {/* this.renderBookmarks()*/}
         {this.props.repositories.map(this.renderRepository, this)}
         {this.renderResizer()}
-        {this.renderBrowser()}
-        {this.renderTerminal()}
       </div>
     );
   }

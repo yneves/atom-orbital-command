@@ -1,8 +1,8 @@
 'use babel';
 
 import React, { PropTypes, Component } from 'react';
-import Command from './Command';
 import autoBind from 'class-autobind';
+import Command from './Command';
 
 export default class Commands extends Component {
 
@@ -17,6 +17,7 @@ export default class Commands extends Component {
     killCommand: PropTypes.func.isRequired,
     viewCommandOutput: PropTypes.func.isRequired,
     editFile: PropTypes.func.isRequired,
+    toggleSection: PropTypes.func.isRequired,
   };
 
   constructor(props) {

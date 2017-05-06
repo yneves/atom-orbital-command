@@ -20,6 +20,7 @@ export default class Project extends Component {
     toggleProject: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
     terminalActive: PropTypes.bool.isRequired,
+    toggleSection: PropTypes.func.isRequired,
   };
 
   constructor(props) {

@@ -1,7 +1,6 @@
 'use babel';
 
 import { CompositeDisposable } from 'atom';
-import refreshTabs from './refreshTabs';
 import addCommands from './addCommands';
 import addRightPanel from './addRightPanel';
 import observeTextEditors from './observeTextEditors';
@@ -20,9 +19,11 @@ export default {
   },
 
   activate(state = {}) {
-    state.config = {
-      [configPattern]: atom.config.get(`orbital-command.${configPattern}`),
-    };
+    Object.assign(state, {
+      config: {
+        [configPattern]: atom.config.get(`orbital-command.${configPattern}`),
+      },
+    });
 
     this.element = document.createElement('div');
     this.element.id = 'orbital-command';
@@ -34,11 +35,10 @@ export default {
 
     this.disposable = new CompositeDisposable();
     this.disposable.add(
-      refreshTabs(actions.refreshTabs),
       addCommands(),
       observeTextEditors(actions.fileSaved),
       addRightPanel(this.element),
-      observeDirectories(actions.toggleDirectory),
+      observeDirectories(this.element, actions.refreshDirectory),
     );
 
     actions.startup();

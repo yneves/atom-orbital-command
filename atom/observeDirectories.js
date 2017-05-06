@@ -1,3 +1,6 @@
 'use babel';
 
-export default callback => atom.project.onDidChangePaths(() => callback());
+export default (element, callback) => atom.project.onDidChangePaths(() => {
+  atom.commands.dispatch(element, 'tree-view:show');
+  callback();
+});

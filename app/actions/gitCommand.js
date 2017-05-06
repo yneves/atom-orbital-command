@@ -11,6 +11,9 @@ import {
 export default (repositoryId, command, notifySuccess, callback) => (dispatch, getState) => {
   const { repositories } = getState();
   const repository = R.find(R.propEq('id', repositoryId), repositories);
+  if (!repository) {
+    return;
+  }
   const opts = { cwd: repository.dir };
 
   dispatch({

@@ -1,7 +1,9 @@
 'use babel';
 
 import path from 'path';
-import { TOGGLE_REPOSITORY } from '../constants/actionTypes';
+import {
+  TOGGLE_REPOSITORY,
+} from '../constants/actionTypes';
 
 export default (state = [], action) => {
   switch (action.type) {

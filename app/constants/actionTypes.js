@@ -1,5 +1,6 @@
 'use babel';
 
+export const STARTUP = 'STARTUP';
 export const CLIPBOARD_COPY = 'CLIPBOARD_COPY';
 export const EDIT_FILE = 'EDIT_FILE';
 export const EXECUTE_COMMAND = 'EXECUTE_COMMAND';

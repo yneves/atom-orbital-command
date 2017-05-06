@@ -24,8 +24,10 @@ import toggleDirectory from './toggleDirectory';
 import toggleProject from './toggleProject';
 import toggleSection from './toggleSection';
 import viewCommandOutput from './viewCommandOutput';
+import refreshDirectory from './refreshDirectory';
 
 export default {
+  refreshDirectory,
   clipboardCopy,
   editFile,
   executeCommand,

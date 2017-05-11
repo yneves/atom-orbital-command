@@ -35,8 +35,8 @@ export default id => (dispatch, getState) => {
     });
   }
 
-  return {
+  dispatch({
     type: KILL_COMMAND,
     command: { id },
-  };
+  });
 };

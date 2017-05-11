@@ -1,6 +1,7 @@
 'use babel';
 
 import R from 'ramda';
+import lodash from 'lodash';
 import uid from 'uid';
 import path from 'path';
 import glob from 'glob';
@@ -19,26 +20,27 @@ const tryRequire = (file) => {
 
 const loadCommand = (dir, data) => (raw) => {
   let command = raw;
-  if (R.is(Array, command)) {
-    command = R.join(' && ', command);
-  }
-  if (R.is(String, command)) {
+  if (lodash.isString(command)) {
     command = {
       command,
       label: command,
     };
   }
-  if (!command.command && R.is(String, command.source)) {
+  if (!command.command && lodash.isString(command.source)) {
     command.command = `node ${command.source}`;
   }
-  if (R.is(Array, command.command)) {
-    command.command = R.join(' && ', command.command);
+  if (!command.label) {
+    command.label = command.command;
   }
-  return R.merge(command, {
+  return {
     id: uid(),
-    dir,
-    env: R.merge(data.env || {}, command.env || {}),
-  });
+    ...command,
+    cwd: path.resolve(dir, command.cwd || '.'),
+    env: {
+      ...data.env,
+      ...command.env,
+    },
+  };
 };
 
 const loadProject = (dir, data) => (project) => {

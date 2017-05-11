@@ -10,7 +10,8 @@ export default (repositoryId, branch, commit) => (dispatch, getState) => {
   const status = repositoryStatus[repositoryId];
 
   const remote = status.remote_branch ? status.remote_branch.split('/').shift() : 'origin';
-  const pushBranch = (branch || status.remote_branch || status.local_branch).split('/').pop();
+  const pushBranch = (branch || status.remote_branch || status.local_branch)
+    .replace(`${remote}/`, '');
   const push = commit ? `${commit}:${pushBranch}` : pushBranch;
   const command = `git push ${remote} ${push}`;
 

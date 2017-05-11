@@ -67,9 +67,9 @@ export default class Command extends Component {
     }
     if (running) {
       let icon = 'spinner';
-      if (running.stderr.length > 0) {
+      if (running.status === 'failed') {
         icon = 'exclamation-triangle';
-      } else if (running.stdout.length > 0) {
+      } else if (running.status === 'output') {
         icon = 'check';
       }
       buttons.push(

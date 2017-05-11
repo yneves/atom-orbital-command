@@ -1,6 +1,5 @@
 'use babel';
 
-import R from 'ramda';
 import lodash from 'lodash';
 import uid from 'uid';
 import path from 'path';
@@ -36,6 +35,7 @@ const loadCommand = (dir, data) => (raw) => {
     id: uid(),
     ...command,
     cwd: path.resolve(dir, command.cwd || '.'),
+    source: command.source ? path.resolve(dir, command.source) : null,
     env: {
       ...data.env,
       ...command.env,

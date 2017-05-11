@@ -24,10 +24,7 @@ export default class Command extends Component {
   }
 
   onClickEdit() {
-    const dir = this.props.command.dir;
-    const source = this.props.command.source;
-    const file = `${dir}/${source}`;
-    this.props.editFile(file);
+    this.props.editFile(this.props.command.source);
   }
 
   onClickExecute() {

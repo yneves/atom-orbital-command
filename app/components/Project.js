@@ -1,7 +1,6 @@
 'use babel';
 
 import React, { PropTypes, Component } from 'react';
-import lodash from 'lodash';
 import autoBind from 'class-autobind';
 import cx from 'classnames';
 import Button from './Button';
@@ -17,7 +16,6 @@ export default class Project extends Component {
     selectedDirectory: PropTypes.bool.isRequired,
     toggleProject: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
-    terminalActive: PropTypes.bool.isRequired,
     toggleSection: PropTypes.func.isRequired,
   };
 

@@ -17,7 +17,6 @@ export default class App extends Component {
     refreshTabs: PropTypes.number.isRequired,
     openBookmark: PropTypes.func.isRequired,
     browserTabs: PropTypes.array.isRequired,
-    terminalTabs: PropTypes.array.isRequired,
     gitBranch: PropTypes.func.isRequired,
     checkoutBranch: PropTypes.object.isRequired,
     collapsedSections: PropTypes.array.isRequired,
@@ -37,7 +36,6 @@ export default class App extends Component {
     killCommand: PropTypes.func.isRequired,
     clipboardCopy: PropTypes.func.isRequired,
     loadWorkspaces: PropTypes.func.isRequired,
-    openTerminal: PropTypes.func.isRequired,
     repositories: PropTypes.array.isRequired,
     repositoryStatus: PropTypes.object.isRequired,
     repositoryLog: PropTypes.object.isRequired,
@@ -58,7 +56,6 @@ export default class App extends Component {
     viewCommandOutput: PropTypes.func.isRequired,
     workspaces: PropTypes.array.isRequired,
     repositoryBranch: PropTypes.object.isRequired,
-    terminalActive: PropTypes.bool.isRequired,
   };
 
   getSelectedWorkspace() {

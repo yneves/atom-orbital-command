@@ -13,10 +13,8 @@ export default class Projects extends Component {
     repositories: PropTypes.array.isRequired,
     selectedProjects: PropTypes.array.isRequired,
     selectedDirectories: PropTypes.array.isRequired,
-    openTerminal: PropTypes.func.isRequired,
     toggleProject: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
-    terminalActive: PropTypes.bool.isRequired,
     toggleSection: PropTypes.func.isRequired,
   };
 
@@ -31,10 +29,8 @@ export default class Projects extends Component {
         key={index}
         selectedProject={this.props.selectedProjects.includes(project.id)}
         selectedDirectory={this.props.selectedDirectories.includes(project.dir)}
-        openTerminal={this.props.openTerminal}
         toggleProject={this.props.toggleProject}
         toggleDirectory={this.props.toggleDirectory}
-        terminalActive={this.props.terminalActive}
         {...project}
       />
     );

@@ -18,7 +18,6 @@ export default class Workspace extends Component {
     selected: PropTypes.bool.isRequired,
     editFile: PropTypes.func.isRequired,
     selectWorkspace: PropTypes.func.isRequired,
-    terminalActive: PropTypes.bool.isRequired,
   };
 
   constructor(props) {

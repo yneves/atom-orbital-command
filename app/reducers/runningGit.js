@@ -1,6 +1,6 @@
 'use babel';
 
-import R from 'ramda';
+import lodash from 'lodash';
 import {
   GIT_DONE,
   GIT_PROGRESS,
@@ -10,12 +10,12 @@ export default (state = {}, action) => {
   const list = state[action.repositoryId] || [];
   switch (action.type) {
     case GIT_DONE:
-      return R.merge(state, {
-        [action.repositoryId]: R.without([action.command], list),
+      return lodash.extend({}, state, {
+        [action.repositoryId]: lodash.without(list, action.command),
       });
     case GIT_PROGRESS:
       list.push(action.command);
-      return R.merge(state, {
+      return lodash.extend({}, state, {
         [action.repositoryId]: list,
       });
     default:

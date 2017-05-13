@@ -30,7 +30,7 @@ export default class App extends Component {
     const { start } = this.state;
     const width = this.props.rightPanelWidth;
     if (start) {
-      this.props.element.style.width = `${width + start - event.pageX}px`;
+      this.props.element.style.width = `${(width + start) - event.pageX}px`;
     }
   }
 

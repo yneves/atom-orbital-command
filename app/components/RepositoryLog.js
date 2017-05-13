@@ -9,6 +9,7 @@ export default class RepositoryLog extends Component {
 
   static propTypes = {
     commit: PropTypes.string.isRequired,
+    latestCommit: PropTypes.bool.isRequired,
     repositoryId: PropTypes.string.isRequired,
     gitPush: PropTypes.func.isRequired,
     clipboardCopy: PropTypes.func.isRequired,
@@ -21,7 +22,8 @@ export default class RepositoryLog extends Component {
   }
 
   onClickPush() {
-    this.props.gitPush(this.props.repositoryId, null, this.props.commit);
+    const { gitPush, repositoryId, latestCommit, commit } = this.props;
+    gitPush(repositoryId, null, latestCommit ? null : commit);
   }
 
   onClipboardCopy() {

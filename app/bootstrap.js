@@ -1,6 +1,6 @@
 'use babel';
 
-import R from 'ramda';
+import lodash from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, bindActionCreators } from 'redux';
@@ -14,7 +14,7 @@ export default (element, state) => {
   const enhancer = applyMiddleware(thunkMiddleware);
   const store = createStore(reducers, state, enhancer);
   const boundActions = bindActionCreators(actions, store.dispatch);
-  const Container = connect(R.identity, actions)(App);
+  const Container = connect(lodash.identity, actions)(App);
   const provider = (
     <Provider store={store}>
       <Container element={element} />

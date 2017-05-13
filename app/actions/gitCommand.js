@@ -1,6 +1,6 @@
 'use babel';
 
-import R from 'ramda';
+import lodash from 'lodash';
 import cp from 'child_process';
 import showNotification from './showNotification';
 import {
@@ -10,7 +10,10 @@ import {
 
 export default (repositoryId, command, notifySuccess, callback) => (dispatch, getState) => {
   const { repositories } = getState();
-  const repository = R.find(R.propEq('id', repositoryId), repositories);
+  const repository = lodash.find(repositories, repo => repo.id === repositoryId);
+  if (!repository) {
+    return;
+  }
   const opts = { cwd: repository.dir };
 
   dispatch({

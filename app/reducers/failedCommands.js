@@ -1,6 +1,6 @@
 'use babel';
 
-import R from 'ramda';
+import lodash from 'lodash';
 import {
   LOAD_WORKSPACES,
   EXECUTE_COMMAND,
@@ -14,11 +14,12 @@ export default (state = {}, action) => {
     case KILL_COMMAND:
     case EXECUTE_COMMAND:
     case EXECUTE_COMMAND_SUCCESS:
-      return R.omit([action.command.id], state);
+      return lodash.omit(state, [action.command.id]);
     case EXECUTE_COMMAND_FAILED:
-      const getData = R.omit(['type', 'command']);
-      const command = R.merge(state[action.command.id], getData(action));
-      return R.merge(state, {
+      const command = lodash.extend({},
+        state[action.command.id],
+        lodash.omit(action, ['type', 'command']));
+      return lodash.extend({}, state, {
         [action.command.id]: command,
       });
     case LOAD_WORKSPACES:

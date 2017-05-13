@@ -1,15 +1,12 @@
 'use babel';
 
 import React, { PropTypes, Component } from 'react';
-import R from 'ramda';
+import lodash from 'lodash';
 import Workspaces from './Workspaces';
 import Projects from './Projects';
 import Commands from './Commands';
-import Bookmarks from './Bookmarks';
 import Resizer from './Resizer';
 import Repository from './Repository';
-import Browser from './Browser';
-import Terminal from './Terminal';
 
 export default class App extends Component {
 
@@ -20,7 +17,6 @@ export default class App extends Component {
     refreshTabs: PropTypes.number.isRequired,
     openBookmark: PropTypes.func.isRequired,
     browserTabs: PropTypes.array.isRequired,
-    terminalTabs: PropTypes.array.isRequired,
     gitBranch: PropTypes.func.isRequired,
     checkoutBranch: PropTypes.object.isRequired,
     collapsedSections: PropTypes.array.isRequired,
@@ -40,7 +36,6 @@ export default class App extends Component {
     killCommand: PropTypes.func.isRequired,
     clipboardCopy: PropTypes.func.isRequired,
     loadWorkspaces: PropTypes.func.isRequired,
-    openTerminal: PropTypes.func.isRequired,
     repositories: PropTypes.array.isRequired,
     repositoryStatus: PropTypes.object.isRequired,
     repositoryLog: PropTypes.object.isRequired,
@@ -61,7 +56,6 @@ export default class App extends Component {
     viewCommandOutput: PropTypes.func.isRequired,
     workspaces: PropTypes.array.isRequired,
     repositoryBranch: PropTypes.object.isRequired,
-    terminalActive: PropTypes.bool.isRequired,
   };
 
   getSelectedWorkspace() {
@@ -89,7 +83,7 @@ export default class App extends Component {
     if (workspace && workspace.commands) {
       commands = commands.concat(workspace.commands);
       this.props.selectedProjects.forEach((id) => {
-        const project = R.find(R.propEq('id', id), workspace.projects);
+        const project = lodash.find(workspace.projects, proj => proj.id === id);
         if (project) {
           commands = commands.concat(project.commands);
         }
@@ -164,50 +158,14 @@ export default class App extends Component {
     );
   }
 
-  renderBookmarks() {
-    const workspace = this.getSelectedWorkspace();
-    if (workspace && workspace.bookmarks.length) {
-      return (
-        <Bookmarks
-          {...this.props}
-          bookmarks={workspace.bookmarks}
-          workspace={workspace}
-          section='bookmarks'
-          collapsed={this.props.collapsedSections.includes('bookmarks')}
-        />
-      );
-    }
-  }
-
-  renderBrowser() {
-    return (
-      <Browser
-        browserTabs={this.props.browserTabs}
-        browserIcons={this.props.browserIcons}
-        setBrowserIcon={this.props.setBrowserIcon}
-      />
-    );
-  }
-
-  renderTerminal() {
-    return (
-      <Terminal
-        terminalTabs={this.props.terminalTabs}
-      />
-    );
-  }
-
   render() {
     return (
       <div className='orbital-command__app'>
         {this.renderWorkspaces()}
         {this.renderProjects()}
         {this.renderCommands()}
-        {/* this.renderBookmarks()*/}
         {this.props.repositories.map(this.renderRepository, this)}
         {this.renderResizer()}
-        {this.renderBrowser()}
-        {this.renderTerminal()}
       </div>
     );
   }

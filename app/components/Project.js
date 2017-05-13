@@ -1,7 +1,6 @@
 'use babel';
 
 import React, { PropTypes, Component } from 'react';
-import R from 'ramda';
 import autoBind from 'class-autobind';
 import cx from 'classnames';
 import Button from './Button';
@@ -13,13 +12,11 @@ export default class Project extends Component {
     dir: PropTypes.string.isRequired,
     env: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
-    repositoryActive: PropTypes.bool.isRequired,
     selectedProject: PropTypes.bool.isRequired,
     selectedDirectory: PropTypes.bool.isRequired,
-    openTerminal: PropTypes.func.isRequired,
     toggleProject: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
-    terminalActive: PropTypes.bool.isRequired,
+    toggleSection: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -35,25 +32,12 @@ export default class Project extends Component {
     this.props.toggleDirectory(this.props.dir);
   }
 
-  onClickTerminal() {
-    this.props.openTerminal(R.pick(['id', 'dir', 'env'], this.props));
-  }
-
   renderDirectory() {
     return (
       <Button
         icon={this.props.selectedDirectory ? 'folder-open' : 'folder'}
         active={this.props.selectedDirectory}
         onClick={this.onClickDirectory}
-      />
-    );
-  }
-
-  renderTerminal() {
-    return this.props.terminalActive && (
-      <Button
-        icon='terminal'
-        onClick={this.onClickTerminal}
       />
     );
   }
@@ -66,7 +50,6 @@ export default class Project extends Component {
       <li onClick={this.onClick} className={className}>
         {this.props.name}
         {this.renderDirectory()}
-        {this.renderTerminal()}
       </li>
     );
   }

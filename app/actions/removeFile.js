@@ -6,15 +6,14 @@ import {
   REMOVE_FILE,
 } from '../constants/actionTypes';
 
-export default file => (dispatch, getState) => {
+export default file => (dispatch) => {
   fs.unlink(file, (error) => {
-    if (error) {
-      console.error(error);
+    if (!error) {
+      dispatch(fileSaved(file));
+      dispatch({
+        type: REMOVE_FILE,
+        file,
+      });
     }
-  });
-  fileSaved(file)(dispatch, getState);
-  dispatch({
-    type: REMOVE_FILE,
-    file,
   });
 };

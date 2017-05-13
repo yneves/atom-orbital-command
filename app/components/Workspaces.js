@@ -1,9 +1,9 @@
 'use babel';
 
 import React, { PropTypes, Component } from 'react';
+import autoBind from 'class-autobind';
 import Workspace from './Workspace';
 import Button from './Button';
-import autoBind from 'class-autobind';
 
 export default class Workspaces extends Component {
 
@@ -14,9 +14,8 @@ export default class Workspaces extends Component {
     selectedWorkspace: PropTypes.string,
     loadWorkspaces: PropTypes.func.isRequired,
     editFile: PropTypes.func.isRequired,
-    openTerminal: PropTypes.func.isRequired,
     selectWorkspace: PropTypes.func.isRequired,
-    terminalActive: PropTypes.bool.isRequired,
+    toggleSection: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -24,15 +23,13 @@ export default class Workspaces extends Component {
     autoBind(this);
   }
 
-  renderWorkspace(workspace, index) {
+  renderWorkspace(workspace) {
     return (
       <Workspace
         key={workspace.id}
         selected={workspace.id === this.props.selectedWorkspace}
         editFile={this.props.editFile}
-        openTerminal={this.props.openTerminal}
         selectWorkspace={this.props.selectWorkspace}
-        terminalActive={this.props.terminalActive}
         {...workspace}
       />
     );

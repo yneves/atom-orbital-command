@@ -24,10 +24,7 @@ export default class Command extends Component {
   }
 
   onClickEdit() {
-    const dir = this.props.command.dir;
-    const source = this.props.command.source;
-    const file = `${dir}/${source}`;
-    this.props.editFile(file);
+    this.props.editFile(this.props.command.source);
   }
 
   onClickExecute() {
@@ -66,10 +63,12 @@ export default class Command extends Component {
       );
     }
     if (running) {
-      const icon = running.stderr.length > 0 ?
-        'exclamation-triangle' :
-          running.stdout.length > 0 ?
-          'check' : 'spinner';
+      let icon = 'spinner';
+      if (running.status === 'failed') {
+        icon = 'exclamation-triangle';
+      } else if (running.status === 'output') {
+        icon = 'check';
+      }
       buttons.push(
         <Button
           key='progress'

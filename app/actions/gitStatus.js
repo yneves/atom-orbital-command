@@ -1,6 +1,6 @@
 'use babel';
 
-import R from 'ramda';
+import lodash from 'lodash';
 import path from 'path';
 import gitGetStatus from 'git-get-status';
 import gitCommand from './gitCommand';
@@ -22,8 +22,8 @@ const parseStatus = (stdout, dir) => {
 };
 
 export default repositoryId => (dispatch, getState) => {
-  const findById = R.find(R.propEq('id', repositoryId));
-  const repository = findById(getState().repositories);
+  const { repositories } = getState();
+  const repository = lodash.find(repositories, repo => repo.id === repositoryId);
   const command = 'git status --porcelain -b';
 
   gitCommand(repositoryId, command, false, (stdout) => {

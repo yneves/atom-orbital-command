@@ -1,7 +1,7 @@
 'use babel';
 
 import psTree from 'ps-tree';
-import R from 'ramda';
+import lodash from 'lodash';
 import cp from 'child_process';
 import showNotification from './showNotification';
 
@@ -19,9 +19,8 @@ export default id => (dispatch, getState) => {
         });
       } else {
         const pids = children.map(p => p.PID);
-        const killCommand = R.join(' ', R.concat(
-          [running.command.kill || 'kill -9'], pids, [running.pid],
-        ));
+        const cmd = [running.command.kill || 'kill -9', pids, running.pid];
+        const killCommand = lodash.flatten(cmd).join(' ');
         cp.exec(killCommand, {}, (errorKill, stdout, stderr) => {
           if (errorKill) {
             showNotification({

@@ -1,7 +1,6 @@
 'use babel';
 
 import React, { PropTypes, Component } from 'react';
-import R from 'ramda';
 import autoBind from 'class-autobind';
 import Project from './Project';
 
@@ -27,12 +26,9 @@ export default class Projects extends Component {
   }
 
   renderProject(project, index) {
-    const findByDir = R.find(R.propEq('dir', project.dir));
-    const repositoryActive = !!findByDir(this.props.repositories);
     return (
       <Project
         key={index}
-        repositoryActive={repositoryActive}
         selectedProject={this.props.selectedProjects.includes(project.id)}
         selectedDirectory={this.props.selectedDirectories.includes(project.dir)}
         openTerminal={this.props.openTerminal}

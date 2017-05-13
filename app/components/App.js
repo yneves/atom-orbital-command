@@ -1,7 +1,7 @@
 'use babel';
 
 import React, { PropTypes, Component } from 'react';
-import R from 'ramda';
+import lodash from 'lodash';
 import Workspaces from './Workspaces';
 import Projects from './Projects';
 import Commands from './Commands';
@@ -86,7 +86,7 @@ export default class App extends Component {
     if (workspace && workspace.commands) {
       commands = commands.concat(workspace.commands);
       this.props.selectedProjects.forEach((id) => {
-        const project = R.find(R.propEq('id', id), workspace.projects);
+        const project = lodash.find(workspace.projects, proj => proj.id === id);
         if (project) {
           commands = commands.concat(project.commands);
         }

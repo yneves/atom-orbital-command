@@ -1,6 +1,6 @@
 'use babel';
 
-import R from 'ramda';
+import loodash from 'lodash';
 import { remote } from 'electron';
 import gitPush from './gitPush';
 import gitStatus from './gitStatus';
@@ -11,7 +11,7 @@ import { GIT_CHECKOUT } from '../constants/actionTypes';
 export default (repositoryId, branch, file) => (dispatch, getState) => {
   const { repositoryBranch } = getState();
   const branches = repositoryBranch[repositoryId];
-  const branchExists = R.contains(branch, branches);
+  const branchExists = lodash.includes(branches, branch);
 
   if (!branchExists && file) {
     showNotification({

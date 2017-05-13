@@ -1,6 +1,6 @@
 'use babel';
 
-import R from 'ramda';
+import lodash from 'lodash';
 import {
   GIT_STATUS,
   GIT_CHECKOUT,
@@ -10,15 +10,12 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case GIT_STATUS:
-      return R.merge(state, {
+      return lodash.extend({}, state, {
         [action.repositoryId]: '',
       });
     case GIT_CHECKOUT:
-      return R.merge(state, {
-        [action.repositoryId]: action.branch,
-      });
     case SET_CHECKOUT_BRANCH:
-      return R.merge(state, {
+      return lodash.extend({}, state, {
         [action.repositoryId]: action.branch,
       });
     default:

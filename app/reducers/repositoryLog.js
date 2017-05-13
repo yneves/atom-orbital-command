@@ -1,6 +1,6 @@
 'use babel';
 
-import R from 'ramda';
+import lodash from 'lodash';
 import {
   GIT_LOG,
   LOAD_WORKSPACES,
@@ -11,7 +11,7 @@ export default (state = {}, action) => {
     case LOAD_WORKSPACES:
       return {};
     case GIT_LOG:
-      return R.merge(state, {
+      return lodash.extend({}, state, {
         [action.repositoryId]: action.log,
       });
     default:

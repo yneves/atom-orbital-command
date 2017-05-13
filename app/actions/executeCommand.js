@@ -4,9 +4,7 @@ import os from 'os';
 import fs from 'fs';
 import cp from 'child_process';
 import path from 'path';
-import chokidar from 'chokidar';
 import lodash from 'lodash';
-import runner from '../process/runner';
 
 import {
   EXECUTE_COMMAND,

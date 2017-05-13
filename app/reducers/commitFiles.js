@@ -1,6 +1,6 @@
 'use babel';
 
-import R from 'ramda';
+import lodash from 'lodash';
 import {
   GIT_COMMIT,
   GIT_STATUS,
@@ -10,21 +10,21 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case GIT_COMMIT:
-      return R.omit([action.repositoryId], state);
+      return lodash.omit(state, [action.repositoryId]);
     case GIT_STATUS:
-      const files = R.map(R.prop('file'), action.status.files);
+      const files = lodash.map(action.status.files, 'file');
       const newState = {};
       files.forEach((file) => {
         newState[file] = state[action.repositoryId] &&
           (file in state[action.repositoryId]) ?
           state[action.repositoryId][file] : true;
       });
-      return R.merge(state, {
+      return lodash.extend({}, state, {
         [action.repositoryId]: newState,
       });
     case TOGGLE_COMMIT_FILE:
-      return R.merge(state, {
-        [action.repositoryId]: R.merge(state[action.repositoryId], {
+      return lodash.extend({}, state, {
+        [action.repositoryId]: lodash.extend({}, state[action.repositoryId], {
           [action.file]: !state[action.repositoryId][action.file],
         }),
       });

@@ -1,6 +1,6 @@
 'use babel';
 
-import loodash from 'lodash';
+import lodash from 'lodash';
 import { remote } from 'electron';
 import gitPush from './gitPush';
 import gitStatus from './gitStatus';

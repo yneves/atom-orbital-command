@@ -19,9 +19,11 @@ import selectedDirectories from './selectedDirectories';
 import selectedProjects from './selectedProjects';
 import selectedWorkspace from './selectedWorkspace';
 import workspaces from './workspaces';
+import checkoutHistory from './checkoutHistory';
 
 export default combineReducers({
   checkoutBranch,
+  checkoutHistory,
   collapsedSections,
   commitFiles,
   commitMessages,

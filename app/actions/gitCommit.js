@@ -14,27 +14,23 @@ export default repositoryId => (dispatch, getState) => {
   const files = lodash.keys(commitFiles[repositoryId])
     .filter(file => !!commitFiles[repositoryId][file]);
 
-  const rmFiles = files.filter((file) => {
+  const stageCommands = files.map((file) => {
     const entry = findByFile(status.files, file);
-    return entry.status === 'deleted';
+    if (entry.status === 'deleted') {
+      return `git rm ${file}`;
+    }
+    return `git add ${file}`;
   });
 
-  const addFiles = files.filter((file) => {
-    const entry = findByFile(status.files, file);
-    return entry.status !== 'deleted';
-  });
-
-  const command = [
-    rmFiles.length ? `git rm ${rmFiles.join(' ')}` : '',
-    addFiles.length ? `git add ${addFiles.join(' ')}` : '',
-    `git commit -m "${message}"`,
-  ].filter(line => !!line).join(' && ');
-
-  gitCommand(repositoryId, command, false, () => {
-    dispatch({
-      type: GIT_COMMIT,
-      repositoryId,
-    });
-    gitStatus(repositoryId)(dispatch, getState);
-  })(dispatch, getState);
+  return dispatch(gitCommand(repositoryId, stageCommands, false))
+    .then(() => {
+      const commitCommand = `git commit -m "${message}"`;
+      return dispatch(gitCommand(repositoryId, commitCommand, false, () => {
+        dispatch({
+          type: GIT_COMMIT,
+          repositoryId,
+        });
+      }));
+    })
+    .then(() => dispatch(gitStatus(repositoryId)));
 };

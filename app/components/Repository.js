@@ -12,6 +12,7 @@ export default class Repository extends Component {
 
   static propTypes = {
     checkoutBranch: PropTypes.string.isRequired,
+    checkoutHistory: PropTypes.array.isRequired,
     clipboardCopy: PropTypes.func.isRequired,
     collapsed: PropTypes.bool.isRequired,
     commitFiles: PropTypes.object.isRequired,
@@ -125,9 +126,11 @@ export default class Repository extends Component {
       <RepositoryCheckout
         repositoryId={this.props.id}
         runningGit={this.props.runningGit}
+        gitPull={this.props.gitPull}
         gitCheckout={this.props.gitCheckout}
         currentBranch={this.props.repositoryStatus.local_branch}
         checkoutBranch={this.props.checkoutBranch}
+        checkoutHistory={this.props.checkoutHistory}
         setCheckoutBranch={this.props.setCheckoutBranch}
         repositoryBranch={this.props.repositoryBranch}
       />

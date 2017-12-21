@@ -8,38 +8,47 @@ import {
   GIT_PROGRESS,
 } from '../constants/actionTypes';
 
-export default (repositoryId, command, notifySuccess, callback) => (dispatch, getState) => {
-  const { repositories } = getState();
-  const repository = lodash.find(repositories, repo => repo.id === repositoryId);
-  if (!repository) {
-    return;
-  }
-  const opts = { cwd: repository.dir };
+export default (repositoryId, commands, notifySuccess, callback) => (dispatch, getState) => {
+  const getCwd = () => {
+    const { repositories } = getState();
+    const repository = lodash.find(repositories, repo => repo.id === repositoryId);
+    return repository.dir;
+  };
 
-  dispatch({
-    type: GIT_PROGRESS,
-    repositoryId,
-    command,
-  });
-
-  cp.exec(command, opts, (error, stdout, stderr) => {
-    if (notifySuccess || error) {
-      showNotification({
-        message: command,
-        type: error ? 'error' : 'success',
-        detail: error ? error.message || stderr : stdout,
+  let promise = Promise.resolve();
+  [].concat(commands).forEach((command) => {
+    promise = promise.then(() => new Promise((resolve, reject) => {
+      dispatch({
+        type: GIT_PROGRESS,
+        repositoryId,
+        command,
       });
-    }
-    dispatch({
-      type: GIT_DONE,
-      repositoryId,
-      command,
-      error,
-      stderr,
-      stdout,
-    });
-    if (!error) {
-      callback(stdout);
-    }
+      cp.exec(command, { cwd: getCwd() }, (error, stdout, stderr) => {
+        if (notifySuccess || error) {
+          showNotification({
+            message: command,
+            type: error ? 'error' : 'success',
+            detail: error ? error.message || stderr : stdout,
+          });
+        }
+        dispatch({
+          type: GIT_DONE,
+          repositoryId,
+          command,
+          error,
+          stderr,
+          stdout,
+        });
+        if (error) {
+          reject(error);
+        } else {
+          if (callback) {
+            callback(stdout);
+          }
+          resolve(stdout);
+        }
+      });
+    }));
   });
+  return promise;
 };

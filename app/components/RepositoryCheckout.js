@@ -14,21 +14,22 @@ export default class RepositoryCheckout extends Component {
   static propTypes = {
     runningGit: PropTypes.string,
     checkoutBranch: PropTypes.string.isRequired,
+    checkoutHistory: PropTypes.array.isRequired,
     currentBranch: PropTypes.string.isRequired,
     gitCheckout: PropTypes.func.isRequired,
+    gitPull: PropTypes.func.isRequired,
     setCommitMessage: PropTypes.func.isRequired,
     setCheckoutBranch: PropTypes.func.isRequired,
     repositoryId: PropTypes.string.isRequired,
     repositoryBranch: PropTypes.array.isRequired,
   };
 
-  state = {
-    focused: false,
-  };
-
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = {
+      isFocused: false,
+    };
   }
 
   componentDidMount() {
@@ -57,27 +58,21 @@ export default class RepositoryCheckout extends Component {
   }
 
   onFocus() {
+    if (this.blurTimeout) {
+      clearTimeout(this.blurTimeout);
+      this.blurTimeout = undefined;
+    }
     this.setState({
-      focused: true,
+      isFocused: true,
     });
   }
 
   onBlur() {
-    this.setState({
-      focused: false,
-    });
-  }
-
-  onMouseEnter() {
-    this.setState({
-      hovering: true,
-    });
-  }
-
-  onMouseLeave() {
-    this.setState({
-      hovering: false,
-    });
+    this.blurTimeout = setTimeout(() => {
+      this.setState({
+        isFocused: false,
+      });
+    }, 100);
   }
 
   renderInput() {
@@ -95,29 +90,10 @@ export default class RepositoryCheckout extends Component {
     );
   }
 
-  getListId() {
-    return `branches${this.props.repositoryId.replace(/[^\w]/g, '')}`;
-  }
-
-  getListStyle() {
-    return {
-      display: this.shouldDisplayOptions() ? 'block' : 'none',
-    };
-  }
-
-  getFilter() {
-    return this.props.checkoutBranch.length > 2
-      ? this.props.checkoutBranch : '';
-  }
-
-  shouldDisplayOptions() {
-    return this.state.focused || this.state.hovering;
-  }
-
   renderBranches() {
-    return (
-      <ul id={this.getListId()} style={this.getListStyle()}>
-        {this.props.repositoryBranch.map(this.renderBranch)}
+    return this.state.isFocused && (
+      <ul>
+        {this.props.checkoutHistory.map(this.renderBranch)}
       </ul>
     );
   }
@@ -127,31 +103,18 @@ export default class RepositoryCheckout extends Component {
       <RepositoryBranch
         key={branch}
         branch={branch}
+        gitPull={this.props.gitPull}
         gitCheckout={this.props.gitCheckout}
         repositoryId={this.props.repositoryId}
       />
     );
   }
 
-  renderStyle() {
-    const listId = this.getListId();
-    const filterText = this.getFilter();
-    return (
-      <style>
-      {`#${listId} li {display: none;}
-        #${listId} li[data-text*="${filterText}"] {display: block;}`}
-      </style>
-    );
-  }
-
   render() {
     return (
-      <div className="auto-complete"
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}>
+      <div>
         {this.renderInput()}
         {this.renderBranches()}
-        {this.renderStyle()}
       </div>
     );
   }

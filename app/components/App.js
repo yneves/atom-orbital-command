@@ -19,6 +19,7 @@ export default class App extends Component {
     browserTabs: PropTypes.array.isRequired,
     gitBranch: PropTypes.func.isRequired,
     checkoutBranch: PropTypes.object.isRequired,
+    checkoutHistory: PropTypes.array.isRequired,
     collapsedSections: PropTypes.array.isRequired,
     commitFiles: PropTypes.object.isRequired,
     commitMessages: PropTypes.object.isRequired,
@@ -129,6 +130,7 @@ export default class App extends Component {
         commitMessage={this.props.commitMessages[repository.id] || ''}
         runningGit={this.props.runningGit[repository.id]}
         checkoutBranch={this.props.checkoutBranch[repository.id] || ''}
+        checkoutHistory={this.props.checkoutHistory[repository.id] || []}
         commitFiles={this.props.commitFiles[repository.id] || []}
         repositoryBranch={this.props.repositoryBranch[repository.id] || []}
         repositoryLog={this.props.repositoryLog[repository.id] || []}

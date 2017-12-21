@@ -1,21 +1,40 @@
 'use babel';
 
+import { remote } from 'electron';
 import gitStatus from './gitStatus';
 import gitCommand from './gitCommand';
 import { GIT_PULL } from '../constants/actionTypes';
 
-export default repositoryId => (dispatch, getState) => {
+export default (repositoryId, branch) => (dispatch, getState) => {
   const { repositoryStatus } = getState();
   const status = repositoryStatus[repositoryId];
-  const branch = status.local_branch;
-  const command = `git pull origin ${branch}`;
+  const localBranch = status.local_branch;
 
-  gitCommand(repositoryId, command, true, () => {
+  const confirmPull = () => {
+    const button = remote.dialog.showMessageBox({
+      type: 'question',
+      title: 'git checkout',
+      message: `Pull "${branch}" into "${localBranch}"?`,
+      buttons: ['Pull', 'Cancel'],
+      defaultId: 0,
+      cancelId: 1,
+    });
+    return (button === 0);
+  };
+
+  const remoteBranch = branch || localBranch;
+  if (remoteBranch !== localBranch && !confirmPull()) {
+    return Promise.resolve();
+  }
+
+  const command = `git pull origin ${remoteBranch}`;
+
+  return dispatch(gitCommand(repositoryId, command, true, () => {
     dispatch({
       type: GIT_PULL,
       repositoryId,
       branch,
     });
-    gitStatus(repositoryId)(dispatch, getState);
-  })(dispatch, getState);
+    return dispatch(gitStatus(repositoryId));
+  }));
 };

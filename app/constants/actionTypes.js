@@ -11,6 +11,7 @@ export const GIT_BRANCH = 'GIT_BRANCH';
 export const GIT_CHECKOUT = 'GIT_CHECKOUT';
 export const GIT_COMMIT = 'GIT_COMMIT';
 export const GIT_LOG = 'GIT_LOG';
+export const GET_FETCH = 'GET_FETCH';
 export const GIT_PROGRESS = 'GIT_PROGRESS';
 export const GIT_PULL = 'GIT_PULL';
 export const GIT_DONE = 'GIT_DONE';

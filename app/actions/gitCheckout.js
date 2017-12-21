@@ -3,27 +3,20 @@
 import lodash from 'lodash';
 import { remote } from 'electron';
 import gitPush from './gitPush';
+import gitFetch from './gitFetch';
 import gitStatus from './gitStatus';
 import gitCommand from './gitCommand';
 import showNotification from './showNotification';
 import { GIT_CHECKOUT } from '../constants/actionTypes';
 
 export default (repositoryId, branch, file) => (dispatch, getState) => {
-  const { repositoryBranch } = getState();
-  const branches = repositoryBranch[repositoryId];
-  const branchExists = lodash.includes(branches, branch);
+  const branchExists = () => {
+    const { repositoryBranch } = getState();
+    const branches = repositoryBranch[repositoryId];
+    return lodash.includes(branches, branch);
+  };
 
-  if (!branchExists && file) {
-    showNotification({
-      message: 'Cannot checkout file from nonexistent branch',
-      type: 'error',
-      detail: file,
-    });
-    return;
-  }
-
-  let create = '';
-  if (!branchExists) {
+  const confirmCreate = () => {
     const button = remote.dialog.showMessageBox({
       type: 'question',
       title: 'git checkout',
@@ -32,24 +25,41 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
       defaultId: 0,
       cancelId: 1,
     });
-    if (button === 0) {
-      create = '-b';
-    }
-  }
+    return (button === 0);
+  };
 
-  const command = `git checkout ${create} ${branch} ${file || ''}`;
-
-  gitCommand(repositoryId, command, true, () => {
-    dispatch({
-      type: GIT_CHECKOUT,
-      repositoryId,
-      branch,
-      file,
+  return Promise.resolve()
+    .then(() => {
+      if (!branchExists()) {
+        return dispatch(gitFetch(repositoryId));
+      }
+    })
+    .then(() => {
+      if (!branchExists() && file) {
+        showNotification({
+          message: 'Cannot checkout file from nonexistent branch',
+          type: 'error',
+          detail: file,
+        });
+        return;
+      }
+      if (branchExists()) {
+        const command = `git checkout ${branch} ${file || ''}`;
+        return dispatch(gitCommand(repositoryId, command, true));
+      }
+      if (confirmCreate()) {
+        const command = `git checkout -b ${branch}`;
+        return dispatch(gitCommand(repositoryId, command, true))
+          .then(() => dispatch(gitPush(repositoryId, branch)));
+      }
+    })
+    .then(() => {
+      dispatch({
+        type: GIT_CHECKOUT,
+        repositoryId,
+        branch,
+        file,
+      });
+      return dispatch(gitStatus(repositoryId));
     });
-    if (create) {
-      gitPush(repositoryId, branch)(dispatch, getState);
-    } else {
-      gitStatus(repositoryId)(dispatch, getState);
-    }
-  })(dispatch, getState);
 };

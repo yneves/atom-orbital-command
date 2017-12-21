@@ -45,7 +45,8 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
       }
       if (branchExists()) {
         const command = `git checkout ${branch} ${file || ''}`;
-        return dispatch(gitCommand(repositoryId, command, true));
+        return dispatch(gitCommand(repositoryId, command, true))
+          .then(() => dispatch(gitStatus(repositoryId)));
       }
       if (confirmCreate()) {
         const command = `git checkout -b ${branch}`;
@@ -60,6 +61,5 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
         branch,
         file,
       });
-      return dispatch(gitStatus(repositoryId));
     });
 };

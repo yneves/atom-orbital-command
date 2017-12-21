@@ -27,8 +27,10 @@ export default class RepositoryLog extends Component {
   render() {
     return (
       <li>
-        <i className='icon icon-git-commit' />
-        {this.props.commit}
+        <span>
+          <i className='icon icon-git-commit' />
+          {this.props.commit}
+        </span>
         <Button icon='arrow-circle-up' onClick={this.onClickPush} />
       </li>
     );

@@ -26,6 +26,7 @@ export default class Repository extends Component {
     gitPull: PropTypes.func.isRequired,
     gitPush: PropTypes.func.isRequired,
     gitStatus: PropTypes.func.isRequired,
+    gitFetch: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     removeFile: PropTypes.func.isRequired,
@@ -53,8 +54,8 @@ export default class Repository extends Component {
     this.props.toggleSection(this.props.section);
   }
 
-  onClickGitPull() {
-    this.props.gitPull(this.props.id);
+  onClickGitFetch() {
+    this.props.gitFetch(this.props.id, this.props.repositoryStatus.local_branch);
   }
 
   onClickRefresh() {
@@ -62,11 +63,11 @@ export default class Repository extends Component {
     this.props.gitBranch(this.props.id);
   }
 
-  renderGitPull() {
+  renderGitFetch() {
     return (
       <Button
         icon='arrow-circle-down'
-        onClick={this.onClickGitPull}
+        onClick={this.onClickGitFetch}
       />
     );
   }
@@ -189,7 +190,7 @@ export default class Repository extends Component {
         <header onClick={this.onClickHeader}>
           <span className='icon icon-repo'></span>
           {this.props.name}
-          {this.renderGitPull()}
+          {this.renderGitFetch()}
           {this.renderGitStatus()}
         </header>
         {this.props.collapsed || this.renderBody()}

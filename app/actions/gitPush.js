@@ -15,12 +15,13 @@ export default (repositoryId, branch, commit) => (dispatch, getState) => {
   const push = commit ? `${commit}:${pushBranch}` : pushBranch;
   const command = `git push ${remote} ${push}`;
 
-  gitCommand(repositoryId, command, true, () => {
-    dispatch({
-      type: GIT_PUSH,
-      repositoryId,
-      pushBranch,
+  return dispatch(gitCommand(repositoryId, command, true))
+    .then(() => {
+      dispatch({
+        type: GIT_PUSH,
+        repositoryId,
+        pushBranch,
+      });
+      return dispatch(gitStatus(repositoryId));
     });
-    gitStatus(repositoryId)(dispatch, getState);
-  })(dispatch, getState);
 };

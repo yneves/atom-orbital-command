@@ -103,6 +103,7 @@ export default class RepositoryCheckout extends Component {
       <RepositoryBranch
         key={branch}
         branch={branch}
+        currentBranch={this.props.currentBranch}
         gitPull={this.props.gitPull}
         gitCheckout={this.props.gitCheckout}
         repositoryId={this.props.repositoryId}

@@ -25,6 +25,7 @@ import toggleProject from './toggleProject';
 import toggleSection from './toggleSection';
 import viewCommandOutput from './viewCommandOutput';
 import refreshDirectory from './refreshDirectory';
+import gitFetch from './gitFetch';
 
 export default {
   refreshDirectory,
@@ -38,6 +39,7 @@ export default {
   gitLog,
   gitPull,
   gitPush,
+  gitFetch,
   gitStatus,
   killCommand,
   loadWorkspaces,

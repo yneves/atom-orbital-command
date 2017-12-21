@@ -11,7 +11,7 @@ export default (state = {}, action) => {
       const branches = [action.branch].concat(state[action.repositoryId])
         .filter(value => !!value);
       return lodash.extend({}, state, {
-        [action.repositoryId]: lodash.uniq(branches).slice(-10),
+        [action.repositoryId]: lodash.uniq(branches).slice(0, 10),
       });
     default:
       return state;

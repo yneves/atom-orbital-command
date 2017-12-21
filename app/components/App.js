@@ -33,6 +33,7 @@ export default class App extends Component {
     gitStatus: PropTypes.func.isRequired,
     gitPull: PropTypes.func.isRequired,
     gitPush: PropTypes.func.isRequired,
+    gitFetch: PropTypes.func.isRequired,
     gitLog: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
     clipboardCopy: PropTypes.func.isRequired,
@@ -121,6 +122,7 @@ export default class App extends Component {
         gitPull={this.props.gitPull}
         gitLog={this.props.gitLog}
         gitPush={this.props.gitPush}
+        gitFetch={this.props.gitFetch}
         removeFile={this.props.removeFile}
         toggleSection={this.props.toggleSection}
         toggleCommitFile={this.props.toggleCommitFile}

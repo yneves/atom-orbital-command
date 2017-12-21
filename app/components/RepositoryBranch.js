@@ -2,6 +2,7 @@
 
 import React, { PropTypes, Component } from 'react';
 import autoBind from 'class-autobind';
+import classNames from 'classnames';
 import Button from './Button';
 
 export default class RepositoryBranch extends Component {
@@ -10,6 +11,7 @@ export default class RepositoryBranch extends Component {
     branch: PropTypes.string.isRequired,
     gitPull: PropTypes.func.isRequired,
     gitCheckout: PropTypes.func.isRequired,
+    currentBranch: PropTypes.string.isRequired,
     repositoryId: PropTypes.string.isRequired,
   };
 
@@ -27,20 +29,28 @@ export default class RepositoryBranch extends Component {
   }
 
   render() {
+    const isSelected = this.props.branch === this.props.currentBranch;
+    const className = classNames({
+      selected: isSelected,
+    });
     return (
-      <li onClick={this.onClickCheckout} data-text={this.props.branch}>
-        <i className='icon icon-git-branch' />
-        {this.props.branch}
-        <Button
-          icon='arrow-circle-right'
-          tooltip={`git checkout ${this.props.branch}`}
-          onClick={this.onClickCheckout}
-        />
+      <li onClick={this.onClickCheckout} className={className}>
+        <span>
+          <i className='icon icon-git-branch' />
+          {this.props.branch}
+        </span>
         <Button
           icon='arrow-circle-down'
           tooltip={`git pull origin ${this.props.branch}`}
           onClick={this.onClickPull}
         />
+        {!isSelected && (
+          <Button
+            icon='arrow-circle-right'
+            tooltip={`git checkout ${this.props.branch}`}
+            onClick={this.onClickCheckout}
+          />
+        )}
       </li>
     );
   }

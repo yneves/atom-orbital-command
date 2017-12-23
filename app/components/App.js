@@ -2,10 +2,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import lodash from 'lodash';
 import Workspaces from './Workspaces';
 import Projects from './Projects';
-import Commands from './Commands';
 import Resizer from './Resizer';
 import Repository from './Repository';
 
@@ -80,35 +78,6 @@ export default class App extends Component {
     );
   }
 
-  getCommands() {
-    const workspace = this.getSelectedWorkspace();
-    let commands = [];
-    if (workspace && workspace.commands) {
-      commands = commands.concat(workspace.commands);
-      this.props.selectedProjects.forEach((id) => {
-        const project = lodash.find(workspace.projects, proj => proj.id === id);
-        if (project) {
-          commands = commands.concat(project.commands);
-        }
-      });
-    }
-    return commands;
-  }
-
-  renderCommands() {
-    const workspace = this.getSelectedWorkspace();
-    const commands = this.getCommands();
-    return Boolean(workspace && commands.length) && (
-      <Commands
-        {...this.props}
-        commands={commands}
-        workspace={workspace}
-        section='commands'
-        collapsed={this.props.collapsedSections.includes('commands')}
-      />
-    );
-  }
-
   renderRepository(repository, index) {
     return (
       <Repository
@@ -129,6 +98,7 @@ export default class App extends Component {
         toggleCommitFile={this.props.toggleCommitFile}
         setCommitMessage={this.props.setCommitMessage}
         setCheckoutBranch={this.props.setCheckoutBranch}
+        executeCommand={this.props.executeCommand}
         repositoryStatus={this.props.repositoryStatus[repository.id] || ''}
         commitMessage={this.props.commitMessages[repository.id] || ''}
         runningGit={this.props.runningGit[repository.id]}
@@ -169,7 +139,6 @@ export default class App extends Component {
       <div className='orbital-command__app'>
         {this.renderWorkspaces()}
         {this.renderProjects()}
-        {this.renderCommands()}
         {this.props.repositories.map(this.renderRepository, this)}
         {this.renderResizer()}
       </div>

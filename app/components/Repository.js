@@ -8,6 +8,7 @@ import RepositoryCommit from './RepositoryCommit';
 import RepositoryCheckout from './RepositoryCheckout';
 import RepositoryLog from './RepositoryLog';
 import Button from './Button';
+import Commands from './Commands';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -40,6 +41,7 @@ export default class Repository extends Component {
     setCommitMessage: PropTypes.func.isRequired,
     toggleCommitFile: PropTypes.func.isRequired,
     toggleSection: PropTypes.func.isRequired,
+    executeCommand: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -144,7 +146,6 @@ export default class Repository extends Component {
     return (
       <RepositoryLog
         key={index}
-        repositoryId={this.props.id}
         gitPush={this.props.gitPush}
         clipboardCopy={this.props.clipboardCopy}
         isLatestCommit={index === 0}
@@ -161,6 +162,15 @@ export default class Repository extends Component {
     );
   }
 
+  renderCommands() {
+    return (
+      <Commands
+        repositoryId={this.props.id}
+        executeCommand={this.props.executeCommand}
+/>
+    );
+  }
+
   renderBody() {
     return (
       <div>
@@ -169,6 +179,7 @@ export default class Repository extends Component {
         {this.renderFiles()}
         {this.renderCommit()}
         {this.renderProgress()}
+        {this.renderCommands()}
       </div>
     );
   }

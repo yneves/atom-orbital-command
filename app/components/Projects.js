@@ -1,11 +1,11 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 import Project from './Project';
 
 export default class Projects extends Component {
-
   static propTypes = {
     collapsed: PropTypes.bool.isRequired,
     section: PropTypes.string.isRequired,

@@ -1,6 +1,7 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 import RepositoryBranch from './RepositoryBranch';
 import {
@@ -10,13 +11,13 @@ import {
 
 
 export default class RepositoryCheckout extends Component {
-
   static propTypes = {
     runningGit: PropTypes.string,
     checkoutBranch: PropTypes.string.isRequired,
     checkoutHistory: PropTypes.array.isRequired,
     currentBranch: PropTypes.string.isRequired,
     gitCheckout: PropTypes.func.isRequired,
+    gitStatus: PropTypes.func.isRequired,
     gitPull: PropTypes.func.isRequired,
     setCommitMessage: PropTypes.func.isRequired,
     setCheckoutBranch: PropTypes.func.isRequired,
@@ -32,32 +33,31 @@ export default class RepositoryCheckout extends Component {
     };
   }
 
-  componentDidMount() {
-    this.refs.input.addEventListener('keydown', this.onKeyDown);
-  }
-
-  onKeyDown(event) {
+  onKeyDown(e) {
     const { checkoutBranch, repositoryId } = this.props;
-    switch (event.which) {
+    switch (e.which) {
       case KEY_ENTER:
         if (/\w/.test(checkoutBranch)) {
           this.props.gitCheckout(repositoryId, checkoutBranch);
         }
         break;
       case KEY_ESC:
-        this.refs.input.blur();
+        e.target.blur();
         break;
       default:
         break;
     }
   }
 
-  onChange() {
-    this.props.setCheckoutBranch(this.props.repositoryId,
-      this.refs.input.value);
+  onChange(e) {
+    this.props.setCheckoutBranch(
+      this.props.repositoryId,
+      e.target.value
+    );
   }
 
   onFocus() {
+    this.props.gitStatus(this.props.repositoryId);
     if (this.blurTimeout) {
       clearTimeout(this.blurTimeout);
       this.blurTimeout = undefined;
@@ -78,9 +78,9 @@ export default class RepositoryCheckout extends Component {
   renderInput() {
     return (
       <input
-        ref='input'
         type='text'
         value={this.props.checkoutBranch}
+        onKeyDown={this.onKeyDown}
         onChange={this.onChange}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
@@ -106,6 +106,7 @@ export default class RepositoryCheckout extends Component {
         currentBranch={this.props.currentBranch}
         gitPull={this.props.gitPull}
         gitCheckout={this.props.gitCheckout}
+        gitStatus={this.props.gitStatus}
         repositoryId={this.props.repositoryId}
       />
     );

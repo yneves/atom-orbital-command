@@ -26,9 +26,11 @@ export default (state = {}, action) => {
       });
     case EXECUTE_COMMAND_PROGRESS:
       if (state[action.command.id]) {
-        const command = lodash.extend({},
+        const command = lodash.extend(
+          {},
           state[action.command.id],
-          lodash.omit(action, ['type']));
+          lodash.omit(action, ['type'])
+        );
         return lodash.extend({}, state, {
           [action.command.id]: command,
         });

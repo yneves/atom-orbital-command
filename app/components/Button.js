@@ -1,14 +1,14 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import autoBind from 'class-autobind';
 
 export default class Button extends Component {
-
   static propTypes = {
-    icon: PropTypes.string.isRequired,
-    oct: PropTypes.bool,
+    icon: PropTypes.string,
+    octicon: PropTypes.string,
     spin: PropTypes.bool,
     active: PropTypes.bool,
     className: PropTypes.string,
@@ -34,11 +34,11 @@ export default class Button extends Component {
       [this.props.className]: !!this.props.className,
     });
     const classNameIcon = cx({
-      fa: !this.props.oct,
-      'fa-spin': !this.props.oct && !!this.props.spin,
-      [`fa-${this.props.icon}`]: !this.props.oct && !!this.props.icon,
-      icon: this.props.oct,
-      [`icon-${this.props.icon}`]: this.props.oct,
+      fa: !this.props.octicon,
+      'fa-spin': !this.props.octicon && !!this.props.spin,
+      [`fa-${this.props.icon}`]: !this.props.octicon && !!this.props.icon,
+      icon: !!this.props.octicon,
+      [`icon-${this.props.octicon}`]: !!this.props.octicon,
     });
     return (
       <button

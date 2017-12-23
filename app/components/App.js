@@ -1,6 +1,7 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import lodash from 'lodash';
 import Workspaces from './Workspaces';
 import Projects from './Projects';
@@ -9,7 +10,6 @@ import Resizer from './Resizer';
 import Repository from './Repository';
 
 export default class App extends Component {
-
   static propTypes = {
     browserIcons: PropTypes.object.isRequired,
     removeFile: PropTypes.func.isRequired,

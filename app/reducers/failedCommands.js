@@ -16,9 +16,11 @@ export default (state = {}, action) => {
     case EXECUTE_COMMAND_SUCCESS:
       return lodash.omit(state, [action.command.id]);
     case EXECUTE_COMMAND_FAILED:
-      const command = lodash.extend({},
+      const command = lodash.extend(
+        {},
         state[action.command.id],
-        lodash.omit(action, ['type', 'command']));
+        lodash.omit(action, ['type', 'command'])
+      );
       return lodash.extend({}, state, {
         [action.command.id]: command,
       });

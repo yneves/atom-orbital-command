@@ -1,6 +1,7 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 import RepositoryFile from './RepositoryFile';
 import RepositoryCommit from './RepositoryCommit';
@@ -9,7 +10,6 @@ import RepositoryLog from './RepositoryLog';
 import Button from './Button';
 
 export default class Repository extends Component {
-
   static propTypes = {
     checkoutBranch: PropTypes.string.isRequired,
     checkoutHistory: PropTypes.array.isRequired,
@@ -129,6 +129,7 @@ export default class Repository extends Component {
         runningGit={this.props.runningGit}
         gitPull={this.props.gitPull}
         gitCheckout={this.props.gitCheckout}
+        gitStatus={this.props.gitStatus}
         currentBranch={this.props.repositoryStatus.local_branch}
         checkoutBranch={this.props.checkoutBranch}
         checkoutHistory={this.props.checkoutHistory}

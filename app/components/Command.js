@@ -1,12 +1,12 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 import cx from 'classnames';
 import Button from './Button';
 
 export default class Command extends Component {
-
   static propTypes = {
     command: PropTypes.object.isRequired,
     runningCommand: PropTypes.bool.isRequired,
@@ -53,14 +53,10 @@ export default class Command extends Component {
     const failed = !!this.props.failedCommand;
     const buttons = [];
     if (running) {
-      buttons.push(
-        <Button key='pause' icon='pause' onClick={this.onClickKill} />,
-      );
+      buttons.push(<Button key='pause' icon='pause' onClick={this.onClickKill} />);
     }
     if (!running) {
-      buttons.push(
-        <Button key='play' icon='play' onClick={this.onClickExecute} />,
-      );
+      buttons.push(<Button key='play' icon='play' onClick={this.onClickExecute} />);
     }
     if (running) {
       let icon = 'spinner';
@@ -69,31 +65,25 @@ export default class Command extends Component {
       } else if (running.status === 'output') {
         icon = 'check';
       }
-      buttons.push(
-        <Button
+      buttons.push(<Button
           key='progress'
           icon={icon}
           spin={icon === 'spinner'}
-          onClick={this.onClickProgress} />,
-      );
+          onClick={this.onClickProgress} />);
     }
     if (failed) {
-      buttons.push(
-        <Button
+      buttons.push(<Button
           key='failed'
           icon='exclamation-triangle'
           onClick={this.onClickFailed}
-          className='colored' />,
-      );
+          className='colored' />);
     }
     if (finished) {
-      buttons.push(
-        <Button
+      buttons.push(<Button
           key='finished'
           icon='check'
           onClick={this.onClickFinished}
-          className='colored' />,
-      );
+          className='colored' />);
     }
     return buttons;
   }

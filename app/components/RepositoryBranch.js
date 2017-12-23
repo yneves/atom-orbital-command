@@ -1,16 +1,17 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 import classNames from 'classnames';
 import Button from './Button';
 
 export default class RepositoryBranch extends Component {
-
   static propTypes = {
     branch: PropTypes.string.isRequired,
     gitPull: PropTypes.func.isRequired,
     gitCheckout: PropTypes.func.isRequired,
+    gitStatus: PropTypes.func.isRequired,
     currentBranch: PropTypes.string.isRequired,
     repositoryId: PropTypes.string.isRequired,
   };
@@ -26,6 +27,10 @@ export default class RepositoryBranch extends Component {
 
   onClickPull() {
     this.props.gitPull(this.props.repositoryId, this.props.branch);
+  }
+
+  onClickStatus() {
+    this.props.gitStatus(this.props.repositoryId);
   }
 
   render() {
@@ -44,6 +49,13 @@ export default class RepositoryBranch extends Component {
           tooltip={`git pull origin ${this.props.branch}`}
           onClick={this.onClickPull}
         />
+        {isSelected && (
+          <Button
+            octicon='git-compare'
+            tooltip={'git status'}
+            onClick={this.onClickStatus}
+          />
+        )}
         {!isSelected && (
           <Button
             icon='arrow-circle-right'
@@ -54,5 +66,4 @@ export default class RepositoryBranch extends Component {
       </li>
     );
   }
-
 }

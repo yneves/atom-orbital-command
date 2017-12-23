@@ -1,11 +1,11 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 import Command from './Command';
 
 export default class Commands extends Component {
-
   static propTypes = {
     collapsed: PropTypes.bool.isRequired,
     section: PropTypes.string.isRequired,

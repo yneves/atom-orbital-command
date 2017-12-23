@@ -1,11 +1,11 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 import Button from './Button';
 
 export default class RepositoryLog extends Component {
-
   static propTypes = {
     commit: PropTypes.string.isRequired,
     latestCommit: PropTypes.bool.isRequired,
@@ -20,7 +20,9 @@ export default class RepositoryLog extends Component {
   }
 
   onClickPush() {
-    const { gitPush, repositoryId, latestCommit, commit } = this.props;
+    const {
+      gitPush, repositoryId, latestCommit, commit,
+    } = this.props;
     gitPush(repositoryId, null, latestCommit ? null : commit);
   }
 

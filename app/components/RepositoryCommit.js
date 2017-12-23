@@ -1,10 +1,10 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 
 export default class RepositoryCommit extends Component {
-
   static propTypes = {
     commitMessage: PropTypes.string.isRequired,
     gitCommit: PropTypes.func.isRequired,
@@ -17,10 +17,6 @@ export default class RepositoryCommit extends Component {
     autoBind(this);
   }
 
-  componentDidMount() {
-    this.refs.input.addEventListener('keydown', this.onKeyDown);
-  }
-
   onKeyDown(event) {
     if (event.which === 13) {
       const message = this.props.commitMessage;
@@ -30,17 +26,17 @@ export default class RepositoryCommit extends Component {
     }
   }
 
-  onChange() {
-    this.props.setCommitMessage(this.props.repositoryId, this.refs.input.value);
+  onChange(e) {
+    this.props.setCommitMessage(this.props.repositoryId, e.target.value);
   }
 
   render() {
     return (
       <input
-        ref='input'
         type='text'
         value={this.props.commitMessage}
         onChange={this.onChange}
+        onKeyDown={this.onKeyDown}
         className='native-key-bindings'
         placeholder='Commit message...'
       />

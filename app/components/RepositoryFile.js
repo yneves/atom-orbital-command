@@ -1,11 +1,11 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 import Button from './Button';
 
 export default class RepositoryFile extends Component {
-
   static propTypes = {
     repositoryId: PropTypes.string.isRequired,
     commit: PropTypes.bool.isRequired,
@@ -35,7 +35,9 @@ export default class RepositoryFile extends Component {
   }
 
   onClickUndo() {
-    const { repositoryId, branch, file, path } = this.props;
+    const {
+      repositoryId, branch, file, path,
+    } = this.props;
     if (this.props.status === 'new') {
       this.props.removeFile(path);
     } else {

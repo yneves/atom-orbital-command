@@ -2,7 +2,7 @@
 
 import gitCommand from './gitCommand';
 import gitBranch from './gitBranch';
-import gitPrune from './gitPrune';
+// import gitPrune from './gitPrune';
 import gitPull from './gitPull';
 import { GET_FETCH } from '../constants/actionTypes';
 
@@ -16,7 +16,6 @@ export default (repositoryId, branch) => (dispatch) => {
         repositoryId,
       });
     })
-    .then(() => dispatch(gitPrune(repositoryId)))
     .then(() => dispatch(gitBranch(repositoryId)))
     .then(() => {
       if (branch) {

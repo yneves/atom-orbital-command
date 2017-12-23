@@ -1,10 +1,10 @@
 'use babel';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 
 export default class App extends Component {
-
   static propTypes = {
     element: PropTypes.object.isRequired,
     resizeRightPanel: PropTypes.func.isRequired,

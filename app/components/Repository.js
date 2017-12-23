@@ -12,6 +12,7 @@ import Button from './Button';
 export default class Repository extends Component {
   static propTypes = {
     checkoutBranch: PropTypes.string.isRequired,
+    defaultBranch: PropTypes.string.isRequired,
     checkoutHistory: PropTypes.array.isRequired,
     clipboardCopy: PropTypes.func.isRequired,
     collapsed: PropTypes.bool.isRequired,
@@ -47,36 +48,22 @@ export default class Repository extends Component {
   }
 
   componentDidMount() {
-    this.onClickRefresh();
+    this.onClickFetch();
   }
 
   onClickHeader() {
     this.props.toggleSection(this.props.section);
   }
 
-  onClickGitFetch() {
-    this.props.gitFetch(this.props.id, this.props.repositoryStatus.local_branch);
+  onClickFetch() {
+    this.props.gitFetch(this.props.id);
   }
 
-  onClickRefresh() {
-    this.props.gitStatus(this.props.id);
-    this.props.gitBranch(this.props.id);
-  }
-
-  renderGitFetch() {
+  renderFetch() {
     return (
       <Button
-        icon='arrow-circle-down'
-        onClick={this.onClickGitFetch}
-      />
-    );
-  }
-
-  renderGitStatus() {
-    return (
-      <Button
-        icon='refresh'
-        onClick={this.onClickRefresh}
+        octicon='git-compare'
+        onClick={this.onClickFetch}
       />
     );
   }
@@ -130,6 +117,7 @@ export default class Repository extends Component {
         gitPull={this.props.gitPull}
         gitCheckout={this.props.gitCheckout}
         gitStatus={this.props.gitStatus}
+        defaultBranch={this.props.defaultBranch}
         currentBranch={this.props.repositoryStatus.local_branch}
         checkoutBranch={this.props.checkoutBranch}
         checkoutHistory={this.props.checkoutHistory}
@@ -189,10 +177,11 @@ export default class Repository extends Component {
     return (
       <section>
         <header onClick={this.onClickHeader}>
-          <span className='icon icon-repo'></span>
-          {this.props.name}
-          {this.renderGitFetch()}
-          {this.renderGitStatus()}
+          <span>
+            <i className='icon icon-repo' />
+            {this.props.name}
+          </span>
+          {this.renderFetch()}
         </header>
         {this.props.collapsed || this.renderBody()}
       </section>

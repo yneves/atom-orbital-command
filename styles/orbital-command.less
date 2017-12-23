@@ -40,6 +40,34 @@
         border-bottom: 1px solid @border-color;
       }
 
+      header, li {
+
+        & > span {
+          display: inline-block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: ~"calc(100% - 75px)";
+
+          & > .icon {
+            position: relative;
+            top: 1px;
+            left: -2px;
+            margin-right: 5px;
+          }
+        }
+
+        button {
+          float: right;
+          margin-left: 5px;
+
+          .fa, .icon {
+            position: relative;
+            top: 1px;
+          }
+        }
+      }
+
       header {
         font-weight: normal;
         background-color: @header-color;
@@ -49,19 +77,8 @@
         padding: 0 10px;
         line-height: 30px;
 
-        &, .icon, .fa {
+        &, .fa, .icon:before {
           color: @text-color-highlight;
-        }
-
-        .icon:before {
-          font-size: 14px;
-          width: 14px;
-        }
-
-        button {
-          float: right;
-          margin: 0 2px;
-          line-height: 30px;
         }
       }
 
@@ -70,6 +87,11 @@
         margin: 0;
         list-style-type: none;
         text-align: left;
+
+        &.scroll {
+          max-height: 150px;
+          overflow: auto;
+        }
 
         li {
           position: relative;
@@ -80,13 +102,6 @@
           border-top: 1px solid @border-color;
           box-shadow: inset 0 1px 0 @shadow-color;
 
-          & > span {
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: ~"calc(100% - 75px)";
-          }
 
           &:hover > span {
             color: @text-color-highlight;
@@ -94,12 +109,6 @@
 
           img {
             margin: 3px 5px 0 0;
-          }
-
-          button {
-            float: right;
-            margin: 0 2px;
-            line-height: 30px;
           }
 
           &.deleted {
@@ -120,7 +129,10 @@
 
           &.selected {
             background-color: @selected-color;
-            color: @text-color-highlight;
+
+            &, .fa, .icon:before {
+              color: @text-color-highlight;
+            }
 
             &:before {
               content: '';
@@ -182,19 +194,6 @@
       padding: 0;
       background-color: transparent;
 
-      &, .fa {
-        height: 16px;
-        width: 16px;
-        line-height: 16px;
-        text-align: center;
-        color: @text-color;
-      }
-
-      .icon:before {
-        font-size: 14px;
-        width: 14px;
-      }
-
       &.colored .fa-exclamation-triangle {
         color: @text-color-warning;
       }
@@ -211,14 +210,18 @@
         color: @text-color-highlight;
       }
     }
-  }
 
-  .clipboard-copy {
-    cursor: -webkit-grab;
-    transition: all 300ms;
+    .fa, .icon:before {
+      height: 16px;
+      width: 16px;
+      line-height: 16px;
+      margin: 0;
+      text-align: center;
+      color: @text-color;
+    }
 
-    &.clipboard-copied {
-      color: @text-color-highlight;
+    .icon:before {
+      font-size: 14px;
     }
   }
 }

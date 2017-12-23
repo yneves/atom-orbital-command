@@ -17,7 +17,8 @@ export default class RepositoryCommit extends Component {
     autoBind(this);
   }
 
-  onKeyDown(event) {
+  onKeyPress(event) {
+    console.log(event);
     if (event.which === 13) {
       const message = this.props.commitMessage;
       if (/\w/.test(message)) {
@@ -36,7 +37,7 @@ export default class RepositoryCommit extends Component {
         type='text'
         value={this.props.commitMessage}
         onChange={this.onChange}
-        onKeyDown={this.onKeyDown}
+        onKeyPress={this.onKeyPress}
         className='native-key-bindings'
         placeholder='Commit message...'
       />

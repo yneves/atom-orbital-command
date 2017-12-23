@@ -40,7 +40,7 @@ export default class RepositoryBranch extends Component {
     });
     return (
       <li onClick={this.onClickCheckout} className={className}>
-        <span>
+        <span title={`git checkout ${this.props.branch}`}>
           <i className='icon icon-git-branch' />
           {this.props.branch}
         </span>
@@ -51,16 +51,9 @@ export default class RepositoryBranch extends Component {
         />
         {isSelected && (
           <Button
-            octicon='git-compare'
+            icon='refresh'
             tooltip={'git status'}
             onClick={this.onClickStatus}
-          />
-        )}
-        {!isSelected && (
-          <Button
-            icon='arrow-circle-right'
-            tooltip={`git checkout ${this.props.branch}`}
-            onClick={this.onClickCheckout}
           />
         )}
       </li>

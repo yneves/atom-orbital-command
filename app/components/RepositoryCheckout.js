@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
+import lodash from 'lodash';
 import RepositoryBranch from './RepositoryBranch';
 import {
   KEY_ESC,
@@ -13,6 +14,7 @@ import {
 export default class RepositoryCheckout extends Component {
   static propTypes = {
     runningGit: PropTypes.string,
+    defaultBranch: PropTypes.string.isRequired,
     checkoutBranch: PropTypes.string.isRequired,
     checkoutHistory: PropTypes.array.isRequired,
     currentBranch: PropTypes.string.isRequired,
@@ -90,10 +92,19 @@ export default class RepositoryCheckout extends Component {
     );
   }
 
+  getBranches() {
+    return lodash.uniq([
+      this.props.currentBranch,
+      this.props.defaultBranch,
+    ].concat(this.props.checkoutHistory
+      .concat(this.props.repositoryBranch)
+      .filter(branch => lodash.startsWith(branch, this.props.checkoutBranch))));
+  }
+
   renderBranches() {
     return this.state.isFocused && (
-      <ul>
-        {this.props.checkoutHistory.map(this.renderBranch)}
+      <ul className='scroll'>
+        {this.getBranches().map(this.renderBranch)}
       </ul>
     );
   }

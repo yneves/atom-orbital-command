@@ -2,24 +2,34 @@
 
 import gitCommand from './gitCommand';
 import gitBranch from './gitBranch';
-// import gitPrune from './gitPrune';
-import gitPull from './gitPull';
-import { GET_FETCH } from '../constants/actionTypes';
+import gitPrune from './gitPrune';
+import gitStatus from './gitStatus';
+import { GIT_FETCH } from '../constants/actionTypes';
 
-export default (repositoryId, branch) => (dispatch) => {
-  const command = 'git fetch origin';
+const parseHead = stdout => stdout.split('\n')
+  .filter(line => line.indexOf('HEAD branch') !== -1)
+  .pop()
+  .split(':')
+  .pop()
+  .trim();
 
-  return dispatch(gitCommand(repositoryId, command, false))
-    .then(() => {
-      dispatch({
-        type: GET_FETCH,
-        repositoryId,
+export default repositoryId => dispatch => Promise.resolve()
+  .then(() => {
+    const command = 'git remote show origin';
+    return dispatch(gitCommand(repositoryId, command, false))
+      .then(stdout => parseHead(stdout));
+  })
+  .then((head) => {
+    const command = 'git fetch origin';
+    return dispatch(gitCommand(repositoryId, command, false))
+      .then(() => {
+        dispatch({
+          type: GIT_FETCH,
+          repositoryId,
+          head,
+        });
       });
-    })
-    .then(() => dispatch(gitBranch(repositoryId)))
-    .then(() => {
-      if (branch) {
-        return dispatch(gitPull(repositoryId, branch));
-      }
-    });
-};
+  })
+  .then(() => dispatch(gitPrune(repositoryId)))
+  .then(() => dispatch(gitBranch(repositoryId)))
+  .then(() => dispatch(gitStatus(repositoryId)));

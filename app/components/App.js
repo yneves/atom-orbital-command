@@ -57,6 +57,7 @@ export default class App extends Component {
     toggleSection: PropTypes.func.isRequired,
     viewCommandOutput: PropTypes.func.isRequired,
     workspaces: PropTypes.array.isRequired,
+    defaultBranch: PropTypes.object.isRequired,
     repositoryBranch: PropTypes.object.isRequired,
   };
 
@@ -134,6 +135,7 @@ export default class App extends Component {
         checkoutBranch={this.props.checkoutBranch[repository.id] || ''}
         checkoutHistory={this.props.checkoutHistory[repository.id] || []}
         commitFiles={this.props.commitFiles[repository.id] || []}
+        defaultBranch={this.props.defaultBranch[repository.id] || []}
         repositoryBranch={this.props.repositoryBranch[repository.id] || []}
         repositoryLog={this.props.repositoryLog[repository.id] || []}
         clipboardCopy={this.props.clipboardCopy}

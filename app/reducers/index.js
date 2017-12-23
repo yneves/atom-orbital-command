@@ -20,8 +20,10 @@ import selectedProjects from './selectedProjects';
 import selectedWorkspace from './selectedWorkspace';
 import workspaces from './workspaces';
 import checkoutHistory from './checkoutHistory';
+import defaultBranch from './defaultBranch';
 
 export default combineReducers({
+  defaultBranch,
   checkoutBranch,
   checkoutHistory,
   collapsedSections,

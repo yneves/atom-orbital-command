@@ -68,6 +68,14 @@
         }
       }
 
+      header,
+      li.selected,
+      li.highlighted {
+        &, .fa, .icon:before {
+          color: @text-color-highlight;
+        }
+      }
+
       header {
         font-weight: normal;
         background-color: @header-color;
@@ -76,10 +84,6 @@
         height: 30px;
         padding: 0 10px;
         line-height: 30px;
-
-        &, .fa, .icon:before {
-          color: @text-color-highlight;
-        }
       }
 
       ul {
@@ -101,7 +105,6 @@
           line-height: 30px;
           border-top: 1px solid @border-color;
           box-shadow: inset 0 1px 0 @shadow-color;
-
 
           &:hover > span {
             color: @text-color-highlight;
@@ -129,10 +132,6 @@
 
           &.selected {
             background-color: @selected-color;
-
-            &, .fa, .icon:before {
-              color: @text-color-highlight;
-            }
 
             &:before {
               content: '';

@@ -18,7 +18,6 @@ export default class RepositoryCommit extends Component {
   }
 
   onKeyPress(event) {
-    console.log(event);
     if (event.which === 13) {
       const message = this.props.commitMessage;
       if (/\w/.test(message)) {

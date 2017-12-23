@@ -3,12 +3,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
+import classNames from 'classnames';
 import Button from './Button';
 
 export default class RepositoryLog extends Component {
   static propTypes = {
     commit: PropTypes.string.isRequired,
-    latestCommit: PropTypes.bool.isRequired,
+    isLatestCommit: PropTypes.bool.isRequired,
     repositoryId: PropTypes.string.isRequired,
     gitPush: PropTypes.func.isRequired,
   };
@@ -16,24 +17,27 @@ export default class RepositoryLog extends Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state = { copied: false };
   }
 
   onClickPush() {
-    const {
-      gitPush, repositoryId, latestCommit, commit,
-    } = this.props;
-    gitPush(repositoryId, null, latestCommit ? null : commit);
+    this.props.gitPush(this.props.repositoryId, null, null);
   }
 
   render() {
+    const className = classNames({
+      highlighted: this.props.isLatestCommit,
+    });
     return (
-      <li>
+      <li className={className}>
         <span>
           <i className='icon icon-git-commit' />
           {this.props.commit}
         </span>
-        <Button icon='arrow-circle-up' onClick={this.onClickPush} />
+        {this.props.isLatestCommit && (
+          <Button
+            icon='arrow-circle-up'
+            onClick={this.onClickPush} />
+        )}
       </li>
     );
   }

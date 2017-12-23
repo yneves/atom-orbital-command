@@ -5,11 +5,6 @@ import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
 import lodash from 'lodash';
 import RepositoryBranch from './RepositoryBranch';
-import {
-  KEY_ESC,
-  KEY_ENTER,
-} from '../constants/keyCodes';
-
 
 export default class RepositoryCheckout extends Component {
   static propTypes = {
@@ -33,22 +28,6 @@ export default class RepositoryCheckout extends Component {
     this.state = {
       isFocused: false,
     };
-  }
-
-  onKeyDown(e) {
-    const { checkoutBranch, repositoryId } = this.props;
-    switch (e.which) {
-      case KEY_ENTER:
-        if (/\w/.test(checkoutBranch)) {
-          this.props.gitCheckout(repositoryId, checkoutBranch);
-        }
-        break;
-      case KEY_ESC:
-        e.target.blur();
-        break;
-      default:
-        break;
-    }
   }
 
   onChange(e) {
@@ -82,7 +61,6 @@ export default class RepositoryCheckout extends Component {
       <input
         type='text'
         value={this.props.checkoutBranch}
-        onKeyDown={this.onKeyDown}
         onChange={this.onChange}
         onFocus={this.onFocus}
         onBlur={this.onBlur}

@@ -147,15 +147,15 @@ export default class Repository extends Component {
         repositoryId={this.props.id}
         gitPush={this.props.gitPush}
         clipboardCopy={this.props.clipboardCopy}
-        latestCommit={index === 0}
+        isLatestCommit={index === 0}
         {...entry}
       />
     );
   }
 
   renderLogs() {
-    return Boolean(this.props.repositoryLog.length) && (
-      <ul>
+    return !!this.props.repositoryLog.length && (
+      <ul className='scroll'>
         {this.props.repositoryLog.map(this.renderLog)}
       </ul>
     );

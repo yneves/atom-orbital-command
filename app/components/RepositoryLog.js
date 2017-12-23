@@ -11,6 +11,7 @@ export default class RepositoryLog extends Component {
     commit: PropTypes.string.isRequired,
     isLatestCommit: PropTypes.bool.isRequired,
     repositoryId: PropTypes.string.isRequired,
+    currentBranch: PropTypes.string.isRequired,
     gitPush: PropTypes.func.isRequired,
   };
 
@@ -20,7 +21,7 @@ export default class RepositoryLog extends Component {
   }
 
   onClickPush() {
-    this.props.gitPush(this.props.repositoryId, null, null);
+    this.props.gitPush(this.props.repositoryId, this.props.currentBranch);
   }
 
   render() {

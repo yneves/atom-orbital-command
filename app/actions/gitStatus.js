@@ -26,13 +26,12 @@ export default repositoryId => (dispatch, getState) => {
   const repository = lodash.find(repositories, repo => repo.id === repositoryId);
   const command = 'git status --porcelain -b';
 
-  return dispatch(gitCommand(repositoryId, command, false))
-    .then((stdout) => {
-      dispatch({
-        type: GIT_STATUS,
-        repositoryId,
-        status: parseStatus(stdout, repository.dir),
-      });
-    })
+  return dispatch(gitCommand(repositoryId, command, false, (stdout) => {
+    dispatch({
+      type: GIT_STATUS,
+      repositoryId,
+      status: parseStatus(stdout, repository.dir),
+    });
+  }))
     .then(() => dispatch(gitLog(repositoryId)));
 };

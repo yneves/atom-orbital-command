@@ -147,10 +147,10 @@ export default class Repository extends Component {
       <RepositoryLog
         key={index}
         gitPush={this.props.gitPush}
-        clipboardCopy={this.props.clipboardCopy}
+        repositoryId={this.props.id}
+        currentBranch={this.props.repositoryStatus.local_branch}
         isLatestCommit={index === 0}
-        {...entry}
-      />
+        {...entry} />
     );
   }
 
@@ -166,8 +166,7 @@ export default class Repository extends Component {
     return (
       <Commands
         repositoryId={this.props.id}
-        executeCommand={this.props.executeCommand}
-/>
+        executeCommand={this.props.executeCommand} />
     );
   }
 

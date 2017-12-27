@@ -3,7 +3,7 @@
 import lodash from 'lodash';
 import { remote } from 'electron';
 import gitPush from './gitPush';
-import gitFetch from './gitFetch';
+// import gitFetch from './gitFetch';
 import gitStatus from './gitStatus';
 import gitCommand from './gitCommand';
 import showNotification from './showNotification';
@@ -29,11 +29,11 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
   };
 
   return Promise.resolve()
-    .then(() => {
-      if (!branchExists()) {
-        return dispatch(gitFetch(repositoryId));
-      }
-    })
+    // .then(() => {
+    //   if (!branchExists()) {
+    //     return dispatch(gitFetch(repositoryId));
+    //   }
+    // })
     .then(() => {
       if (!branchExists() && file) {
         showNotification({

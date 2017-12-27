@@ -38,7 +38,9 @@ export default class RepositoryCheckout extends Component {
   }
 
   onFocus() {
-    this.props.gitStatus(this.props.repositoryId);
+    if (!this.props.checkoutBranch) {
+      this.props.gitStatus(this.props.repositoryId);
+    }
     if (this.blurTimeout) {
       clearTimeout(this.blurTimeout);
       this.blurTimeout = undefined;
@@ -56,11 +58,18 @@ export default class RepositoryCheckout extends Component {
     }, 100);
   }
 
+  onKeyPress(event) {
+    if (event.which === 13 && /\w/.test(this.props.checkoutBranch)) {
+      this.props.gitCheckout(this.props.repositoryId, this.props.checkoutBranch);
+    }
+  }
+
   renderInput() {
     return (
       <input
         type='text'
         value={this.props.checkoutBranch}
+        onKeyPress={this.onKeyPress}
         onChange={this.onChange}
         onFocus={this.onFocus}
         onBlur={this.onBlur}

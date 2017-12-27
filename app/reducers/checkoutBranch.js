@@ -10,10 +10,10 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case GIT_STATUS:
+    case GIT_CHECKOUT:
       return lodash.extend({}, state, {
         [action.repositoryId]: '',
       });
-    case GIT_CHECKOUT:
     case SET_CHECKOUT_BRANCH:
       return lodash.extend({}, state, {
         [action.repositoryId]: action.branch,

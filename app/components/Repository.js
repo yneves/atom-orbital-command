@@ -178,7 +178,7 @@ export default class Repository extends Component {
         {this.renderFiles()}
         {this.renderCommit()}
         {this.renderProgress()}
-        {this.renderCommands()}
+        {/* this.renderCommands() */}
       </div>
     );
   }

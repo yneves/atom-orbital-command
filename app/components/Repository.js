@@ -42,7 +42,10 @@ export default class Repository extends Component {
     toggleCommitFile: PropTypes.func.isRequired,
     toggleSection: PropTypes.func.isRequired,
     executeCommand: PropTypes.func.isRequired,
+    selectedCommands: PropTypes.object.isRequired,
+    removeCommand: PropTypes.func.isRequired,
     repositoryCommands: PropTypes.object.isRequired,
+    selectCommand: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
   };
 
@@ -169,7 +172,10 @@ export default class Repository extends Component {
       <Commands
         repositoryId={this.props.id}
         commands={this.props.repositoryCommands}
+        selectedCommands={this.props.selectedCommands}
         editFile={this.props.editFile}
+        removeCommand={this.props.removeCommand}
+        selectCommand={this.props.selectCommand}
         executeCommand={this.props.executeCommand}
         killCommand={this.props.killCommand} />
     );

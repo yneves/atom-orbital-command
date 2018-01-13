@@ -11,7 +11,10 @@ export default class Commands extends Component {
     repositoryId: PropTypes.string.isRequired,
     executeCommand: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
+    selectCommand: PropTypes.func.isRequired,
     editFile: PropTypes.func.isRequired,
+    selectedCommands: PropTypes.object.isRequired,
+    removeCommand: PropTypes.func.isRequired,
     commands: PropTypes.object.isRequired,
   };
 
@@ -25,8 +28,11 @@ export default class Commands extends Component {
       <Command
         key={command.input}
         command={command}
+        selected={this.props.selectedCommands === command.input}
         editFile={this.props.editFile}
         killCommand={this.props.killCommand}
+        removeCommand={this.props.removeCommand}
+        selectCommand={this.props.selectCommand}
         executeCommand={this.props.executeCommand} />
     );
   }

@@ -7,14 +7,18 @@ import fileSaved from './fileSaved';
 import gitBranch from './gitBranch';
 import gitCheckout from './gitCheckout';
 import gitCommit from './gitCommit';
+import gitFetch from './gitFetch';
 import gitLog from './gitLog';
 import gitPull from './gitPull';
 import gitPush from './gitPush';
 import gitStatus from './gitStatus';
 import killCommand from './killCommand';
 import loadWorkspaces from './loadWorkspaces';
+import removeCommand from './removeCommand';
+import refreshDirectory from './refreshDirectory';
 import removeFile from './removeFile';
 import resizeRightPanel from './resizeRightPanel';
+import selectCommand from './selectCommand';
 import selectWorkspace from './selectWorkspace';
 import setCheckoutBranch from './setCheckoutBranch';
 import setCommitMessage from './setCommitMessage';
@@ -23,12 +27,8 @@ import toggleCommitFile from './toggleCommitFile';
 import toggleDirectory from './toggleDirectory';
 import toggleProject from './toggleProject';
 import toggleSection from './toggleSection';
-import viewCommandOutput from './viewCommandOutput';
-import refreshDirectory from './refreshDirectory';
-import gitFetch from './gitFetch';
 
 export default {
-  refreshDirectory,
   clipboardCopy,
   editFile,
   executeCommand,
@@ -36,15 +36,18 @@ export default {
   gitBranch,
   gitCheckout,
   gitCommit,
+  gitFetch,
   gitLog,
   gitPull,
   gitPush,
-  gitFetch,
   gitStatus,
   killCommand,
   loadWorkspaces,
+  removeCommand,
+  refreshDirectory,
   removeFile,
   resizeRightPanel,
+  selectCommand,
   selectWorkspace,
   setCheckoutBranch,
   setCommitMessage,
@@ -53,5 +56,4 @@ export default {
   toggleDirectory,
   toggleProject,
   toggleSection,
-  viewCommandOutput,
 };

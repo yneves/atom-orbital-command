@@ -23,6 +23,7 @@ export default class App extends Component {
     commitMessages: PropTypes.object.isRequired,
     editFile: PropTypes.func.isRequired,
     element: PropTypes.object.isRequired,
+    selectCommand: PropTypes.func.isRequired,
     executeCommand: PropTypes.func.isRequired,
     gitCheckout: PropTypes.func.isRequired,
     gitCommit: PropTypes.func.isRequired,
@@ -55,6 +56,8 @@ export default class App extends Component {
     defaultBranch: PropTypes.object.isRequired,
     repositoryBranch: PropTypes.object.isRequired,
     repositoryCommands: PropTypes.object.isRequired,
+    removeCommand: PropTypes.func.isRequired,
+    selectedCommands: PropTypes.object.isRequired,
   };
 
   getSelectedWorkspace() {
@@ -98,6 +101,8 @@ export default class App extends Component {
         setCheckoutBranch={this.props.setCheckoutBranch}
         executeCommand={this.props.executeCommand}
         killCommand={this.props.killCommand}
+        removeCommand={this.props.removeCommand}
+        selectCommand={this.props.selectCommand}
         repositoryStatus={this.props.repositoryStatus[repository.id] || ''}
         commitMessage={this.props.commitMessages[repository.id] || ''}
         runningGit={this.props.runningGit[repository.id]}
@@ -108,6 +113,7 @@ export default class App extends Component {
         repositoryBranch={this.props.repositoryBranch[repository.id] || []}
         repositoryLog={this.props.repositoryLog[repository.id] || []}
         repositoryCommands={this.props.repositoryCommands[repository.id] || {}}
+        selectedCommands={this.props.selectedCommands[repository.id] || {}}
         clipboardCopy={this.props.clipboardCopy}
         {...repository}
       />

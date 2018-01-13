@@ -18,6 +18,7 @@ import runningGit from './runningGit';
 import selectedDirectories from './selectedDirectories';
 import selectedProjects from './selectedProjects';
 import selectedWorkspace from './selectedWorkspace';
+import selectedCommands from './selectedCommands';
 import workspaces from './workspaces';
 
 export default combineReducers({
@@ -38,5 +39,6 @@ export default combineReducers({
   selectedDirectories,
   selectedProjects,
   selectedWorkspace,
+  selectedCommands,
   workspaces,
 });

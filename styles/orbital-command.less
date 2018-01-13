@@ -47,7 +47,11 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          width: ~"calc(100% - 75px)";
+          width: ~"calc(100% - 50px)";
+
+          &.selected {
+            width: ~"calc(100% - 70px)";
+          }
 
           & > .icon {
             position: relative;

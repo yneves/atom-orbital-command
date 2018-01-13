@@ -24,8 +24,6 @@ export default class App extends Component {
     editFile: PropTypes.func.isRequired,
     element: PropTypes.object.isRequired,
     executeCommand: PropTypes.func.isRequired,
-    failedCommands: PropTypes.object.isRequired,
-    finishedCommands: PropTypes.object.isRequired,
     gitCheckout: PropTypes.func.isRequired,
     gitCommit: PropTypes.func.isRequired,
     gitStatus: PropTypes.func.isRequired,
@@ -42,7 +40,6 @@ export default class App extends Component {
     resizeRightPanel: PropTypes.func.isRequired,
     rightPanelWidth: PropTypes.number.isRequired,
     runningGit: PropTypes.object.isRequired,
-    runningCommands: PropTypes.object.isRequired,
     selectedDirectories: PropTypes.array.isRequired,
     selectedProjects: PropTypes.array.isRequired,
     selectedWorkspace: PropTypes.string,
@@ -57,6 +54,7 @@ export default class App extends Component {
     workspaces: PropTypes.array.isRequired,
     defaultBranch: PropTypes.object.isRequired,
     repositoryBranch: PropTypes.object.isRequired,
+    repositoryCommands: PropTypes.object.isRequired,
   };
 
   getSelectedWorkspace() {
@@ -99,6 +97,7 @@ export default class App extends Component {
         setCommitMessage={this.props.setCommitMessage}
         setCheckoutBranch={this.props.setCheckoutBranch}
         executeCommand={this.props.executeCommand}
+        killCommand={this.props.killCommand}
         repositoryStatus={this.props.repositoryStatus[repository.id] || ''}
         commitMessage={this.props.commitMessages[repository.id] || ''}
         runningGit={this.props.runningGit[repository.id]}
@@ -108,6 +107,7 @@ export default class App extends Component {
         defaultBranch={this.props.defaultBranch[repository.id] || []}
         repositoryBranch={this.props.repositoryBranch[repository.id] || []}
         repositoryLog={this.props.repositoryLog[repository.id] || []}
+        repositoryCommands={this.props.repositoryCommands[repository.id] || {}}
         clipboardCopy={this.props.clipboardCopy}
         {...repository}
       />

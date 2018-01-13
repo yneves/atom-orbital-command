@@ -3,18 +3,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
-import cx from 'classnames';
 import Button from './Button';
 
 export default class Command extends Component {
   static propTypes = {
     command: PropTypes.object.isRequired,
-    runningCommand: PropTypes.bool.isRequired,
-    finishedCommand: PropTypes.bool.isRequired,
-    failedCommand: PropTypes.bool.isRequired,
     executeCommand: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
-    viewCommandOutput: PropTypes.func.isRequired,
     editFile: PropTypes.func.isRequired,
   };
 
@@ -23,86 +18,51 @@ export default class Command extends Component {
     autoBind(this);
   }
 
-  onClickEdit() {
-    this.props.editFile(this.props.command.source);
-  }
-
   onClickExecute() {
-    this.props.executeCommand(this.props.command);
+    this.props.executeCommand(this.props.command.repositoryId, this.props.command.input);
   }
 
   onClickKill() {
-    this.props.killCommand(this.props.command.id);
-  }
-
-  onClickFinished() {
-    this.props.viewCommandOutput(this.props.command.id);
-  }
-
-  onClickFailed() {
-    this.props.viewCommandOutput(this.props.command.id);
+    this.props.killCommand(this.props.command);
   }
 
   onClickProgress() {
-    this.props.viewCommandOutput(this.props.command.id);
+    this.props.editFile(this.props.command.output);
   }
 
-  renderButtons() {
-    const running = this.props.runningCommand;
-    const finished = !!this.props.finishedCommand;
-    const failed = !!this.props.failedCommand;
-    const buttons = [];
-    if (running) {
-      buttons.push(<Button key='pause' icon='pause' onClick={this.onClickKill} />);
+  renderProgress() {
+    let icon = 'spinner';
+    if (this.props.command.stderr) {
+      icon = 'exclamation-triangle';
+    } else if (this.props.command.stdout) {
+      icon = 'check';
     }
-    if (!running) {
-      buttons.push(<Button key='play' icon='play' onClick={this.onClickExecute} />);
-    }
-    if (running) {
-      let icon = 'spinner';
-      if (running.status === 'failed') {
-        icon = 'exclamation-triangle';
-      } else if (running.status === 'output') {
-        icon = 'check';
-      }
-      buttons.push(<Button
-          key='progress'
-          icon={icon}
-          spin={icon === 'spinner'}
-          onClick={this.onClickProgress} />);
-    }
-    if (failed) {
-      buttons.push(<Button
-          key='failed'
-          icon='exclamation-triangle'
-          onClick={this.onClickFailed}
-          className='colored' />);
-    }
-    if (finished) {
-      buttons.push(<Button
-          key='finished'
-          icon='check'
-          onClick={this.onClickFinished}
-          className='colored' />);
-    }
-    return buttons;
+    return (
+      <Button
+        colored={!this.props.command.running}
+        icon={icon}
+        onClick={this.onClickProgress}
+      />
+    );
   }
 
-  renderEdit() {
-    return this.props.command.source && (
-      <Button icon='pencil' onClick={this.onClickEdit} />
+  renderPlay() {
+    if (this.props.command.running) {
+      return (
+        <Button icon='pause' onClick={this.onClickKill} />
+      );
+    }
+    return (
+      <Button icon='play' onClick={this.onClickExecute} />
     );
   }
 
   render() {
-    const className = cx({
-      running: !!this.props.runningCommand,
-    });
     return (
-      <li className={className}>
-        <span>{this.props.command.label}</span>
-        {this.renderButtons()}
-        {this.renderEdit()}
+      <li>
+        <span>{this.props.command.input}</span>
+        {this.renderPlay()}
+        {this.renderProgress()}
       </li>
     );
   }

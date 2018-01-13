@@ -8,7 +8,7 @@ import path from 'path';
 import lodash from 'lodash';
 
 import {
-  EXECUTE_COMMAND,
+  EXECUTE_COMMAND_START,
   EXECUTE_COMMAND_FAILED,
   EXECUTE_COMMAND_PROGRESS,
   EXECUTE_COMMAND_SUCCESS,
@@ -35,6 +35,7 @@ export default (repositoryId, input) => (dispatch, getState) => new Promise((res
   const proc = cp.exec(command, { cwd, env: process.env });
 
   const payload = {
+    repositoryId,
     pid: proc.pid,
     cwd,
     command,
@@ -43,7 +44,8 @@ export default (repositoryId, input) => (dispatch, getState) => new Promise((res
   };
 
   dispatch({
-    type: EXECUTE_COMMAND,
+    type: EXECUTE_COMMAND_START,
+    running: true,
     ...payload,
   });
 
@@ -54,6 +56,7 @@ export default (repositoryId, input) => (dispatch, getState) => new Promise((res
   proc.stdout.once('data', () => {
     dispatch({
       type: EXECUTE_COMMAND_PROGRESS,
+      stdout: true,
       ...payload,
     });
   });
@@ -61,6 +64,7 @@ export default (repositoryId, input) => (dispatch, getState) => new Promise((res
   proc.stderr.once('data', () => {
     dispatch({
       type: EXECUTE_COMMAND_PROGRESS,
+      stderr: true,
       ...payload,
     });
   });
@@ -69,10 +73,12 @@ export default (repositoryId, input) => (dispatch, getState) => new Promise((res
     dispatch({
       type: code === 0 ? EXECUTE_COMMAND_SUCCESS : EXECUTE_COMMAND_FAILED,
       elapsed: Date.now() - startTime,
+      exit: code,
+      running: false,
       ...payload,
     });
     if (code === 0) {
-      resolve();
+      resolve(payload);
     } else {
       reject();
     }

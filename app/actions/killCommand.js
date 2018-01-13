@@ -1,31 +1,28 @@
 'use babel';
 
 import psTree from 'ps-tree';
-import lodash from 'lodash';
 import cp from 'child_process';
 import showNotification from './showNotification';
 
 import { KILL_COMMAND } from '../constants/actionTypes';
 
-export default id => (dispatch, getState) => {
-  const running = getState().runningCommands[id];
-  if (running && running.pid) {
-    psTree(running.pid, (error, children) => {
+export default command => (dispatch) => {
+  if (command && command.pid) {
+    psTree(command.pid, (error, children) => {
       if (error) {
         showNotification({
           type: 'error',
-          message: `Failed to load process: ${running.pid}`,
+          message: `Failed to load process: ${command.pid}`,
           detail: error,
         });
       } else {
         const pids = children.map(p => p.PID);
-        const cmd = [running.command.kill || 'kill -9', pids, running.pid];
-        const killCommand = lodash.flatten(cmd).join(' ');
-        cp.exec(killCommand, {}, (errorKill, stdout, stderr) => {
+        const cmd = ['kill -9'].concat(pids).concat(command.pid).join(' ');
+        cp.exec(cmd, {}, (errorKill, stdout, stderr) => {
           if (errorKill) {
             showNotification({
               type: 'error',
-              message: `Failed to kill command: ${running.pid}`,
+              message: `Failed to kill command: ${command.pid}`,
               detail: stderr,
             });
           }
@@ -36,6 +33,6 @@ export default id => (dispatch, getState) => {
 
   dispatch({
     type: KILL_COMMAND,
-    command: { id },
+    ...command,
   });
 };

@@ -42,6 +42,8 @@ export default class Repository extends Component {
     toggleCommitFile: PropTypes.func.isRequired,
     toggleSection: PropTypes.func.isRequired,
     executeCommand: PropTypes.func.isRequired,
+    repositoryCommands: PropTypes.object.isRequired,
+    killCommand: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -166,7 +168,10 @@ export default class Repository extends Component {
     return (
       <Commands
         repositoryId={this.props.id}
-        executeCommand={this.props.executeCommand} />
+        commands={this.props.repositoryCommands}
+        editFile={this.props.editFile}
+        executeCommand={this.props.executeCommand}
+        killCommand={this.props.killCommand} />
     );
   }
 
@@ -178,7 +183,7 @@ export default class Repository extends Component {
         {this.renderFiles()}
         {this.renderCommit()}
         {this.renderProgress()}
-        {/* this.renderCommands() */}
+        {this.renderCommands()}
       </div>
     );
   }

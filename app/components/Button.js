@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import classNames from 'classnames';
 import autoBind from 'class-autobind';
 
 export default class Button extends Component {
@@ -11,6 +11,7 @@ export default class Button extends Component {
     octicon: PropTypes.string,
     spin: PropTypes.bool,
     active: PropTypes.bool,
+    colored: PropTypes.bool,
     className: PropTypes.string,
     tooltip: PropTypes.string,
     onClick: PropTypes.func,
@@ -29,11 +30,12 @@ export default class Button extends Component {
   }
 
   render() {
-    const classNameButton = cx({
+    const classNameButton = classNames({
       active: this.props.active,
+      colored: this.props.colored,
       [this.props.className]: !!this.props.className,
     });
-    const classNameIcon = cx({
+    const classNameIcon = classNames({
       fa: !this.props.octicon,
       'fa-spin': !this.props.octicon && !!this.props.spin,
       [`fa-${this.props.icon}`]: !this.props.octicon && !!this.props.icon,

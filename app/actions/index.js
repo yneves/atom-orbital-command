@@ -1,6 +1,5 @@
 'use babel';
 
-import clipboardCopy from './clipboardCopy';
 import editFile from './editFile';
 import executeCommand from './executeCommand';
 import fileSaved from './fileSaved';
@@ -27,9 +26,9 @@ import toggleCommitFile from './toggleCommitFile';
 import toggleDirectory from './toggleDirectory';
 import toggleProject from './toggleProject';
 import toggleSection from './toggleSection';
+import setCommandInput from './setCommandInput';
 
 export default {
-  clipboardCopy,
   editFile,
   executeCommand,
   fileSaved,
@@ -51,6 +50,7 @@ export default {
   selectWorkspace,
   setCheckoutBranch,
   setCommitMessage,
+  setCommandInput,
   startup,
   toggleCommitFile,
   toggleDirectory,

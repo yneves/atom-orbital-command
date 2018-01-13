@@ -8,6 +8,8 @@ export default class CommandInput extends Component {
   static propTypes = {
     repositoryId: PropTypes.string.isRequired,
     executeCommand: PropTypes.func.isRequired,
+    setCommandInput: PropTypes.func.isRequired,
+    commandInput: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -17,17 +19,22 @@ export default class CommandInput extends Component {
 
   onKeyPress(e) {
     if (e.which === 13) {
-      if (/\w/.test(e.target.value)) {
-        this.props.executeCommand(this.props.repositoryId, e.target.value);
-        e.target.value = '';
+      if (/\w/.test(this.props.commandInput)) {
+        this.props.executeCommand(this.props.repositoryId, this.props.commandInput);
       }
     }
+  }
+
+  onChange(e) {
+    this.props.setCommandInput(this.props.repositoryId, e.target.value);
   }
 
   render() {
     return (
       <input
         type='text'
+        value={this.props.commandInput}
+        onChange={this.onChange}
         onKeyPress={this.onKeyPress}
         className='native-key-bindings'
         placeholder='$'

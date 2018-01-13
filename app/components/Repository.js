@@ -12,6 +12,7 @@ import Commands from './Commands';
 
 export default class Repository extends Component {
   static propTypes = {
+    repository: PropTypes.object.isRequired,
     checkoutBranch: PropTypes.string.isRequired,
     defaultBranch: PropTypes.string.isRequired,
     checkoutHistory: PropTypes.array.isRequired,
@@ -19,7 +20,6 @@ export default class Repository extends Component {
     collapsed: PropTypes.bool.isRequired,
     commitFiles: PropTypes.object.isRequired,
     commitMessage: PropTypes.string.isRequired,
-    dir: PropTypes.string.isRequired,
     editFile: PropTypes.func.isRequired,
     gitBranch: PropTypes.func.isRequired,
     gitCheckout: PropTypes.func.isRequired,
@@ -29,8 +29,6 @@ export default class Repository extends Component {
     gitPush: PropTypes.func.isRequired,
     gitStatus: PropTypes.func.isRequired,
     gitFetch: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
     removeFile: PropTypes.func.isRequired,
     repositoryBranch: PropTypes.array.isRequired,
     repositoryLog: PropTypes.array.isRequired,
@@ -47,6 +45,8 @@ export default class Repository extends Component {
     repositoryCommands: PropTypes.object.isRequired,
     selectCommand: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
+    setCommandInput: PropTypes.func.isRequired,
+    commandInput: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -59,7 +59,7 @@ export default class Repository extends Component {
   }
 
   onClickFetch() {
-    this.props.gitFetch(this.props.id);
+    this.props.gitFetch(this.props.repository.id);
   }
 
   renderFetch() {
@@ -75,7 +75,7 @@ export default class Repository extends Component {
     return (
       <RepositoryFile
         key={index}
-        repositoryId={this.props.id}
+        repositoryId={this.props.repository.id}
         checked={this.props.commitFiles[file.file]}
         editFile={this.props.editFile}
         branch={this.props.repositoryStatus.local_branch}
@@ -96,7 +96,7 @@ export default class Repository extends Component {
   renderCommit() {
     return this.canCommit() && (
       <RepositoryCommit
-        repositoryId={this.props.id}
+        repositoryId={this.props.repository.id}
         gitCommit={this.props.gitCommit}
         commitMessage={this.props.commitMessage}
         setCommitMessage={this.props.setCommitMessage}
@@ -115,7 +115,7 @@ export default class Repository extends Component {
   renderCheckout() {
     return (
       <RepositoryCheckout
-        repositoryId={this.props.id}
+        repositoryId={this.props.repository.id}
         runningGit={this.props.runningGit}
         gitPull={this.props.gitPull}
         gitCheckout={this.props.gitCheckout}
@@ -148,7 +148,7 @@ export default class Repository extends Component {
       <RepositoryLog
         key={index}
         gitPush={this.props.gitPush}
-        repositoryId={this.props.id}
+        repositoryId={this.props.repository.id}
         currentBranch={this.props.repositoryStatus.local_branch}
         isLatestCommit={index === 0}
         {...entry} />
@@ -166,8 +166,10 @@ export default class Repository extends Component {
   renderCommands() {
     return (
       <Commands
-        repositoryId={this.props.id}
+        repositoryId={this.props.repository.id}
         commands={this.props.repositoryCommands}
+        commandInput={this.props.commandInput}
+        setCommandInput={this.props.setCommandInput}
         selectedCommands={this.props.selectedCommands}
         editFile={this.props.editFile}
         removeCommand={this.props.removeCommand}
@@ -196,7 +198,7 @@ export default class Repository extends Component {
         <header onClick={this.onClickHeader}>
           <span>
             <i className='icon icon-repo' />
-            {this.props.name}
+            {this.props.repository.name}
           </span>
           {this.renderFetch()}
         </header>

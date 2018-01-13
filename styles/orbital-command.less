@@ -49,16 +49,16 @@
           text-overflow: ellipsis;
           width: ~"calc(100% - 50px)";
 
-          &.selected {
-            width: ~"calc(100% - 70px)";
-          }
-
           & > .icon {
             position: relative;
             top: 1px;
             left: -2px;
             margin-right: 5px;
           }
+        }
+
+        &.selected > span {
+          width: ~"calc(100% - 75px)";
         }
 
         button {

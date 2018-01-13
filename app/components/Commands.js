@@ -16,6 +16,8 @@ export default class Commands extends Component {
     selectedCommands: PropTypes.object.isRequired,
     removeCommand: PropTypes.func.isRequired,
     commands: PropTypes.object.isRequired,
+    setCommandInput: PropTypes.func.isRequired,
+    commandInput: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -43,6 +45,8 @@ export default class Commands extends Component {
         {Object.values(this.props.commands).map(this.renderCommand)}
         <CommandInput
           repositoryId={this.props.repositoryId}
+          commandInput={this.props.commandInput}
+          setCommandInput={this.props.setCommandInput}
           executeCommand={this.props.executeCommand}
         />
       </ul>

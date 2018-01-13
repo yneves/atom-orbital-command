@@ -9,12 +9,7 @@ import Repository from './Repository';
 
 export default class App extends Component {
   static propTypes = {
-    browserIcons: PropTypes.object.isRequired,
     removeFile: PropTypes.func.isRequired,
-    setBrowserIcon: PropTypes.func.isRequired,
-    refreshTabs: PropTypes.number.isRequired,
-    openBookmark: PropTypes.func.isRequired,
-    browserTabs: PropTypes.array.isRequired,
     gitBranch: PropTypes.func.isRequired,
     checkoutBranch: PropTypes.object.isRequired,
     checkoutHistory: PropTypes.array.isRequired,
@@ -33,7 +28,6 @@ export default class App extends Component {
     gitFetch: PropTypes.func.isRequired,
     gitLog: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
-    clipboardCopy: PropTypes.func.isRequired,
     loadWorkspaces: PropTypes.func.isRequired,
     repositories: PropTypes.array.isRequired,
     repositoryStatus: PropTypes.object.isRequired,
@@ -47,6 +41,8 @@ export default class App extends Component {
     selectWorkspace: PropTypes.func.isRequired,
     setCheckoutBranch: PropTypes.func.isRequired,
     setCommitMessage: PropTypes.func.isRequired,
+    setCommandInput: PropTypes.func.isRequired,
+    commandInput: PropTypes.object.isRequired,
     toggleCommitFile: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
     toggleProject: PropTypes.func.isRequired,
@@ -82,40 +78,41 @@ export default class App extends Component {
   renderRepository(repository, index) {
     return (
       <Repository
-        key={index}
-        section={repository.id}
-        collapsed={this.props.collapsedSections.includes(repository.id)}
-        editFile={this.props.editFile}
-        gitStatus={this.props.gitStatus}
-        gitCommit={this.props.gitCommit}
-        gitBranch={this.props.gitBranch}
-        gitCheckout={this.props.gitCheckout}
-        gitPull={this.props.gitPull}
-        gitLog={this.props.gitLog}
-        gitPush={this.props.gitPush}
-        gitFetch={this.props.gitFetch}
-        removeFile={this.props.removeFile}
-        toggleSection={this.props.toggleSection}
-        toggleCommitFile={this.props.toggleCommitFile}
-        setCommitMessage={this.props.setCommitMessage}
-        setCheckoutBranch={this.props.setCheckoutBranch}
-        executeCommand={this.props.executeCommand}
-        killCommand={this.props.killCommand}
-        removeCommand={this.props.removeCommand}
-        selectCommand={this.props.selectCommand}
-        repositoryStatus={this.props.repositoryStatus[repository.id] || ''}
-        commitMessage={this.props.commitMessages[repository.id] || ''}
-        runningGit={this.props.runningGit[repository.id]}
         checkoutBranch={this.props.checkoutBranch[repository.id] || ''}
         checkoutHistory={this.props.checkoutHistory[repository.id] || []}
+        collapsed={this.props.collapsedSections.includes(repository.id)}
+        commandInput={this.props.commandInput[repository.id]}
         commitFiles={this.props.commitFiles[repository.id] || []}
+        commitMessage={this.props.commitMessages[repository.id] || ''}
         defaultBranch={this.props.defaultBranch[repository.id] || []}
+        editFile={this.props.editFile}
+        executeCommand={this.props.executeCommand}
+        gitBranch={this.props.gitBranch}
+        gitCheckout={this.props.gitCheckout}
+        gitCommit={this.props.gitCommit}
+        gitFetch={this.props.gitFetch}
+        gitLog={this.props.gitLog}
+        gitPull={this.props.gitPull}
+        gitPush={this.props.gitPush}
+        gitStatus={this.props.gitStatus}
+        key={index}
+        killCommand={this.props.killCommand}
+        removeCommand={this.props.removeCommand}
+        removeFile={this.props.removeFile}
+        repository={repository}
         repositoryBranch={this.props.repositoryBranch[repository.id] || []}
-        repositoryLog={this.props.repositoryLog[repository.id] || []}
         repositoryCommands={this.props.repositoryCommands[repository.id] || {}}
+        repositoryLog={this.props.repositoryLog[repository.id] || []}
+        repositoryStatus={this.props.repositoryStatus[repository.id] || ''}
+        runningGit={this.props.runningGit[repository.id]}
+        section={repository.id}
+        selectCommand={this.props.selectCommand}
         selectedCommands={this.props.selectedCommands[repository.id] || {}}
-        clipboardCopy={this.props.clipboardCopy}
-        {...repository}
+        setCheckoutBranch={this.props.setCheckoutBranch}
+        setCommandInput={this.props.setCommandInput}
+        setCommitMessage={this.props.setCommitMessage}
+        toggleCommitFile={this.props.toggleCommitFile}
+        toggleSection={this.props.toggleSection}
       />
     );
   }

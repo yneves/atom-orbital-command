@@ -24,7 +24,7 @@ export default class Command extends Component {
   onClick() {
     this.props.selectCommand(
       this.props.command.repositoryId,
-      this.props.selected ? this.props.command.input : null
+      this.props.selected ? null : this.props.command.input
     );
   }
 

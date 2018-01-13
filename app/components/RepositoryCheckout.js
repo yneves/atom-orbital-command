@@ -38,9 +38,6 @@ export default class RepositoryCheckout extends Component {
   }
 
   onFocus() {
-    if (!this.props.checkoutBranch) {
-      this.props.gitStatus(this.props.repositoryId);
-    }
     if (this.blurTimeout) {
       clearTimeout(this.blurTimeout);
       this.blurTimeout = undefined;

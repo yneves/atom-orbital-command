@@ -19,6 +19,7 @@ export default class CommandInput extends Component {
     if (e.which === 13) {
       if (/\w/.test(e.target.value)) {
         this.props.executeCommand(this.props.repositoryId, e.target.value);
+        e.target.value = '';
       }
     }
   }

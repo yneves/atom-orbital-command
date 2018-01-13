@@ -54,10 +54,6 @@ export default class Repository extends Component {
     autoBind(this);
   }
 
-  componentDidMount() {
-    this.onClickFetch();
-  }
-
   onClickHeader() {
     this.props.toggleSection(this.props.section);
   }

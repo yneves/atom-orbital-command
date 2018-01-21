@@ -12,23 +12,24 @@ import gitPull from './gitPull';
 import gitPush from './gitPush';
 import gitStatus from './gitStatus';
 import killCommand from './killCommand';
-import loadWorkspaces from './loadWorkspaces';
 import removeCommand from './removeCommand';
 import refreshDirectory from './refreshDirectory';
 import removeFile from './removeFile';
 import resizeRightPanel from './resizeRightPanel';
 import selectCommand from './selectCommand';
-import selectWorkspace from './selectWorkspace';
 import setCheckoutBranch from './setCheckoutBranch';
 import setCommitMessage from './setCommitMessage';
 import startup from './startup';
 import toggleCommitFile from './toggleCommitFile';
 import toggleDirectory from './toggleDirectory';
-import toggleProject from './toggleProject';
 import toggleSection from './toggleSection';
 import setCommandInput from './setCommandInput';
+import findRepositories from './findRepositories';
+import pinRepository from './pinRepository';
 
 export default {
+  pinRepository,
+  findRepositories,
   editFile,
   executeCommand,
   fileSaved,
@@ -41,19 +42,16 @@ export default {
   gitPush,
   gitStatus,
   killCommand,
-  loadWorkspaces,
   removeCommand,
   refreshDirectory,
   removeFile,
   resizeRightPanel,
   selectCommand,
-  selectWorkspace,
   setCheckoutBranch,
   setCommitMessage,
   setCommandInput,
   startup,
   toggleCommitFile,
   toggleDirectory,
-  toggleProject,
   toggleSection,
 };

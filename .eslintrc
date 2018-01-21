@@ -12,6 +12,7 @@
     "atom": true
   },
   "rules": {
+    "max-len": [2, 120],
     "consistent-return": 0,
     "comma-dangle": [2, "always-multiline"],
     "no-plusplus": 0,

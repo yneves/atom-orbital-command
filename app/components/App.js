@@ -2,13 +2,17 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Workspaces from './Workspaces';
-import Projects from './Projects';
+import autoBind from 'class-autobind';
+import RepositoriesContainer from '../containers/RepositoriesContainer';
 import Resizer from './Resizer';
 import Repository from './Repository';
 
 export default class App extends Component {
   static propTypes = {
+    pinnedRepositories: PropTypes.array.isRequired,
+    localRepositories: PropTypes.array.isRequired,
+    findRepositories: PropTypes.func.isRequired,
+    pinRepository: PropTypes.func.isRequired,
     removeFile: PropTypes.func.isRequired,
     gitBranch: PropTypes.func.isRequired,
     checkoutBranch: PropTypes.object.isRequired,
@@ -28,7 +32,6 @@ export default class App extends Component {
     gitFetch: PropTypes.func.isRequired,
     gitLog: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
-    loadWorkspaces: PropTypes.func.isRequired,
     repositories: PropTypes.array.isRequired,
     repositoryStatus: PropTypes.object.isRequired,
     repositoryLog: PropTypes.object.isRequired,
@@ -36,19 +39,14 @@ export default class App extends Component {
     rightPanelWidth: PropTypes.number.isRequired,
     runningGit: PropTypes.object.isRequired,
     selectedDirectories: PropTypes.array.isRequired,
-    selectedProjects: PropTypes.array.isRequired,
-    selectedWorkspace: PropTypes.string,
-    selectWorkspace: PropTypes.func.isRequired,
     setCheckoutBranch: PropTypes.func.isRequired,
     setCommitMessage: PropTypes.func.isRequired,
     setCommandInput: PropTypes.func.isRequired,
     commandInput: PropTypes.object.isRequired,
     toggleCommitFile: PropTypes.func.isRequired,
     toggleDirectory: PropTypes.func.isRequired,
-    toggleProject: PropTypes.func.isRequired,
     toggleSection: PropTypes.func.isRequired,
     viewCommandOutput: PropTypes.func.isRequired,
-    workspaces: PropTypes.array.isRequired,
     defaultBranch: PropTypes.object.isRequired,
     repositoryBranch: PropTypes.object.isRequired,
     repositoryCommands: PropTypes.object.isRequired,
@@ -56,23 +54,9 @@ export default class App extends Component {
     selectedCommands: PropTypes.object.isRequired,
   };
 
-  getSelectedWorkspace() {
-    return this.props.workspaces
-      .filter(w => w.id === this.props.selectedWorkspace)
-      .shift();
-  }
-
-  renderProjects() {
-    const workspace = this.getSelectedWorkspace();
-    return Boolean(workspace && workspace.projects.length) && (
-      <Projects
-        {...this.props}
-        projects={workspace.projects}
-        workspace={workspace}
-        section='projects'
-        collapsed={this.props.collapsedSections.includes('projects')}
-      />
-    );
+  constructor(props) {
+    super(props);
+    autoBind(props);
   }
 
   renderRepository(repository, index) {
@@ -127,21 +111,10 @@ export default class App extends Component {
     );
   }
 
-  renderWorkspaces() {
-    return (
-      <Workspaces
-        {...this.props}
-        section='workspaces'
-        collapsed={this.props.collapsedSections.includes('workspaces')}
-      />
-    );
-  }
-
   render() {
     return (
       <div className='orbital-command__app'>
-        {this.renderWorkspaces()}
-        {this.renderProjects()}
+        <RepositoriesContainer />
         {this.props.repositories.map(this.renderRepository, this)}
         {this.renderResizer()}
       </div>

@@ -16,13 +16,14 @@ import repositoryStatus from './repositoryStatus';
 import rightPanelWidth from './rightPanelWidth';
 import runningGit from './runningGit';
 import selectedDirectories from './selectedDirectories';
-import selectedProjects from './selectedProjects';
-import selectedWorkspace from './selectedWorkspace';
 import selectedCommands from './selectedCommands';
-import workspaces from './workspaces';
 import commandInput from './commandInput';
+import localRepositories from './localRepositories';
+import pinnedRepositories from './pinnedRepositories';
 
 export default combineReducers({
+  localRepositories,
+  pinnedRepositories,
   commandInput,
   checkoutBranch,
   checkoutHistory,
@@ -39,8 +40,5 @@ export default combineReducers({
   rightPanelWidth,
   runningGit,
   selectedDirectories,
-  selectedProjects,
-  selectedWorkspace,
   selectedCommands,
-  workspaces,
 });

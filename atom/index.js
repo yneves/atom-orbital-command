@@ -7,21 +7,19 @@ import observeTextEditors from './observeTextEditors';
 import observeDirectories from './observeDirectories';
 import bootstrap from '../app/bootstrap';
 
-const configPattern = 'workspacesGlobPattern';
-
 export default {
 
   config: {
-    [configPattern]: {
+    rootDirectory: {
       type: 'string',
-      default: '~/*.orbital-command.js',
+      default: '~/',
     },
   },
 
   activate(state = {}) {
     Object.assign(state, {
       config: {
-        [configPattern]: atom.config.get(`orbital-command.${configPattern}`),
+        rootDirectory: atom.config.get('orbital-command.rootDirectory'),
       },
     });
 

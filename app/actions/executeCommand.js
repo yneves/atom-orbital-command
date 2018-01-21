@@ -46,6 +46,10 @@ export default (repositoryId, input) => (dispatch, getState) => new Promise((res
   dispatch({
     type: EXECUTE_COMMAND_START,
     running: true,
+    stdout: false,
+    stderr: false,
+    exit: null,
+    elapsed: null,
     ...payload,
   });
 

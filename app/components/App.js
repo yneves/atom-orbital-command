@@ -62,9 +62,9 @@ export default class App extends Component {
   renderRepository(repository, index) {
     return (
       <Repository
+        collapsedSections={this.props.collapsedSections}
         checkoutBranch={this.props.checkoutBranch[repository.id] || ''}
         checkoutHistory={this.props.checkoutHistory[repository.id] || []}
-        collapsed={this.props.collapsedSections.includes(repository.id)}
         commandInput={this.props.commandInput[repository.id]}
         commitFiles={this.props.commitFiles[repository.id] || []}
         commitMessage={this.props.commitMessages[repository.id] || ''}
@@ -89,7 +89,6 @@ export default class App extends Component {
         repositoryLog={this.props.repositoryLog[repository.id] || []}
         repositoryStatus={this.props.repositoryStatus[repository.id] || ''}
         runningGit={this.props.runningGit[repository.id]}
-        section={repository.id}
         selectCommand={this.props.selectCommand}
         selectedCommands={this.props.selectedCommands[repository.id] || {}}
         setCheckoutBranch={this.props.setCheckoutBranch}

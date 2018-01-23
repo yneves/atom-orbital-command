@@ -9,7 +9,7 @@ export default (state = [], action) => {
   switch (action.type) {
     case TOGGLE_REPOSITORY:
       return action.repositories.map(dir => ({
-        id: `repository:${dir}`,
+        id: dir,
         dir,
         name: path.basename(dir),
       }));

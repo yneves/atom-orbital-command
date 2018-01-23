@@ -8,7 +8,7 @@ import RepositoryCommit from './RepositoryCommit';
 import RepositoryCheckout from './RepositoryCheckout';
 import RepositoryLog from './RepositoryLog';
 import Button from './Button';
-import Commands from './Commands';
+import Terminal from './Terminal';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -37,7 +37,7 @@ export default class Repository extends Component {
     checkoutBranch: PropTypes.string.isRequired,
     defaultBranch: PropTypes.string.isRequired,
     checkoutHistory: PropTypes.array.isRequired,
-    collapsed: PropTypes.bool.isRequired,
+    collapsedSections: PropTypes.array.isRequired,
     commitFiles: PropTypes.object.isRequired,
     commitMessage: PropTypes.string.isRequired,
     repositoryBranch: PropTypes.array.isRequired,
@@ -54,8 +54,16 @@ export default class Repository extends Component {
     autoBind(this);
   }
 
+  getSectionName() {
+    return `repository:${this.props.repository.dir}`;
+  }
+
+  isCollapsed() {
+    return this.props.collapsedSections.includes(this.getSectionName());
+  }
+
   onClickHeader() {
-    this.props.toggleSection(this.props.section);
+    this.props.toggleSection(this.getSectionName());
   }
 
   onClickFetch() {
@@ -163,10 +171,12 @@ export default class Repository extends Component {
     );
   }
 
-  renderCommands() {
+  renderTerminal() {
     return (
-      <Commands
-        repositoryId={this.props.repository.id}
+      <Terminal
+        collapsedSections={this.props.collapsedSections}
+        toggleSection={this.props.toggleSection}
+        repository={this.props.repository.id}
         commands={this.props.repositoryCommands}
         commandInput={this.props.commandInput}
         setCommandInput={this.props.setCommandInput}
@@ -187,23 +197,25 @@ export default class Repository extends Component {
         {this.renderFiles()}
         {this.renderCommit()}
         {this.renderProgress()}
-        {this.renderCommands()}
       </div>
     );
   }
 
   render() {
     return (
-      <section>
-        <header onClick={this.onClickHeader}>
-          <span>
-            <i className='icon icon-repo' />
-            {this.props.repository.name}
-          </span>
-          {this.renderFetch()}
-        </header>
-        {this.props.collapsed || this.renderBody()}
-      </section>
+      <div>
+        <section>
+          <header onClick={this.onClickHeader}>
+            <span>
+              <i className='icon icon-repo' />
+              {this.props.repository.name}
+            </span>
+            {this.renderFetch()}
+          </header>
+          {this.isCollapsed() || this.renderBody()}
+        </section>
+        {this.renderTerminal()}
+      </div>
     );
   }
 }

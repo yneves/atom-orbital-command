@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
+import path from 'path';
 import Commands from './Commands';
 
 export default class Terminal extends Component {
@@ -41,7 +42,7 @@ export default class Terminal extends Component {
   renderCommands() {
     return (
       <Commands
-        repository={this.props.repository}
+        repositoryId={this.props.repository}
         commands={this.props.commands}
         commandInput={this.props.commandInput}
         setCommandInput={this.props.setCommandInput}
@@ -54,26 +55,13 @@ export default class Terminal extends Component {
     );
   }
 
-  renderBody() {
-    return (
-      <div>
-        {this.renderCheckout()}
-        {this.renderLogs()}
-        {this.renderFiles()}
-        {this.renderCommit()}
-        {this.renderProgress()}
-        {this.renderCommands()}
-      </div>
-    );
-  }
-
   render() {
     return (
       <section>
         <header onClick={this.onClickHeader}>
           <span>
             <i className='fa fa-terminal' />
-            {this.props.repository}
+            {path.basename(this.props.repository)}
           </span>
         </header>
         {this.isCollapsed() || this.renderCommands()}

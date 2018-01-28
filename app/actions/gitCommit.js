@@ -7,12 +7,12 @@ import { GIT_COMMIT } from '../constants/actionTypes';
 
 const findByFile = (list, file) => lodash.find(list, item => item.file === file);
 
-export default repositoryId => (dispatch, getState) => {
+export default repository => (dispatch, getState) => {
   const { repositoryStatus, commitMessages, commitFiles } = getState();
-  const message = commitMessages[repositoryId];
-  const status = repositoryStatus[repositoryId];
-  const files = lodash.keys(commitFiles[repositoryId])
-    .filter(file => !!commitFiles[repositoryId][file]);
+  const message = commitMessages[repository];
+  const status = repositoryStatus[repository];
+  const files = lodash.keys(commitFiles[repository])
+    .filter(file => !!commitFiles[repository][file]);
 
   const stageCommands = files.map((file) => {
     const entry = findByFile(status.files, file);
@@ -22,15 +22,15 @@ export default repositoryId => (dispatch, getState) => {
     return `git add ${file}`;
   });
 
-  return dispatch(gitCommand(repositoryId, stageCommands, false))
+  return dispatch(gitCommand(repository, stageCommands, false))
     .then(() => {
       const commitCommand = `git commit -m "${message}"`;
-      return dispatch(gitCommand(repositoryId, commitCommand, false, () => {
+      return dispatch(gitCommand(repository, commitCommand, false, () => {
         dispatch({
           type: GIT_COMMIT,
-          repositoryId,
+          repositoryId: repository,
         });
       }));
     })
-    .then(() => dispatch(gitStatus(repositoryId)));
+    .then(() => dispatch(gitStatus(repository)));
 };

@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux';
 import actions from '../actions';
-import Repositories from '../components/Repositories';
+import Repository from '../components/Repository';
 
 const mapStateToProps = (state, { repository }) => {
   const {
@@ -26,13 +26,13 @@ const mapStateToProps = (state, { repository }) => {
     commitFiles: commitFiles[repository],
     commitMessage: commitMessages[repository],
     defaultBranch: defaultBranch[repository],
-    branches: repositoryBranch[repository],
-    commits: repositoryLog[repository],
-    currentBranch: repositoryStatus[repository] && repositoryStatus[repository].local_branch,
-    changedFiles: repositoryStatus[repository] && repositoryStatus[repository].files,
+    branches: repositoryBranch[repository] || [],
+    commits: repositoryLog[repository] || [],
+    currentBranch: (repositoryStatus[repository] && repositoryStatus[repository].local_branch) || '',
+    changedFiles: (repositoryStatus[repository] && repositoryStatus[repository].files) || [],
     runningGit: runningGit[repository],
     collapsedSections,
   };
 };
 
-export default connect(mapStateToProps, actions)(Repositories);
+export default connect(mapStateToProps, actions)(Repository);

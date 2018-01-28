@@ -1,6 +1,5 @@
 'use babel';
 
-import lodash from 'lodash';
 import cp from 'child_process';
 import showNotification from './showNotification';
 import {
@@ -8,22 +7,17 @@ import {
   GIT_PROGRESS,
 } from '../constants/actionTypes';
 
-export default (repositoryId, commands, notifySuccess, callback) => (dispatch, getState) => {
-  const getCwd = () => {
-    const { repositories } = getState();
-    const repository = lodash.find(repositories, repo => repo.id === repositoryId);
-    return repository.dir;
-  };
-
+export default (repository, commands, notifySuccess, callback) => (dispatch) => {
   let promise = Promise.resolve();
   [].concat(commands).forEach((command) => {
     promise = promise.then(() => new Promise((resolve, reject) => {
       dispatch({
         type: GIT_PROGRESS,
-        repositoryId,
+        repositoryId: repository,
         command,
       });
-      cp.exec(command, { cwd: getCwd() }, (error, stdout, stderr) => {
+      console.log(repository);
+      cp.exec(command, { cwd: repository }, (error, stdout, stderr) => {
         if (notifySuccess || error) {
           showNotification({
             message: command,
@@ -33,7 +27,7 @@ export default (repositoryId, commands, notifySuccess, callback) => (dispatch, g
         }
         dispatch({
           type: GIT_DONE,
-          repositoryId,
+          repositoryId: repository,
           command,
           error,
           stderr,

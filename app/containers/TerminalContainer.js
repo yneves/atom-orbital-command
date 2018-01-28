@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux';
 import actions from '../actions';
-import Repositories from '../components/Repositories';
+import Terminal from '../components/Terminal';
 
 const mapStateToProps = (state, { repository }) => {
   const {
@@ -12,10 +12,10 @@ const mapStateToProps = (state, { repository }) => {
   } = state;
 
   return {
-    commands: repositoryCommands[repository],
-    selectedCommands: selectedCommands[repository],
+    commands: repositoryCommands[repository] || [],
+    selectedCommands: selectedCommands[repository] || [],
     collapsedSections,
   };
 };
 
-export default connect(mapStateToProps, actions)(Repositories);
+export default connect(mapStateToProps, actions)(Terminal);

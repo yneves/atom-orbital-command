@@ -3,12 +3,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'class-autobind';
+import path from 'path';
 import RepositoryFile from './RepositoryFile';
 import RepositoryCommit from './RepositoryCommit';
 import RepositoryCheckout from './RepositoryCheckout';
 import RepositoryLog from './RepositoryLog';
 import Button from './Button';
-import Terminal from './Terminal';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -33,7 +33,7 @@ export default class Repository extends Component {
     setCommandInput: PropTypes.func.isRequired,
     commandInput: PropTypes.string.isRequired,
 
-    repository: PropTypes.object.isRequired,
+    repository: PropTypes.string.isRequired,
     checkoutBranch: PropTypes.string.isRequired,
     defaultBranch: PropTypes.string.isRequired,
     checkoutHistory: PropTypes.array.isRequired,
@@ -41,8 +41,9 @@ export default class Repository extends Component {
     commitFiles: PropTypes.object.isRequired,
     commitMessage: PropTypes.string.isRequired,
     repositoryBranch: PropTypes.array.isRequired,
-    repositoryLog: PropTypes.array.isRequired,
-    repositoryStatus: PropTypes.object.isRequired,
+    commits: PropTypes.array.isRequired,
+    currentBranch: PropTypes.string.isRequired,
+    changedFiles: PropTypes.array.isRequired,
     runningGit: PropTypes.array,
     section: PropTypes.string.isRequired,
     selectedCommands: PropTypes.object.isRequired,
@@ -55,7 +56,7 @@ export default class Repository extends Component {
   }
 
   getSectionName() {
-    return `repository:${this.props.repository.dir}`;
+    return `repository:${this.props.repository}`;
   }
 
   isCollapsed() {
@@ -67,7 +68,7 @@ export default class Repository extends Component {
   }
 
   onClickFetch() {
-    this.props.gitFetch(this.props.repository.id);
+    this.props.gitFetch(this.props.repository);
   }
 
   renderFetch() {
@@ -83,10 +84,10 @@ export default class Repository extends Component {
     return (
       <RepositoryFile
         key={index}
-        repositoryId={this.props.repository.id}
+        repositoryId={this.props.repository}
         checked={this.props.commitFiles[file.file]}
         editFile={this.props.editFile}
-        branch={this.props.repositoryStatus.local_branch}
+        branch={this.props.currentBranch}
         gitCheckout={this.props.gitCheckout}
         toggleCommitFile={this.props.toggleCommitFile}
         removeFile={this.props.removeFile}
@@ -96,15 +97,13 @@ export default class Repository extends Component {
   }
 
   canCommit() {
-    return !!(this.props.repositoryStatus &&
-      this.props.repositoryStatus.local_branch &&
-      this.props.repositoryStatus.files.length);
+    return !!(this.props.changedFiles.length && this.props.currentBranch);
   }
 
   renderCommit() {
     return this.canCommit() && (
       <RepositoryCommit
-        repositoryId={this.props.repository.id}
+        repositoryId={this.props.repository}
         gitCommit={this.props.gitCommit}
         commitMessage={this.props.commitMessage}
         setCommitMessage={this.props.setCommitMessage}
@@ -113,9 +112,9 @@ export default class Repository extends Component {
   }
 
   renderFiles() {
-    return this.props.repositoryStatus && (
+    return this.props.changedFiles && (
       <ul>
-        {this.props.repositoryStatus.files.map(this.renderFile)}
+        {this.props.changedFiles.map(this.renderFile)}
       </ul>
     );
   }
@@ -123,13 +122,13 @@ export default class Repository extends Component {
   renderCheckout() {
     return (
       <RepositoryCheckout
-        repositoryId={this.props.repository.id}
+        repositoryId={this.props.repository}
         runningGit={this.props.runningGit}
         gitPull={this.props.gitPull}
         gitCheckout={this.props.gitCheckout}
         gitStatus={this.props.gitStatus}
         defaultBranch={this.props.defaultBranch}
-        currentBranch={this.props.repositoryStatus.local_branch}
+        currentBranch={this.props.currentBranch}
         checkoutBranch={this.props.checkoutBranch}
         checkoutHistory={this.props.checkoutHistory}
         setCheckoutBranch={this.props.setCheckoutBranch}
@@ -156,36 +155,18 @@ export default class Repository extends Component {
       <RepositoryLog
         key={index}
         gitPush={this.props.gitPush}
-        repositoryId={this.props.repository.id}
-        currentBranch={this.props.repositoryStatus.local_branch}
+        repositoryId={this.props.repository}
+        currentBranch={this.props.currentBranch}
         isLatestCommit={index === 0}
         {...entry} />
     );
   }
 
   renderLogs() {
-    return !!this.props.repositoryLog.length && (
+    return !!this.props.commits.length && (
       <ul className='scroll'>
-        {this.props.repositoryLog.map(this.renderLog)}
+        {this.props.commits.map(this.renderLog)}
       </ul>
-    );
-  }
-
-  renderTerminal() {
-    return (
-      <Terminal
-        collapsedSections={this.props.collapsedSections}
-        toggleSection={this.props.toggleSection}
-        repository={this.props.repository.id}
-        commands={this.props.repositoryCommands}
-        commandInput={this.props.commandInput}
-        setCommandInput={this.props.setCommandInput}
-        selectedCommands={this.props.selectedCommands}
-        editFile={this.props.editFile}
-        removeCommand={this.props.removeCommand}
-        selectCommand={this.props.selectCommand}
-        executeCommand={this.props.executeCommand}
-        killCommand={this.props.killCommand} />
     );
   }
 
@@ -203,19 +184,16 @@ export default class Repository extends Component {
 
   render() {
     return (
-      <div>
-        <section>
-          <header onClick={this.onClickHeader}>
-            <span>
-              <i className='icon icon-repo' />
-              {this.props.repository.name}
-            </span>
-            {this.renderFetch()}
-          </header>
-          {this.isCollapsed() || this.renderBody()}
-        </section>
-        {this.renderTerminal()}
-      </div>
+      <section>
+        <header onClick={this.onClickHeader}>
+          <span>
+            <i className='icon icon-repo' />
+            {path.basename(this.props.repository)}
+          </span>
+          {this.renderFetch()}
+        </header>
+        {this.isCollapsed() || this.renderBody()}
+      </section>
     );
   }
 }

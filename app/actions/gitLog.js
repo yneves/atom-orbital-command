@@ -12,18 +12,18 @@ const parseLog = (stdout) => {
   return commits;
 };
 
-export default repositoryId => (dispatch, getState) => {
+export default repository => (dispatch, getState) => {
   const { repositoryStatus } = getState();
-  const status = repositoryStatus[repositoryId];
+  const status = repositoryStatus[repository];
   const local = status.local_branch;
   const remote = status.remote_branch;
   const branch = remote || `origin/${local}`;
   const command = `git log ${branch}...HEAD`;
 
-  gitCommand(repositoryId, command, false, (stdout) => {
+  gitCommand(repository, command, false, (stdout) => {
     dispatch({
       type: GIT_LOG,
-      repositoryId,
+      repositoryId: repository,
       log: parseLog(stdout),
     });
   })(dispatch, getState);

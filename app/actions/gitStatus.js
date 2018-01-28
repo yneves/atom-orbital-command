@@ -1,6 +1,5 @@
 'use babel';
 
-import lodash from 'lodash';
 import path from 'path';
 import gitGetStatus from 'git-get-status';
 import gitCommand from './gitCommand';
@@ -21,17 +20,15 @@ const parseStatus = (stdout, dir) => {
   return status;
 };
 
-export default repositoryId => (dispatch, getState) => {
-  const { repositories } = getState();
-  const repository = lodash.find(repositories, repo => repo.id === repositoryId);
+export default repository => (dispatch) => {
   const command = 'git status --porcelain -b';
 
-  return dispatch(gitCommand(repositoryId, command, false, (stdout) => {
+  return dispatch(gitCommand(repository, command, false, (stdout) => {
     dispatch({
       type: GIT_STATUS,
-      repositoryId,
-      status: parseStatus(stdout, repository.dir),
+      repositoryId: repository,
+      status: parseStatus(stdout, repository),
     });
   }))
-    .then(() => dispatch(gitLog(repositoryId)));
+    .then(() => dispatch(gitLog(repository)));
 };

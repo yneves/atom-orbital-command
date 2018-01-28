@@ -13,23 +13,23 @@ const parseHead = stdout => stdout.split('\n')
   .pop()
   .trim();
 
-export default repositoryId => dispatch => Promise.resolve()
+export default repository => dispatch => Promise.resolve()
   .then(() => {
     const command = 'git remote show origin';
-    return dispatch(gitCommand(repositoryId, command, false))
+    return dispatch(gitCommand(repository, command, false))
       .then(stdout => parseHead(stdout));
   })
   .then((head) => {
     const command = 'git fetch origin';
-    return dispatch(gitCommand(repositoryId, command, false))
+    return dispatch(gitCommand(repository, command, false))
       .then(() => {
         dispatch({
           type: GIT_FETCH,
-          repositoryId,
+          repositoryId: repository,
           head,
         });
       });
   })
-  .then(() => dispatch(gitPrune(repositoryId)))
-  .then(() => dispatch(gitBranch(repositoryId)))
-  .then(() => dispatch(gitStatus(repositoryId)));
+  .then(() => dispatch(gitPrune(repository)))
+  .then(() => dispatch(gitBranch(repository)))
+  .then(() => dispatch(gitStatus(repository)));

@@ -8,7 +8,7 @@ export default (state = {}, action) => {
   switch (action.type) {
     case SELECT_COMMAND:
       return Object.assign({}, state, {
-        [action.repositoryId]: action.command,
+        [action.repository]: action.command,
       });
     default:
       return state;

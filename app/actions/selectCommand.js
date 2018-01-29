@@ -4,8 +4,8 @@ import {
   SELECT_COMMAND,
 } from '../constants/actionTypes';
 
-export default (repositoryId, input) => ({
+export default (repository, input) => ({
   type: SELECT_COMMAND,
-  repositoryId,
+  repository,
   command: input,
 });

@@ -26,7 +26,7 @@ export default repository => (dispatch) => {
   return dispatch(gitCommand(repository, command, false, (stdout) => {
     dispatch({
       type: GIT_STATUS,
-      repositoryId: repository,
+      repository,
       status: parseStatus(stdout, repository),
     });
   }))

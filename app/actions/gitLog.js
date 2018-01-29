@@ -23,7 +23,7 @@ export default repository => (dispatch, getState) => {
   gitCommand(repository, command, false, (stdout) => {
     dispatch({
       type: GIT_LOG,
-      repositoryId: repository,
+      repository,
       log: parseLog(stdout),
     });
   })(dispatch, getState);

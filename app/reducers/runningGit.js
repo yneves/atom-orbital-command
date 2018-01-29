@@ -7,16 +7,16 @@ import {
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
-  const list = state[action.repositoryId] || [];
+  const list = state[action.repository] || [];
   switch (action.type) {
     case GIT_DONE:
       return lodash.extend({}, state, {
-        [action.repositoryId]: lodash.without(list, action.command),
+        [action.repository]: lodash.without(list, action.command),
       });
     case GIT_PROGRESS:
       list.push(action.command);
       return lodash.extend({}, state, {
-        [action.repositoryId]: list,
+        [action.repository]: list,
       });
     default:
       return state;

@@ -25,7 +25,7 @@ export default repository => dispatch => Promise.resolve()
       .then(() => {
         dispatch({
           type: GIT_FETCH,
-          repositoryId: repository,
+          repository,
           head,
         });
       });

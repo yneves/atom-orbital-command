@@ -12,7 +12,7 @@ export default (state = {}, action) => {
       return {};
     case GIT_BRANCH:
       return lodash.extend({}, state, {
-        [action.repositoryId]: action.branches,
+        [action.repository]: action.branches,
       });
     default:
       return state;

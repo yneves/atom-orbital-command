@@ -5,9 +5,9 @@ import gitStatus from './gitStatus';
 import gitCommand from './gitCommand';
 import { GIT_PULL } from '../constants/actionTypes';
 
-export default (repositoryId, branch) => (dispatch, getState) => {
+export default (repository, branch) => (dispatch, getState) => {
   const { repositoryStatus } = getState();
-  const status = repositoryStatus[repositoryId];
+  const status = repositoryStatus[repository];
   const localBranch = status.local_branch;
 
   const confirmPull = () => {
@@ -29,12 +29,12 @@ export default (repositoryId, branch) => (dispatch, getState) => {
 
   const command = `git pull origin ${remoteBranch}`;
 
-  return dispatch(gitCommand(repositoryId, command, true, () => {
+  return dispatch(gitCommand(repository, command, true, () => {
     dispatch({
       type: GIT_PULL,
-      repositoryId,
+      repository,
       branch,
     });
-    return dispatch(gitStatus(repositoryId));
+    return dispatch(gitStatus(repository));
   }));
 };

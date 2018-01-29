@@ -4,8 +4,8 @@ import {
   SET_COMMAND_INPUT,
 } from '../constants/actionTypes';
 
-export default (repositoryId, command) => ({
+export default (repository, command) => ({
   type: SET_COMMAND_INPUT,
-  repositoryId,
+  repository,
   command,
 });

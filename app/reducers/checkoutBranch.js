@@ -12,11 +12,11 @@ export default (state = {}, action) => {
     case GIT_STATUS:
     case GIT_CHECKOUT:
       return lodash.extend({}, state, {
-        [action.repositoryId]: '',
+        [action.repository]: '',
       });
     case SET_CHECKOUT_BRANCH:
       return lodash.extend({}, state, {
-        [action.repositoryId]: action.branch,
+        [action.repository]: action.branch,
       });
     default:
       return state;

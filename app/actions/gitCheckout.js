@@ -9,10 +9,10 @@ import gitCommand from './gitCommand';
 import showNotification from './showNotification';
 import { GIT_CHECKOUT } from '../constants/actionTypes';
 
-export default (repositoryId, branch, file) => (dispatch, getState) => {
+export default (repository, branch, file) => (dispatch, getState) => {
   const branchExists = () => {
     const { repositoryBranch } = getState();
-    const branches = repositoryBranch[repositoryId];
+    const branches = repositoryBranch[repository];
     return lodash.includes(branches, branch);
   };
 
@@ -29,11 +29,6 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
   };
 
   return Promise.resolve()
-    // .then(() => {
-    //   if (!branchExists()) {
-    //     return dispatch(gitFetch(repositoryId));
-    //   }
-    // })
     .then(() => {
       if (!branchExists() && file) {
         showNotification({
@@ -45,19 +40,19 @@ export default (repositoryId, branch, file) => (dispatch, getState) => {
       }
       if (branchExists()) {
         const command = `git checkout ${branch} ${file || ''}`;
-        return dispatch(gitCommand(repositoryId, command, true))
-          .then(() => dispatch(gitStatus(repositoryId)));
+        return dispatch(gitCommand(repository, command, true))
+          .then(() => dispatch(gitStatus(repository)));
       }
       if (confirmCreate()) {
         const command = `git checkout -b ${branch}`;
-        return dispatch(gitCommand(repositoryId, command, true))
-          .then(() => dispatch(gitPush(repositoryId, branch)));
+        return dispatch(gitCommand(repository, command, true))
+          .then(() => dispatch(gitPush(repository, branch)));
       }
     })
     .then(() => {
       dispatch({
         type: GIT_CHECKOUT,
-        repositoryId,
+        repository,
         branch,
         file,
       });

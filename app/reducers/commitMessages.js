@@ -10,10 +10,10 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case GIT_COMMIT:
-      return lodash.omit(state, [action.repositoryId]);
+      return lodash.omit(state, [action.repository]);
     case SET_COMMIT_MESSAGE:
       return lodash.extend({}, state, {
-        [action.repositoryId]: action.message,
+        [action.repository]: action.message,
       });
     case GIT_CHECKOUT:
       return {};

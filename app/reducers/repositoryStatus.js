@@ -13,10 +13,10 @@ export default (state = {}, action) => {
       return {};
     case GIT_STATUS:
       return lodash.extend({}, state, {
-        [action.repositoryId]: action.status,
+        [action.repository]: action.status,
       });
     case GIT_COMMIT:
-      return lodash.omit(state, [action.repositoryId]);
+      return lodash.omit(state, [action.repository]);
     default:
       return state;
   }

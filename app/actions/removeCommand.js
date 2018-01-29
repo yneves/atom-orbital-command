@@ -4,8 +4,8 @@ import {
   REMOVE_COMMAND,
 } from '../constants/actionTypes';
 
-export default (repositoryId, input) => ({
+export default (repository, input) => ({
   type: REMOVE_COMMAND,
-  repositoryId,
+  repository,
   command: input,
 });

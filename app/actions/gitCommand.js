@@ -13,10 +13,9 @@ export default (repository, commands, notifySuccess, callback) => (dispatch) => 
     promise = promise.then(() => new Promise((resolve, reject) => {
       dispatch({
         type: GIT_PROGRESS,
-        repositoryId: repository,
+        repository,
         command,
       });
-      console.log(repository);
       cp.exec(command, { cwd: repository }, (error, stdout, stderr) => {
         if (notifySuccess || error) {
           showNotification({
@@ -27,7 +26,7 @@ export default (repository, commands, notifySuccess, callback) => (dispatch) => 
         }
         dispatch({
           type: GIT_DONE,
-          repositoryId: repository,
+          repository,
           command,
           error,
           stderr,

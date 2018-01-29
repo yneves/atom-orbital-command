@@ -12,7 +12,7 @@ export default (state = {}, action) => {
       return {};
     case GIT_LOG:
       return lodash.extend({}, state, {
-        [action.repositoryId]: action.log,
+        [action.repository]: action.log,
       });
     default:
       return state;

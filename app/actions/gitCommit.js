@@ -28,7 +28,7 @@ export default repository => (dispatch, getState) => {
       return dispatch(gitCommand(repository, commitCommand, false, () => {
         dispatch({
           type: GIT_COMMIT,
-          repositoryId: repository,
+          repository,
         });
       }));
     })

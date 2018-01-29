@@ -4,8 +4,8 @@ import {
   SET_COMMIT_MESSAGE,
 } from '../constants/actionTypes';
 
-export default (repositoryId, message) => ({
+export default (repository, message) => ({
   type: SET_COMMIT_MESSAGE,
-  repositoryId,
+  repository,
   message,
 });

@@ -9,7 +9,7 @@ export default (state = {}, action) => {
   switch (action.type) {
     case GIT_FETCH:
       return lodash.extend({}, state, {
-        [action.repositoryId]: action.head,
+        [action.repository]: action.head,
       });
     default:
       return state;

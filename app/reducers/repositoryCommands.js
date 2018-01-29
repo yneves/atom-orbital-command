@@ -15,18 +15,18 @@ export default (state = {}, action) => {
     case EXECUTE_COMMAND_FAILED:
     case EXECUTE_COMMAND_PROGRESS:
     case EXECUTE_COMMAND_SUCCESS: {
-      const commands = state[action.repositoryId] || {};
+      const commands = state[action.repository] || {};
       const command = commands[action.input] || {};
       return Object.assign({}, state, {
-        [action.repositoryId]: Object.assign({}, commands, {
+        [action.repository]: Object.assign({}, commands, {
           [action.input]: Object.assign({}, command, action),
         }),
       });
     }
     case REMOVE_COMMAND: {
-      const commands = state[action.repositoryId] || {};
+      const commands = state[action.repository] || {};
       return Object.assign({}, state, {
-        [action.repositoryId]: lodash.omit(commands, [action.command]),
+        [action.repository]: lodash.omit(commands, [action.command]),
       });
     }
     default:

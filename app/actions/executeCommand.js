@@ -5,7 +5,6 @@ import fs from 'fs';
 import uid from 'uid';
 import cp from 'child_process';
 import path from 'path';
-import lodash from 'lodash';
 
 import {
   EXECUTE_COMMAND_START,
@@ -14,15 +13,9 @@ import {
   EXECUTE_COMMAND_SUCCESS,
 } from '../constants/actionTypes';
 
-export default (repositoryId, input) => (dispatch, getState) => new Promise((resolve, reject) => {
-  const getCwd = () => {
-    const { repositories } = getState();
-    const repository = lodash.find(repositories, repo => repo.id === repositoryId);
-    return repository.dir;
-  };
-
+export default (repository, input) => dispatch => new Promise((resolve, reject) => {
   const regexCwd = /^([\w-/]+):/;
-  let cwd = getCwd();
+  let cwd = repository;
   let command = input.trim();
   if (regexCwd.test(input)) {
     cwd = path.resolve(cwd, regexCwd.exec(input)[1]);
@@ -35,7 +28,7 @@ export default (repositoryId, input) => (dispatch, getState) => new Promise((res
   const proc = cp.exec(command, { cwd, env: process.env });
 
   const payload = {
-    repositoryId,
+    repository,
     pid: proc.pid,
     cwd,
     command,

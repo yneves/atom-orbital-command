@@ -5,21 +5,21 @@ import gitCommand from './gitCommand';
 
 import { GIT_PUSH } from '../constants/actionTypes';
 
-export default (repositoryId, branch, commit) => (dispatch, getState) => {
+export default (repository, branch, commit) => (dispatch, getState) => {
   const { repositoryStatus } = getState();
-  const status = repositoryStatus[repositoryId];
+  const status = repositoryStatus[repository];
 
   const remote = status && status.remote_branch ? status.remote_branch.split('/').shift() : 'origin';
   const push = commit ? `${commit}:${branch}` : branch;
   const command = `git push ${remote} ${push}`;
 
-  return dispatch(gitCommand(repositoryId, command, true))
+  return dispatch(gitCommand(repository, command, true))
     .then(() => {
       dispatch({
         type: GIT_PUSH,
-        repositoryId,
+        repository,
         branch,
       });
-      return dispatch(gitStatus(repositoryId));
+      return dispatch(gitStatus(repository));
     });
 };

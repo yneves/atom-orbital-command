@@ -7,13 +7,13 @@ const parseBranches = stdout => stdout.split('\n')
   .map(line => line.trim().replace(/^\*/, '').trim())
   .filter(line => /\w/.test(line));
 
-export default repositoryId => (dispatch) => {
+export default repository => (dispatch) => {
   const command = 'git branch --list';
-  return dispatch(gitCommand(repositoryId, command, false, (stdout) => {
+  return dispatch(gitCommand(repository, command, false, (stdout) => {
     const branches = parseBranches(stdout);
     dispatch({
       type: GIT_BRANCH,
-      repositoryId,
+      repository,
       branches,
     });
   }));

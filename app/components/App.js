@@ -12,7 +12,7 @@ import TerminalContainer from '../containers/TerminalContainer';
 export default class App extends Component {
   static propTypes = {
     element: PropTypes.object.isRequired,
-    repositories: PropTypes.array.isRequired,
+    openRepositories: PropTypes.array.isRequired,
     resizeRightPanel: PropTypes.func.isRequired,
     rightPanelWidth: PropTypes.number.isRequired,
   };
@@ -24,7 +24,7 @@ export default class App extends Component {
 
   render() {
     const parts = [];
-    this.props.repositories.forEach((repository) => {
+    this.props.openRepositories.forEach((repository) => {
       parts.push(<RepositoryContainer key={`repository:${repository}`} repository={repository} />);
       parts.push(<TerminalContainer key={`terminal:${repository}`} repository={repository} />);
     });

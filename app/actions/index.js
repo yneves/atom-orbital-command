@@ -13,7 +13,7 @@ import gitPush from './gitPush';
 import gitStatus from './gitStatus';
 import killCommand from './killCommand';
 import removeCommand from './removeCommand';
-import refreshDirectory from './refreshDirectory';
+import refreshRepositories from './refreshRepositories';
 import removeFile from './removeFile';
 import resizeRightPanel from './resizeRightPanel';
 import selectCommand from './selectCommand';
@@ -21,7 +21,7 @@ import setCheckoutBranch from './setCheckoutBranch';
 import setCommitMessage from './setCommitMessage';
 import startup from './startup';
 import toggleCommitFile from './toggleCommitFile';
-import toggleDirectory from './toggleDirectory';
+import toggleRepository from './toggleRepository';
 import toggleSection from './toggleSection';
 import setCommandInput from './setCommandInput';
 import findRepositories from './findRepositories';
@@ -43,7 +43,7 @@ export default {
   gitStatus,
   killCommand,
   removeCommand,
-  refreshDirectory,
+  refreshRepositories,
   removeFile,
   resizeRightPanel,
   selectCommand,
@@ -52,6 +52,6 @@ export default {
   setCommandInput,
   startup,
   toggleCommitFile,
-  toggleDirectory,
+  toggleRepository,
   toggleSection,
 };

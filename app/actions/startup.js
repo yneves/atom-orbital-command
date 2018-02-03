@@ -2,8 +2,6 @@
 
 import { STARTUP } from '../constants/actionTypes';
 
-export default () => (dispatch) => {
-  dispatch({
-    type: STARTUP,
-  });
-};
+export default () => ({
+  type: STARTUP,
+});

@@ -23,6 +23,7 @@ export default (element, state) => {
   ReactDOM.render(provider, element);
 
   return {
+    subscribe: handler => store.subscribe(handler),
     getState: () => store.getState(),
     getActions: () => boundActions,
   };

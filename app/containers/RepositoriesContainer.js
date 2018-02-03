@@ -8,14 +8,14 @@ const mapStateToProps = (state) => {
   const {
     pinnedRepositories,
     localRepositories,
-    selectedDirectories,
+    openRepositories,
     collapsedSections,
   } = state;
 
   return {
     pinnedRepositories,
     localRepositories,
-    selectedDirectories,
+    openRepositories,
     collapsedSections,
   };
 };

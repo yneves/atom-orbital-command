@@ -10,8 +10,8 @@ export default class Repository extends Component {
     collapsedSections: PropTypes.array.isRequired,
     pinnedRepositories: PropTypes.array.isRequired,
     localRepositories: PropTypes.array.isRequired,
-    selectedDirectories: PropTypes.array.isRequired,
-    toggleDirectory: PropTypes.func.isRequired,
+    openRepositories: PropTypes.array.isRequired,
+    toggleRepository: PropTypes.func.isRequired,
     toggleSection: PropTypes.func.isRequired,
     pinRepository: PropTypes.func.isRequired,
     findRepositories: PropTypes.func.isRequired,
@@ -42,8 +42,8 @@ export default class Repository extends Component {
           {repository}
         </span>
         <Button
-          icon={this.props.selectedDirectories.includes(repository) ? 'folder-open' : 'folder'}
-          onClick={() => this.props.toggleDirectory(repository)} />
+          icon={this.props.openRepositories.includes(repository) ? 'folder-open' : 'folder'}
+          onClick={() => this.props.toggleRepository(repository)} />
         <Button
           icon='thumb-tack'
           colored={this.props.pinnedRepositories.includes(repository)}

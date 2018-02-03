@@ -21,13 +21,14 @@ export default {
       config: {
         rootDirectory: atom.config.get('orbital-command.rootDirectory'),
       },
+      pinnedRepositories: atom.config.get('orbital-command.pinnedRepositories'),
     });
 
     this.element = document.createElement('div');
     this.element.id = 'orbital-command';
     this.element.classList.add('orbital-command');
 
-    const { getState, getActions } = bootstrap(this.element, state);
+    const { subscribe, getState, getActions } = bootstrap(this.element, state);
     const actions = getActions();
     this.getState = getState;
 
@@ -36,8 +37,17 @@ export default {
       addCommands(),
       observeTextEditors(actions.fileSaved),
       addRightPanel(this.element),
-      observeDirectories(this.element, actions.refreshDirectory),
+      observeDirectories(this.element, actions.refreshRepositories),
     );
+
+    let previousPinnedRepositories = state.pinnedRepositories;
+    subscribe(() => {
+      const { pinnedRepositories } = getState();
+      if (pinnedRepositories !== previousPinnedRepositories) {
+        atom.config.set('orbital-command.pinnedRepositories', pinnedRepositories);
+        previousPinnedRepositories = pinnedRepositories;
+      }
+    });
 
     actions.startup();
   },

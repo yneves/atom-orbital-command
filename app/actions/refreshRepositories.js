@@ -1,21 +1,15 @@
 'use babel';
 
-import getDirectories from '../../atom/getDirectories';
 import getRepositories from '../../atom/getRepositories';
 import {
-  TOGGLE_DIRECTORY,
-  TOGGLE_REPOSITORY,
+  SET_OPEN_REPOSITORIES,
 } from '../constants/actionTypes';
 
 export default () => (dispatch) => {
   getRepositories((repositories) => {
     dispatch({
-      type: TOGGLE_REPOSITORY,
+      type: SET_OPEN_REPOSITORIES,
       repositories,
-    });
-    dispatch({
-      type: TOGGLE_DIRECTORY,
-      dirs: getDirectories(),
     });
   });
 };

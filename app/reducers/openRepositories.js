@@ -1,13 +1,13 @@
 'use babel';
 
 import {
-  TOGGLE_DIRECTORY,
+  SET_OPEN_REPOSITORIES,
 } from '../constants/actionTypes';
 
 export default (state = [], action) => {
   switch (action.type) {
-    case TOGGLE_DIRECTORY:
-      return action.dirs;
+    case SET_OPEN_REPOSITORIES:
+      return action.repositories;
     default:
       return state;
   }

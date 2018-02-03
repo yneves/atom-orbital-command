@@ -8,7 +8,7 @@ import Command from './Command';
 
 export default class Commands extends Component {
   static propTypes = {
-    repositoryId: PropTypes.string.isRequired,
+    repository: PropTypes.string.isRequired,
     executeCommand: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
     selectCommand: PropTypes.func.isRequired,
@@ -30,6 +30,7 @@ export default class Commands extends Component {
       <Command
         key={command.input}
         command={command}
+        repository={this.props.repository}
         selected={this.props.selectedCommands === command.input}
         editFile={this.props.editFile}
         killCommand={this.props.killCommand}
@@ -44,7 +45,7 @@ export default class Commands extends Component {
       <ul>
         {Object.values(this.props.commands).map(this.renderCommand)}
         <CommandInput
-          repositoryId={this.props.repositoryId}
+          repository={this.props.repository}
           commandInput={this.props.commandInput}
           setCommandInput={this.props.setCommandInput}
           executeCommand={this.props.executeCommand}

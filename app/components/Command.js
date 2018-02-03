@@ -9,6 +9,7 @@ export default class Command extends Component {
   static propTypes = {
     selected: PropTypes.bool.isRequired,
     command: PropTypes.object.isRequired,
+    repository: PropTypes.string.isRequired,
     executeCommand: PropTypes.func.isRequired,
     selectCommand: PropTypes.func.isRequired,
     killCommand: PropTypes.func.isRequired,
@@ -23,13 +24,13 @@ export default class Command extends Component {
 
   onClick() {
     this.props.selectCommand(
-      this.props.command.repositoryId,
+      this.props.repository,
       this.props.selected ? null : this.props.command.input
     );
   }
 
   onClickExecute() {
-    this.props.executeCommand(this.props.command.repositoryId, this.props.command.input);
+    this.props.executeCommand(this.props.repository, this.props.command.input);
   }
 
   onClickKill() {
@@ -41,7 +42,7 @@ export default class Command extends Component {
   }
 
   onClickRemove() {
-    this.props.removeCommand(this.props.command.repositoryId, this.props.command.input);
+    this.props.removeCommand(this.props.repository, this.props.command.input);
   }
 
   renderProgress() {

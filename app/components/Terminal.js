@@ -42,7 +42,7 @@ export default class Terminal extends Component {
   renderCommands() {
     return (
       <Commands
-        repositoryId={this.props.repository}
+        repository={this.props.repository}
         commands={this.props.commands}
         commandInput={this.props.commandInput}
         setCommandInput={this.props.setCommandInput}

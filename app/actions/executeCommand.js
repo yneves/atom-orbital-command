@@ -14,6 +14,7 @@ import {
 } from '../constants/actionTypes';
 
 export default (repository, input) => dispatch => new Promise((resolve, reject) => {
+  console.log(repository, input);
   const regexCwd = /^([\w-/]+):/;
   let cwd = repository;
   let command = input.trim();

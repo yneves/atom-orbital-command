@@ -6,12 +6,14 @@ import Terminal from '../components/Terminal';
 
 const mapStateToProps = (state, { repository }) => {
   const {
+    commandInput,
     selectedCommands,
     repositoryCommands,
     collapsedSections,
   } = state;
 
   return {
+    commandInput: commandInput[repository] || '',
     commands: repositoryCommands[repository] || [],
     selectedCommands: selectedCommands[repository] || [],
     collapsedSections,

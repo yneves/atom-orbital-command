@@ -6,7 +6,7 @@ import autoBind from 'class-autobind';
 
 export default class CommandInput extends Component {
   static propTypes = {
-    repositoryId: PropTypes.string.isRequired,
+    repository: PropTypes.string.isRequired,
     executeCommand: PropTypes.func.isRequired,
     setCommandInput: PropTypes.func.isRequired,
     commandInput: PropTypes.string.isRequired,
@@ -20,13 +20,13 @@ export default class CommandInput extends Component {
   onKeyPress(e) {
     if (e.which === 13) {
       if (/\w/.test(this.props.commandInput)) {
-        this.props.executeCommand(this.props.repositoryId, this.props.commandInput);
+        this.props.executeCommand(this.props.repository, this.props.commandInput);
       }
     }
   }
 
   onChange(e) {
-    this.props.setCommandInput(this.props.repositoryId, e.target.value);
+    this.props.setCommandInput(this.props.repository, e.target.value);
   }
 
   render() {

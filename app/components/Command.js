@@ -54,7 +54,7 @@ export default class Command extends Component {
     }
     return (
       <Button
-        spin={!!this.props.command.running}
+        spin={!!this.props.command.running && icon === 'spinner'}
         colored={!this.props.command.running}
         icon={icon}
         onClick={this.onClickProgress}

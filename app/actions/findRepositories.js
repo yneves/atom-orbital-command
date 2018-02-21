@@ -8,7 +8,7 @@ import {
   FIND_REPOSITORIES_SUCCESS,
 } from '../constants/actionTypes';
 
-export default () => (dispatch, getState) => {
+export default (useCache = false) => (dispatch, getState) => {
   const { config: { rootDirectory } } = getState();
   if (!rootDirectory) {
     return;
@@ -22,6 +22,10 @@ export default () => (dispatch, getState) => {
   }
 
   function readCache(callback) {
+    if (!useCache) {
+      callback(false);
+      return;
+    }
     fs.readFile(cacheFile, 'utf8', (error, content) => {
       if (error || !content) {
         callback(false);

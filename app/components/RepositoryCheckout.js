@@ -84,9 +84,12 @@ export default class RepositoryCheckout extends Component {
     if (!this.props.checkoutBranch) {
       return lodash.uniq(branches);
     }
-    return lodash.uniq(branches.concat(this.props.checkoutHistory
-      .concat(this.props.repositoryBranch)
-      .filter(branch => lodash.startsWith(branch, this.props.checkoutBranch))));
+    const allBranches = branches.concat(
+      this.props.checkoutHistory || [],
+      this.props.repositoryBranch || []
+    );
+    return lodash.uniq(allBranches)
+      .filter(branch => lodash.startsWith(branch, this.props.checkoutBranch));
   }
 
   renderBranches() {

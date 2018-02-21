@@ -29,26 +29,24 @@ export default (repository, branch, file) => (dispatch, getState) => {
   };
 
   return Promise.resolve()
-    .then(() => {
-      if (!branchExists() && file) {
-        showNotification({
-          message: 'Cannot checkout file from nonexistent branch',
-          type: 'error',
-          detail: file,
-        });
-        return;
-      }
-      if (branchExists()) {
-        const command = `git checkout ${branch} ${file || ''}`;
-        return dispatch(gitCommand(repository, command, true))
-          .then(() => dispatch(gitStatus(repository)));
-      }
-      if (confirmCreate()) {
-        const command = `git checkout -b ${branch}`;
-        return dispatch(gitCommand(repository, command, true))
-          .then(() => dispatch(gitPush(repository, branch)));
-      }
-    })
+    .then(() => dispatch(gitCommand(repository, `git checkout ${branch} ${file || ''}`, true))
+      .catch((error) => {
+        console.log(error);
+        if (!branchExists() && file) {
+          showNotification({
+            message: 'Cannot checkout file from nonexistent branch',
+            type: 'error',
+            detail: file,
+          });
+          return;
+        }
+        if (confirmCreate()) {
+          const command = `git checkout -b ${branch}`;
+          return dispatch(gitCommand(repository, command, true))
+            .then(() => dispatch(gitPush(repository, branch)));
+        }
+      })
+      .then(() => dispatch(gitStatus(repository))))
     .then(() => {
       dispatch({
         type: GIT_CHECKOUT,

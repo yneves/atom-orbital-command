@@ -8,7 +8,7 @@ import {
   FIND_REPOSITORIES_SUCCESS,
 } from '../constants/actionTypes';
 
-export default (useCache = false) => (dispatch, getState) => {
+export default () => (dispatch, getState) => {
   const { config: { rootDirectory } } = getState();
   if (!rootDirectory) {
     return;
@@ -21,7 +21,7 @@ export default (useCache = false) => (dispatch, getState) => {
     fs.writeFile(cacheFile, JSON.stringify(repositories, null, 2), callback);
   }
 
-  function readCache(callback) {
+  function readCache(callback, useCache = false) {
     if (!useCache) {
       callback(false);
       return;

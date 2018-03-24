@@ -51,11 +51,6 @@ export default () => (dispatch, getState) => {
     }
     filteredFiles.forEach((file) => {
       fs.stat(path.resolve(dir, file), (statError, stats) => {
-        if (statError) {
-          counter = 0;
-          callback(statError);
-          return;
-        }
         if (stats && stats.isDirectory()) {
           dirs.push(path.resolve(dir, file));
         }
@@ -114,7 +109,7 @@ export default () => (dispatch, getState) => {
     type: FIND_REPOSITORIES_START,
   });
   readCache((cached) => {
-    if (cached) {
+    if (false || cached) {
       dispatch({
         type: FIND_REPOSITORIES_SUCCESS,
         repositories,

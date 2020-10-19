@@ -9,32 +9,35 @@ export default (repository, branch) => (dispatch, getState) => {
   const { repositoryStatus } = getState();
   const status = repositoryStatus[repository];
   const localBranch = status.local_branch;
+  const remoteBranch = branch || localBranch;
+  const command = `git pull origin ${remoteBranch}`;
 
   const confirmPull = () => {
-    const button = remote.dialog.showMessageBox({
+    if (remoteBranch === localBranch) {
+      return Promise.resolve(true);
+    }
+    return remote.dialog.showMessageBox({
       type: 'question',
       title: 'git checkout',
       message: `Pull "${branch}" into "${localBranch}"?`,
       buttons: ['Pull', 'Cancel'],
       defaultId: 0,
       cancelId: 1,
-    });
-    return (button === 0);
+    }).then(data => data.response === 0);
   };
 
-  const remoteBranch = branch || localBranch;
-  if (remoteBranch !== localBranch && !confirmPull()) {
-    return Promise.resolve();
-  }
+  return confirmPull().then((confirmed) => {
+    if (!confirmed) {
+      return Promise.resolve();
+    }
 
-  const command = `git pull origin ${remoteBranch}`;
-
-  return dispatch(gitCommand(repository, command, true, () => {
-    dispatch({
-      type: GIT_PULL,
-      repository,
-      branch,
-    });
-    return dispatch(gitStatus(repository));
-  }));
+    return dispatch(gitCommand(repository, command, true, () => {
+      dispatch({
+        type: GIT_PULL,
+        repository,
+        branch,
+      });
+      return dispatch(gitStatus(repository));
+    }));
+  });
 };

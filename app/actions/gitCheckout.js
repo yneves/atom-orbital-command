@@ -16,22 +16,18 @@ export default (repository, branch, file) => (dispatch, getState) => {
     return lodash.includes(branches, branch);
   };
 
-  const confirmCreate = () => {
-    const button = remote.dialog.showMessageBox({
-      type: 'question',
-      title: 'git checkout',
-      message: `The branch ${branch} does not exists, create?`,
-      buttons: ['Create', 'Cancel'],
-      defaultId: 0,
-      cancelId: 1,
-    });
-    return (button === 0);
-  };
+  const confirmCreate = () => remote.dialog.showMessageBox({
+    type: 'question',
+    title: 'git checkout',
+    message: `The branch ${branch} does not exists, create?`,
+    buttons: ['Create', 'Cancel'],
+    defaultId: 0,
+    cancelId: 1,
+  }).then(data => data.response === 0);
 
   return Promise.resolve()
     .then(() => dispatch(gitCommand(repository, `git checkout ${branch} ${file || ''}`, true))
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         if (!branchExists() && file) {
           showNotification({
             message: 'Cannot checkout file from nonexistent branch',
@@ -40,11 +36,13 @@ export default (repository, branch, file) => (dispatch, getState) => {
           });
           return;
         }
-        if (confirmCreate()) {
-          const command = `git checkout -b ${branch}`;
-          return dispatch(gitCommand(repository, command, true))
-            .then(() => dispatch(gitPush(repository, branch)));
-        }
+        return confirmCreate().then((confirmed) => {
+          if (confirmed) {
+            const command = `git checkout -b ${branch}`;
+            return dispatch(gitCommand(repository, command, true))
+              .then(() => dispatch(gitPush(repository, branch)));
+          }
+        });
       })
       .then(() => dispatch(gitStatus(repository))))
     .then(() => {
